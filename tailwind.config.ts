@@ -38,25 +38,25 @@ const config: Config = {
         950: "#454545"
       },
     },
-    fontFamily: {
-      montserrat: ["Montserrat", "sans-serif"],
-    },
-    fontWeight: {
-      "thin": "100",
-      "extra-light": "200",
-      "light": "300",
-      "regular": "400",
-      "medium": "500",
-      "semi-bold": "600",
-      "bold": "700",
-      "extra-bold": "800",
-      "black": "900",
-    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
+      fontWeight: {
+        "thin": "100",
+        "extra-light": "200",
+        "light": "300",
+        "normal": "400",
+        "medium": "500",
+        "semi-bold": "600",
+        "bold": "700",
+        "extra-bold": "800",
+        "black": "900",
       },
     },
   },
