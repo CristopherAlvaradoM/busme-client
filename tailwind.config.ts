@@ -58,6 +58,15 @@ const config: Config = {
         "extra-bold": "800",
         "black": "900",
       },
+      text: {
+        'title': {
+          fontFamily: 'Poppins',
+          fontSize: '30px',
+          fontWeight: 'semi-bold',
+          color: 'black',
+          textAlign: 'left',
+        },
+      },
     },
   },
   plugins: [],
