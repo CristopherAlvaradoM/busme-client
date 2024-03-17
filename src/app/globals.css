@@ -43,7 +43,7 @@ body {
     }
 
     .title-text {
-        @apply text-[32px] font-semi-bold text-black font-poppins;
+        @apply text-[28px] font-semi-bold text-black font-poppins;
     }
 
     .subtitle-text {
@@ -51,7 +51,7 @@ body {
     }
 
     .body-text {
-        @apply text-[16px] font-regular text-black font-poppins;
+        @apply text-[16px] font-normal text-black font-poppins;
     }
 
     .caption-text {
