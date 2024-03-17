@@ -47,7 +47,7 @@ body {
     }
 
     .subtitle-text {
-        @apply text-[20px] font-semi-bold text-black font-poppins;
+        @apply text-[20px] font-medium text-black font-poppins;
     }
 
     .body-text {
