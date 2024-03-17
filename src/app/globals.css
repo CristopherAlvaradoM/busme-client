@@ -33,3 +33,9 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .title-text {
+    @apply text-[32px] font-semi-bold text-black font-poppins;
+  }
+}
