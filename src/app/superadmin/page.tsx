@@ -1,3 +1,5 @@
+import BusmeProfileHeader from "@/app/components/BusmeProfileHeader";
+
 export const metadata = {
     title: "BusMe - Administración superior",
     description: "Dashboard",
@@ -8,11 +10,11 @@ function textoSaludo(): string {
     let saludo: string;
 
     if (horaActual >= 5 && horaActual < 12) {
-        saludo = "Buenos días";
+        saludo = "Buenos días,";
     } else if (horaActual >= 12 && horaActual < 18) {
-        saludo = "Buenas tardes";
+        saludo = "Buenas tardes,";
     } else {
-        saludo = "Buenas noches";
+        saludo = "Buenas noches,";
     }
 
     return saludo;
@@ -26,16 +28,8 @@ export default function Page() {
           <div className="w-1/5 bg-white h-full">
 
           </div>
-          <div className="ml-[25px] w-full h-full">
-              <div className="mt-2 flex">
-                  <p className="title-text mt-5">{saludo}, usuario</p>
-                  <div className="flex">
-                      <div>
-
-                      </div>
-                      <img src="/assets/img/utzmg-logo.jpeg" alt="UTZMG Logo"/>
-                  </div>
-              </div>
+          <div className="m-5 w-full h-full">
+              <BusmeProfileHeader title={saludo+" "+"Anthony"} username={"Anthony"} rol={"Superadministrador"}/>
           </div>
       </div>
     );
