@@ -4,8 +4,8 @@ export const metadata = {
 };
 export default function Page() {
     return (
-      <div className="min-w-full h-screen bg-white">
-        <h1>Dashboard</h1>
+      <div className="min-w-full h-screen bg-white font-montserrat">
+        <h1 className="text-black text-2xl font-semi-bold">Dashboard</h1>
       </div>
     );
 }
