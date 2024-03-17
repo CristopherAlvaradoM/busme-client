@@ -17,3 +17,5 @@ const BusmeProfileHeader = ({title, username, rol }: { title: string; username: 
         </div>
     );
 }
+
+export default BusmeProfileHeader;
