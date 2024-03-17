@@ -59,7 +59,7 @@ body {
     }
 
     .link-text {
-        @apply text-[16px] font-medium text-primary-500 font-poppins;
+        @apply text-[16px] font-medium text-primary-600 font-poppins;
     }
 
     .button-primary {
