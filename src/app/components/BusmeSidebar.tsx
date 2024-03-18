@@ -1,6 +1,9 @@
 import React from 'react';
+import { AiOutlineHome } from "react-icons/ai";
+import BusmeButton from './BusmeNavbutton';
 
-const Sidebar = () => {
+
+const BusmeSidebar = () => {
     return (
         <div className='h-screen w-1/5 shadow-lg bg-white p-6 flex flex-col justify-between'>
             <div>
@@ -13,6 +16,11 @@ const Sidebar = () => {
                 </div>
 
                 <p className='text-muted-800 text-xs font-semibold font-poppins mt-5'>General</p>
+                <BusmeButton
+                    text="Inicio"
+                    icon={<AiOutlineHome />}
+                    linkTo="/admin/avisos"
+                />
             </div>
 
             <div>
@@ -22,4 +30,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default BusmeSidebar;

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Sidebar from "../components/Sidebar";
+import BusmeSidebar from "../components/BusmeSidebar";
 
 export const metadata: Metadata = {
     title: "BusMe - Administración",
@@ -15,7 +15,7 @@ export default function AdminLayout({
         <html lang="en">
             <body className="font-poppins">
                 <div className="flex h-screen w-full bg-muted-100">
-                    <Sidebar />
+                    <BusmeSidebar />
                     {children}
                 </div>
             </body>
