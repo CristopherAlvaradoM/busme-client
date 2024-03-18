@@ -1,6 +1,11 @@
 import React from 'react';
 
-const BusmeTable = ({ headers, data }) => {
+interface BusmeTableProps {
+    headers: string[];
+    data: string[][];
+}
+
+const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data }) => {
     return (
         <div className="relative overflow-x-auto">
             <table className="w-full text-left rtl:text-right font-poppins mb-2">
