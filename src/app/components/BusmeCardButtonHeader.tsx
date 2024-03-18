@@ -10,7 +10,7 @@ interface BusmeCardButtonHeaderProps {
 
 const BusmeCardButtonHeader: React.FC<BusmeCardButtonHeaderProps> = ({subtitle, to, buttonText, icon: Icon}) => {
     return (
-        <div className="p-5 flex justify-between items-center">
+        <div className="flex justify-between items-center">
             <h1 className="subtitle-text">{subtitle}</h1>
             <Link href={to}>
                 <div className="flex items-center justify-center button-secondary button-secondary-hover">

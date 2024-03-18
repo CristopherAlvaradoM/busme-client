@@ -6,7 +6,7 @@ interface BusmeCardProps {
 
 const BusmeCard: React.FC<BusmeCardProps> = ({ children }) => {
     return (
-        <div className="w-full bg-white rounded-[10px] mt-8">
+        <div className="w-full bg-white rounded-[10px] mt-8 p-5">
             {children}
         </div>
     );
