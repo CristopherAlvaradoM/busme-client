@@ -32,8 +32,8 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data, showEditColumn =
                                 {cell}
                             </td>
                         ))}
-                        {showEditColumn && <td className="px-5 py-7">{row[0] === 'true' ? <IoPencilOutline color="#000"/> : null}</td>}
-                        {showDeleteColumn && <td className="px-5 py-7">{row[1] === 'true' ? <IoTrashOutline color="#000"/> : null}</td>}
+                        {showEditColumn && <td className="px-5 py-7 text-center"><IoPencilOutline className="w-[20px] h-[20px] cursor-pointer"/></td>}
+                        {showDeleteColumn && <td className="px-5 py-7 text-center"><IoTrashOutline className="w-[20px] h-[20px] text-danger cursor-pointer"/></td>}
                     </tr>
                 ))}
                 </tbody>
