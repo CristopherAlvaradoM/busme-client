@@ -3,7 +3,7 @@ import Image from "next/image";
 import UTZMGLogo from "@/assets/img/utzmg-logo.png";
 import {IoArrowBack} from "react-icons/io5";
 import React from "react";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 
 interface BusmePageHeaderProps {
     title: string;
@@ -11,12 +11,14 @@ interface BusmePageHeaderProps {
     username: string;
     showBackIcon?: boolean;
 }
-const BusmePageHeader : React.FC<BusmePageHeaderProps> = ({ title, rol, username, showBackIcon = false }) => {
+
+const BusmePageHeader: React.FC<BusmePageHeaderProps> = ({title, rol, username, showBackIcon = false}) => {
     const router = useRouter();
     return (
         <div className="flex justify-between items-center">
             <div className="flex items-center">
-                {showBackIcon && <IoArrowBack className="w-[35px] h-[35px] mr-4 cursor-pointer" onClick={() => router.back()}/>}
+                {showBackIcon &&
+                    <IoArrowBack className="w-[35px] h-[35px] mr-4 cursor-pointer" onClick={() => router.back()}/>}
                 <p className="title-text">{title}</p>
             </div>
             <div className="flex items-center">

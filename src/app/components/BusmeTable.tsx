@@ -1,6 +1,6 @@
 import React from 'react';
-import { IoTrashOutline } from "react-icons/io5";
-import { IoPencilOutline } from "react-icons/io5";
+import {IoTrashOutline} from "react-icons/io5";
+import {IoPencilOutline} from "react-icons/io5";
 
 interface BusmeTableProps {
     headers: string[];
@@ -9,7 +9,7 @@ interface BusmeTableProps {
     showDeleteColumn?: boolean;
 }
 
-const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data, showEditColumn = false, showDeleteColumn = false }) => {
+const BusmeTable: React.FC<BusmeTableProps> = ({headers, data, showEditColumn = false, showDeleteColumn = false}) => {
     return (
         <div className="relative overflow-x-auto">
             <table className="w-full text-left rtl:text-right font-poppins mb-2">
@@ -32,8 +32,10 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data, showEditColumn =
                                 {cell}
                             </td>
                         ))}
-                        {showEditColumn && <td className="px-5 py-7 text-center"><IoPencilOutline className="w-[20px] h-[20px] cursor-pointer"/></td>}
-                        {showDeleteColumn && <td className="px-5 py-7 text-center"><IoTrashOutline className="w-[20px] h-[20px] text-danger cursor-pointer"/></td>}
+                        {showEditColumn && <td className="px-5 py-7 text-center"><IoPencilOutline
+                            className="w-[20px] h-[20px] cursor-pointer"/></td>}
+                        {showDeleteColumn && <td className="px-5 py-7 text-center"><IoTrashOutline
+                            className="w-[20px] h-[20px] text-danger cursor-pointer"/></td>}
                     </tr>
                 ))}
                 </tbody>
