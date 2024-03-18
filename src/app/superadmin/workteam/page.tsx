@@ -1,6 +1,8 @@
 import BusmeProfileHeader from "@/app/components/BusmeProfileHeader";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeTable from "@/app/components/BusmeTable";
+import { IoPersonAdd } from "react-icons/io5";
+import BusmeCardButtonHeader from "@/app/components/BusmeCardButtonHeader";
 
 const workTeamHeaders = ['Nombre', 'Correo electrónico', 'Teléfono', 'Rol', 'Fecha ingreso'];
 const workTeamData = [
@@ -13,7 +15,9 @@ export default function WorkTeamPage() {
         <div>
             <BusmeProfileHeader rol={"Superadministrador"} title={"Equipo de trabajo"} username={"Anthony"}/>
             <BusmeCard>
-                <BusmeTable headers={workTeamHeaders} data={workTeamData}/>
+                <BusmeCardButtonHeader subtitle={"Lista de equipo de trabajo"} to={"/superadmin"} buttonText={"Agregar usuario"} icon={IoPersonAdd}/>
+                <BusmeTable headers={workTeamHeaders} data={workTeamData} showDeleteColumn={true}
+                            showEditColumn={true}/>
             </BusmeCard>
         </div>
     )
