@@ -5,21 +5,67 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+@layer components {
+    .headline-text {
+        @apply text-[40px] font-semi-bold text-white font-poppins;
+    }
+
+    .introduction-text {
+        @apply text-[22px] font-medium text-white font-poppins;
+    }
+
+    .title-text {
+        @apply text-[32px] font-semi-bold text-black font-poppins;
+    }
+
+    .subtitle-text {
+        @apply text-[20px] font-semi-bold text-black font-poppins;
+    }
+
+    .body-text {
+        @apply text-[16px] font-regular text-black font-poppins;
+    }
+
+    .caption-text {
+        @apply text-[16px] font-medium text-muted-800 font-poppins;
+    }
+
+    .link-text {
+        @apply text-[16px] font-medium text-primary-500 font-poppins;
+    }
+
+    .button-primary {
+        @apply bg-primary-800 text-white font-poppins font-semi-bold rounded-3xl py-2 px-5 cursor-pointer;
+    }
+
+    .button-primary-disabled {
+        @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-3xl py-2 px-5 cursor-not-allowed;
+    }
+
+    .button-secondary {
+        @apply bg-secondary-600 text-white font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-pointer;
+    }
+
+    .button-secondary-disabled {
+        @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
+    }
 }
