@@ -57,12 +57,20 @@
         @apply bg-primary-800 text-white font-poppins font-semi-bold rounded-3xl py-2 px-5 cursor-pointer;
     }
 
+    .button-primary-hover {
+        @apply hover:bg-primary-600 transition duration-300 ease-in-out;
+    }
+
     .button-primary-disabled {
         @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-3xl py-2 px-5 cursor-not-allowed;
     }
 
     .button-secondary {
-        @apply bg-secondary-600 text-white font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-pointer;
+        @apply bg-primary-600 text-white font-poppins font-medium text-sm rounded-lg py-2.5 px-5 cursor-pointer;
+    }
+
+    .button-secondary-hover {
+        @apply hover:bg-primary-500/90 transition duration-300 ease-in-out;
     }
 
     .button-secondary-disabled {
