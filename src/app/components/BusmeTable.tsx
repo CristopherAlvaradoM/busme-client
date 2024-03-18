@@ -1,11 +1,15 @@
 import React from 'react';
+import { IoTrashOutline } from "react-icons/io5";
+import { IoPencilOutline } from "react-icons/io5";
 
 interface BusmeTableProps {
     headers: string[];
     data: string[][];
+    showEditColumn?: boolean;
+    showDeleteColumn?: boolean;
 }
 
-const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data }) => {
+const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data, showEditColumn = false, showDeleteColumn = false }) => {
     return (
         <div className="relative overflow-x-auto">
             <table className="w-full text-left rtl:text-right font-poppins mb-2">
@@ -16,6 +20,8 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data }) => {
                             {header}
                         </th>
                     ))}
+                    {showEditColumn && <th scope="col" className="px-5 py-3 font-medium">Editar</th>}
+                    {showDeleteColumn && <th scope="col" className="px-5 py-3 font-medium">Eliminar</th>}
                 </tr>
                 </thead>
                 <tbody>
@@ -26,6 +32,8 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data }) => {
                                 {cell}
                             </td>
                         ))}
+                        {showEditColumn && <td className="px-5 py-7">{row[0] === 'true' ? <IoPencilOutline/> : null}</td>}
+                        {showDeleteColumn && <td className="px-5 py-7">{row[1] === 'true' ? <IoTrashOutline/> : null}</td>}
                     </tr>
                 ))}
                 </tbody>
