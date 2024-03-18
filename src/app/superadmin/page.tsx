@@ -38,7 +38,7 @@ const rolsData = [
     ['Administrador', 'Monitoreo en tiempo real - Avisos - Transporte - Rutas - Estadísticas'],
     ['Calidad', 'Buzón de quejas']
 ];
-export default function Page() {
+export default function SuperAdminPage() {
     return (
         <div className="m-5 w-full h-full">
             <BusmeProfileHeader title={saludo + " " + "Anthony"} username={"Anthony"} rol={"Superadministrador"}/>
