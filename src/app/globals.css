@@ -66,11 +66,11 @@
     }
 
     .button-secondary {
-        @apply bg-primary-600 text-white font-poppins font-medium text-sm rounded-lg py-2.5 px-5 cursor-pointer;
+        @apply bg-primary-600 text-white font-poppins font-medium text-sm rounded-lg py-3 px-5 cursor-pointer;
     }
 
     .button-secondary-hover {
-        @apply hover:bg-primary-500/90 transition duration-300 ease-in-out;
+        @apply hover:bg-primary-500 transition duration-300 ease-in-out;
     }
 
     .button-secondary-disabled {
