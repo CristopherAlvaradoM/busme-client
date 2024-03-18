@@ -1,7 +1,7 @@
 import Image from "next/image";
 import UTZMGLogo from "@/assets/img/utzmg-logo.png";
 
-const BusmeProfileHeader = ({title, username, rol }: { title: string; username: string; rol: string }) => {
+const BusmePageHeader = ({title, username, rol }: { title: string; username: string; rol: string }) => {
     return (
         <div className="flex justify-between items-center">
             <p className="title-text">{title}</p>
@@ -18,4 +18,4 @@ const BusmeProfileHeader = ({title, username, rol }: { title: string; username: 
     );
 }
 
-export default BusmeProfileHeader;
+export default BusmePageHeader;
