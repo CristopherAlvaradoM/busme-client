@@ -1,4 +1,5 @@
 import BusmeProfileHeader from "@/app/components/BusmeProfileHeader";
+import BusmeTable from "@/app/components/BusmeTable";
 
 export const metadata = {
     title: "BusMe - Administración superior",
@@ -24,13 +25,15 @@ const saludo = textoSaludo();
 
 export default function Page() {
     return (
-      <div className="min-w-full h-screen bg-complementary-100 flex">
-          <div className="w-1/5 bg-white h-full">
-
-          </div>
-          <div className="m-5 w-full h-full">
-              <BusmeProfileHeader title={saludo+" "+"Anthony"} username={"Anthony"} rol={"Superadministrador"}/>
-          </div>
-      </div>
+        <div className="m-5 w-full h-full">
+            <BusmeProfileHeader title={saludo + " " + "Anthony"} username={"Anthony"} rol={"Superadministrador"}/>
+            <div className="w-full bg-white rounded-[10px] mt-7">
+                <div className="p-5 flex justify-between items-center">
+                    <h1 className="subtitle-text">Lista de equipo de trabajo</h1>
+                    <h1 className="link-text">Ver más</h1>
+                </div>
+                <BusmeTable/>
+            </div>
+        </div>
     );
 }
