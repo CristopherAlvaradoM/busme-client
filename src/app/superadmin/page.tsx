@@ -40,7 +40,7 @@ const rolsData = [
 ];
 export default function SuperAdminPage() {
     return (
-        <div className="m-5 w-full h-full">
+        <div>
             <BusmeProfileHeader title={saludo + " " + "Anthony"} username={"Anthony"} rol={"Superadministrador"}/>
             <BusmeCard>
                 <BusmeCardHeader subtitle={"Lista de equipo de trabajo"} linkText={"Ver más"}/>

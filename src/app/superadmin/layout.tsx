@@ -20,7 +20,9 @@ export default function SuperAdminLayout({
                 <div className="w-1/5 bg-white h-full">
 
                 </div>
-                {children}
+                <div className="m-5 w-full h-full">
+                    {children}
+                </div>
             </div>
             </body>
         </html>
