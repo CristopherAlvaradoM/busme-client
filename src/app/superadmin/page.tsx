@@ -1,4 +1,4 @@
-import BusmeProfileHeader from "@/app/components/BusmeProfileHeader";
+import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeTable from "@/app/components/BusmeTable";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeCardHeader from "@/app/components/BusmeCardHeader";
@@ -41,7 +41,7 @@ const rolsData = [
 export default function SuperAdminPage() {
     return (
         <div>
-            <BusmeProfileHeader title={saludo + " " + "Anthony"} username={"Anthony"} rol={"Superadministrador"}/>
+            <BusmePageHeader title={saludo + " " + "Anthony"} username={"Anthony"} rol={"Superadministrador"}/>
             <BusmeCard>
                 <BusmeCardHeader subtitle={"Lista de equipo de trabajo"} linkText={"Ver más"}/>
                 <BusmeTable headers={workTeamHeaders} data={workTeamData}/>

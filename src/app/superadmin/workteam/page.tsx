@@ -1,4 +1,4 @@
-import BusmeProfileHeader from "@/app/components/BusmeProfileHeader";
+import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeTable from "@/app/components/BusmeTable";
 import { IoPersonAdd } from "react-icons/io5";
@@ -13,7 +13,7 @@ const workTeamData = [
 export default function WorkTeamPage() {
     return (
         <div>
-            <BusmeProfileHeader rol={"Superadministrador"} title={"Equipo de trabajo"} username={"Anthony"}/>
+            <BusmePageHeader rol={"Superadministrador"} title={"Equipo de trabajo"} username={"Anthony"}/>
             <BusmeCard>
                 <BusmeCardButtonHeader subtitle={"Lista de equipo de trabajo"} to={"/superadmin/workteam/new-user"} buttonText={"Agregar usuario"} icon={IoPersonAdd}/>
                 <BusmeTable headers={workTeamHeaders} data={workTeamData} showDeleteColumn={true}
