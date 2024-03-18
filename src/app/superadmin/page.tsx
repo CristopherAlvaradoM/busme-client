@@ -1,5 +1,7 @@
 import BusmeProfileHeader from "@/app/components/BusmeProfileHeader";
 import BusmeTable from "@/app/components/BusmeTable";
+import BusmeCard from "@/app/components/BusmeCard";
+import BusmeCardHeader from "@/app/components/BusmeCardHeader";
 
 export const metadata = {
     title: "BusMe - Administración superior",
@@ -23,17 +25,26 @@ function textoSaludo(): string {
 
 const saludo = textoSaludo();
 
+const headers = ['Nombre', 'Correo electrónico', 'Teléfono', 'Rol', 'Fecha ingreso'];
+const data = [
+    ['Cristopher Yahir Alvarado Mombela', 'cristopher.alvarado.21s@utzmg.edu.mx', '3320217780', 'Superadministrador', '17/03/2024'],
+    ['Braulio Israel Fernández Márquez', 'braulio.fernandez.21s@utzmg.edu.mx', '3311966694', 'Calidad', '17/03/2024'],
+    ['Angélica Araceli Silva Palmas', 'angelica.silva.21s@utzmg.edu.mx', '3319698761', 'Administrador', '17/03/2024']
+];
+
 export default function Page() {
     return (
         <div className="m-5 w-full h-full">
             <BusmeProfileHeader title={saludo + " " + "Anthony"} username={"Anthony"} rol={"Superadministrador"}/>
-            <div className="w-full bg-white rounded-[10px] mt-7">
-                <div className="p-5 flex justify-between items-center">
-                    <h1 className="subtitle-text">Lista de equipo de trabajo</h1>
-                    <h1 className="link-text">Ver más</h1>
-                </div>
-                <BusmeTable/>
-            </div>
+            <BusmeCard>
+                <BusmeCardHeader subtitle={"Lista de equipo de trabajo"} linkText={"Ver más"}/>
+                <BusmeTable headers={headers} data={data}/>
+            </BusmeCard>
+
+            <BusmeCard>
+                <BusmeCardHeader subtitle={"Lista de equipo de trabajo"} linkText={"Ver más"}/>
+                <BusmeTable headers={headers} data={data}/>
+            </BusmeCard>
         </div>
     );
 }
