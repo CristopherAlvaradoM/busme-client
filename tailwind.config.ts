@@ -50,6 +50,10 @@ const config: Config = {
                 900: "#616161",
                 950: "#454545"
             },
+            info: "#4A90E2",
+            success: "#82DD55",
+            warning: "#EDB82A",
+            danger: "#E23636",
         },
         extend: {
             backgroundImage: {
