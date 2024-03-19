@@ -15,10 +15,12 @@ export default function SuperAdminLayout({
 
     return (
         <html lang="en">
-            <body className="font-poppins">
-                <div className="flex h-screen w-full bg-muted-100">
+            <body className="font-poppins bg-complementary-100">
+                <div className="flex h-screen w-full bg-complementary-100">
                     <BusmeSidebar userRole={userRole} />
-                    {children}
+                    <div className="p-5 overflow-auto h-full">
+                        {children}
+                    </div>
                 </div>
             </body>
         </html>
