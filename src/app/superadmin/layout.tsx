@@ -1,7 +1,5 @@
-import type {Metadata} from "next";
-import {Inter} from "next/font/google";
-
-const inter = Inter({subsets: ["latin"]});
+import type { Metadata } from "next";
+import BusmeSidebar from "../components/BusmeSidebar";
 
 export const metadata: Metadata = {
     title: "BusMe - Administración superior",
@@ -9,21 +7,19 @@ export const metadata: Metadata = {
 };
 
 export default function SuperAdminLayout({
-                                   children,
-                               }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode;
 }>) {
+    const userRole = 'superadmin';
+
     return (
         <html lang="en">
             <body className="font-poppins">
-            <div className="flex h-screen bg-complementary-100 w-full">
-                <div className="w-1/5 bg-white h-full">
-
-                </div>
-                <div className="m-5 w-full h-full">
+                <div className="flex h-screen w-full bg-muted-100">
+                    <BusmeSidebar userRole={userRole} />
                     {children}
                 </div>
-            </div>
             </body>
         </html>
     );
