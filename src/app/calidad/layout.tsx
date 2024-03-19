@@ -6,12 +6,12 @@ export const metadata: Metadata = {
     description: "layout del dashboard",
 };
 
-export default function AdminLayout({
+export default function CalidadLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const userRole = 'admin';
+    const userRole = 'calidad';
 
     return (
         <html lang="en">
