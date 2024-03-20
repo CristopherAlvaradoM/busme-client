@@ -68,14 +68,14 @@ const BusmeSidebar: React.FC<BusmeSidebarProps> = ({ userRole }) => {
                             text="Equipo de trabajo"
                             icon={IoPersonOutline}
                             alternateicon={IoPerson}
-                            linkTo="/superadmin/workteam"
+                            linkTo="/superadmin/work-team"
                         />
 
                         <BusmeButton
                             text="Roles"
                             icon={IoIdCardOutline}
                             alternateicon={IoIdCard}
-                            linkTo="/superadmin/rols"
+                            linkTo="/superadmin/roles"
                         />
                     </>
                 )}
