@@ -14,15 +14,34 @@ export default function NewUserPage() {
                     <BusmeCard>
                         <p className="subtitle-text">Información del usuario</p>
                             <Formik
-                                initialValues={{ email: '', password: '' }}
+                                initialValues={{ name: '', paternalLastName: '', maternalLastName: '', telephone: '', email: '', role: '', password: ''}}
                                 validate={values => {
-                                    const errors = {} as {email?: string, password?: string};
+                                    const errors = {} as {name?: string, paternalLastName?: string, maternalLastName?: string, telephone?: string, email?: string, role?: string, password?: string};
+                                    if (!values.name) {
+                                        errors.name = 'Campo requerido';
+                                    }
+                                    if (!values.paternalLastName) {
+                                        errors.paternalLastName = 'Campo requerido';
+                                    }
+                                    if (!values.maternalLastName) {
+                                        errors.maternalLastName = 'Campo requerido';
+                                    }
+                                    if (!values.telephone) {
+                                        errors.telephone = 'Campo requerido';
+                                    } else if (values.telephone.length < 10 || values.telephone.length > 10) {
+                                        errors.telephone = 'Debe tener 10 dígitos';
+                                    } else if (!/^\d+$/.test(values.telephone)) {
+                                        errors.telephone = 'Debe contener solo números';
+                                    }
                                     if (!values.email) {
-                                        errors.email = 'Required';
+                                        errors.email = 'Campo requerido';
                                     } else if (
                                         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                                     ) {
-                                        errors.email = 'Invalid email address';
+                                        errors.email = 'Dirección de correo electrónico inválida';
+                                    }
+                                    if (!values.role) {
+                                        errors.role = 'Campo requerido';
                                     }
                                     if (!values.password) {
                                         errors.password = 'Ingresa una contraseña';
@@ -50,49 +69,49 @@ export default function NewUserPage() {
                                   }) => (
                                     <form onSubmit={handleSubmit}>
                                         <div className="flex justify-between">
-                                            <BusmeInput name={"email"} title={"Nombre(s)"} placeholder={"ei"}
+                                            <BusmeInput name={"name"} title={"Nombre(s)"} placeholder={"Ingresa el nombre del usuario"}
+                                                        type={"text"}
+                                                        onChange={handleChange} onBlur={handleBlur}
+                                                        value={values.name}
+                                                        validation={errors.name && touched.email && errors.name}/>
+                                            <div className="mx-4"/>
+                                            <BusmeInput name={"paternalLastName"} title={"Apellido paterno"} placeholder={"Ingresa el apellido paterno"}
+                                                        type={"text"} onChange={handleChange} onBlur={handleBlur}
+                                                        value={values.paternalLastName}
+                                                        validation={errors.paternalLastName && touched.paternalLastName && errors.paternalLastName}/>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <BusmeInput name={"maternalLastName"} title={"Apellido materno"} placeholder={"Ingresa el apellido materno"}
+                                                        type={"text"}
+                                                        onChange={handleChange} onBlur={handleBlur}
+                                                        value={values.maternalLastName}
+                                                        validation={errors.maternalLastName && touched.maternalLastName && errors.maternalLastName}/>
+                                            <div className="mx-4"/>
+                                            <BusmeInput name={"telephone"} title={"Número de teléfono"}
+                                                        placeholder={"Ingresa tu número de teléfono"}
+                                                        type={"tel"} onChange={handleChange} onBlur={handleBlur}
+                                                        value={values.telephone}
+                                                        validation={errors.telephone && touched.telephone && errors.telephone}/>
+                                        </div>
+                                        <p className="subtitle-text mt-5">Información de la cuenta</p>
+                                        <div className="flex justify-between">
+                                            <BusmeInput name={"email"} title={"Correo electrónico"} placeholder={"correo@dominio.com"}
                                                         type={"email"}
                                                         onChange={handleChange} onBlur={handleBlur}
                                                         value={values.email}
                                                         validation={errors.email && touched.email && errors.email}/>
                                             <div className="mx-4"/>
-                                            <BusmeInput name={"password"} title={"Apellido paterno"} placeholder={"ei"}
-                                                        type={"password"} onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.password}
-                                                        validation={errors.password && touched.password && errors.password}/>
+                                            <BusmeInput name={"role"} title={"Rol de usuario"} placeholder={"Selecciona un rol de usuario"}
+                                                        type={"text"} onChange={handleChange} onBlur={handleBlur}
+                                                        value={values.role}
+                                                        validation={errors.role && touched.role && errors.role}/>
                                         </div>
                                         <div className="flex justify-between">
-                                            <BusmeInput name={"email"} title={"Apellido materno"} placeholder={"ei"}
-                                                        type={"email"}
+                                            <BusmeInput name={"password"} title={"Contraseña"} placeholder={"Ingresa una contraseña"}
+                                                        type={"password"}
                                                         onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.email}
-                                                        validation={errors.email && touched.email && errors.email}/>
-                                            <div className="mx-4"/>
-                                            <BusmeInput name={"password"} title={"Número de teléfono"}
-                                                        placeholder={"ei"}
-                                                        type={"password"} onChange={handleChange} onBlur={handleBlur}
                                                         value={values.password}
                                                         validation={errors.password && touched.password && errors.password}/>
-                                        </div>
-                                        <p className="subtitle-text mt-5">Información del usuario</p>
-                                        <div className="flex justify-between">
-                                            <BusmeInput name={"email"} title={"Nombre(s)"} placeholder={"ei"}
-                                                        type={"email"}
-                                                        onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.email}
-                                                        validation={errors.email && touched.email && errors.email}/>
-                                            <div className="mx-4"/>
-                                            <BusmeInput name={"password"} title={"Apellido paterno"} placeholder={"ei"}
-                                                        type={"password"} onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.password}
-                                                        validation={errors.password && touched.password && errors.password}/>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <BusmeInput name={"email"} title={"Apellido materno"} placeholder={"ei"}
-                                                        type={"email"}
-                                                        onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.email}
-                                                        validation={errors.email && touched.email && errors.email}/>
                                             <div className="mx-4"/>
                                             <BusmeInput name={"email"} title={"Apellido materno"} placeholder={"ei"}
                                                         type={"email"}
