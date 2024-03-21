@@ -11,6 +11,7 @@ const config: Config = {
             transparent: "transparent",
             black: "#000",
             white: "#fff",
+            // red: "#E23636",
             primary: {
                 50: "#D6FFFA",
                 100: "#A3FFF4",
@@ -54,6 +55,8 @@ const config: Config = {
             success: "#82DD55",
             warning: "#EDB82A",
             danger: "#E23636",
+            rojo: "#E23636",
+            active: "#6b32ec",
         },
         extend: {
             backgroundImage: {

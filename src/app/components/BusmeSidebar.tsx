@@ -1,25 +1,181 @@
 'use client'
 
 import React from 'react';
-import { 
-    IoHomeOutline, IoHome, IoPinOutline, IoPin, IoBusOutline, IoBusSharp, IoBarChartOutline, IoBarChart, 
-    IoMailUnreadOutline, IoSettingsOutline, IoSettings, IoMailUnread, IoLogOutOutline, IoLogOut, IoPersonOutline, IoPerson,
-    IoPersonAddOutline, IoPersonAdd, IoIdCardOutline, IoIdCard
+import {
+    IoHomeOutline,
+    IoHome,
+    IoPinOutline,
+    IoPin,
+    IoBusOutline,
+    IoBusSharp,
+    IoBarChartOutline,
+    IoBarChart,
+    IoMailUnreadOutline,
+    IoSettingsOutline,
+    IoSettings,
+    IoMailUnread,
+    IoLogOutOutline,
+    IoLogOut,
+    IoPersonOutline,
+    IoPerson,
+    IoPersonAddOutline,
+    IoPersonAdd,
+    IoIdCardOutline,
+    IoIdCard
 } from "react-icons/io5";
-import BusmeButton from './BusmeNavbutton';
-import Image from 'next/image';
 import BusmeLogo from "@/assets/img/busme-logo.jpeg";
+import BusmeNavButton from './BusmeNavButton';
+import Image from 'next/image';
+import { IconBaseProps } from 'react-icons';
 
-type UserRole = 'superadmin' | 'admin' | 'calidad';
 
-interface BusmeSidebarProps {
-    userRole: UserRole;
+interface ISidebarItem {
+    name: string;
+    path: string;
+    icon: React.ComponentType<IconBaseProps>;
+    alternateicon: React.ComponentType<IconBaseProps>;
+    customClass?: string;
+    items?: ISubItem[];
 }
 
-const BusmeSidebar: React.FC<BusmeSidebarProps> = ({ userRole }) => {
+interface ISubItem {
+    name: string;
+    path: string;
+}
+
+const itemsQuality: ISidebarItem[] = [
+    {
+        name: "Inicio",
+        icon: IoHomeOutline,
+        alternateicon: IoHome,
+        path: "/quality",
+    },
+    {
+        name: "Equipo de trabajo",
+        icon: IoPersonOutline,
+        alternateicon: IoPerson,
+        path: "/"
+    },
+    {
+        name: "Roles",
+        icon: IoPersonAddOutline,
+        alternateicon: IoPersonAdd,
+        path: "/"
+    }
+];
+
+const itemsSuperadmin: ISidebarItem[] = [
+    {
+        name: "Inicio",
+        icon: IoHomeOutline,
+        alternateicon: IoHome,
+        path: "/superadmin"
+    },
+    {
+        name: "Equipo de trabajo",
+        icon: IoPersonOutline,
+        alternateicon: IoPerson,
+        path: "/superadmin/workteam"
+    },
+    {
+        name: "Roles",
+        icon: IoIdCardOutline,
+        alternateicon: IoIdCard,
+        path: "/superadmin/rols"
+    }
+];
+
+const itemsAdmin: ISidebarItem[] = [
+    {
+        name: "Inicio",
+        icon: IoHomeOutline,
+        alternateicon: IoHome,
+        path: "/admin"
+    },
+
+    {
+        name: "Rutas",
+        icon: IoPinOutline,
+        alternateicon: IoPin,
+        path: "/admin/routes"
+    },
+
+    {
+        name: "Vehículos",
+        icon: IoBusOutline,
+        alternateicon: IoBusSharp,
+        path: "/admin/vehicles"
+    },
+
+
+    {
+        name: "Estadísticas",
+        icon: IoBarChartOutline,
+        alternateicon: IoBarChart,
+        path: "/admin/statistics"
+    },
+
+
+    {
+        name: "Avisos",
+        icon: IoMailUnreadOutline,
+        alternateicon: IoMailUnread,
+        path: "/admin/notices"
+    },
+
+];
+const itemsConfig: ISidebarItem[] = [
+    {
+        name: "Configuraciones",
+        icon: IoSettingsOutline,
+        alternateicon: IoSettings,
+        path: "/",
+        items: [
+            {
+                name: "General",
+                path: "/",
+            },
+            {
+                name: "Security",
+                path: "/",
+            },
+            {
+                name: "Notifications",
+                path: "/",
+            },
+        ],
+    },
+    {
+        name: "Cerrar sesión",
+        icon: IoLogOutOutline,
+        alternateicon: IoLogOut,
+        path: "/",
+        customClass: "hover:bg-rojo text-danger"
+    },
+];
+
+const BusmeSidebar = ({ userRole }: { userRole: string }) => {
+    let itemsToShow: ISidebarItem[] = [];
+
+    switch (userRole) {
+        case 'admin':
+            itemsToShow = itemsAdmin;
+            break;
+        case 'calidad':
+            itemsToShow = itemsQuality;
+            break;
+        case 'superadmin':
+            itemsToShow = itemsSuperadmin;
+            break;
+        default:
+            itemsToShow = itemsConfig;
+            break;
+    }
+
     return (
         <div className='h-screen w-1/5 bg-white p-6 flex flex-col justify-between'>
             <div>
+                <div>
                 <div className='flex justify-start'>
                     <Image src={BusmeLogo} alt='logo' width={50} height={50} />
                     <div className='px-2 py-0.5'>
@@ -27,114 +183,21 @@ const BusmeSidebar: React.FC<BusmeSidebarProps> = ({ userRole }) => {
                         <p className='text-muted-800 text-xs font-normal font-poppins'>Sitio de trabajo</p>
                     </div>
                 </div>
+                </div>
 
                 <p className='text-muted-800 text-xs font-semibold font-poppins mt-5'>General</p>
 
-                {userRole === 'calidad' && (
-                    <>
-                        <BusmeButton
-                            text="Inicio"
-                            icon={IoHomeOutline}
-                            alternateicon={IoHome}
-                            linkTo="/calidad"
-                        />
-
-                        <BusmeButton
-                            text="Equipo de trabajo"
-                            icon={IoPersonOutline}
-                            alternateicon={IoPerson}
-                            linkTo="/"
-                        />
-
-                        <BusmeButton
-                            text="Roles"
-                            icon={IoPersonAddOutline}
-                            alternateicon={IoPersonAdd}
-                            linkTo="/"
-                        />
-                    </>
-                )}
-                
-                {userRole === 'superadmin' && (
-                    <>
-                        <BusmeButton
-                            text="Inicio"
-                            icon={IoHomeOutline}
-                            alternateicon={IoHome}
-                            linkTo="/superadmin"
-                        />
-
-                        <BusmeButton
-                            text="Equipo de trabajo"
-                            icon={IoPersonOutline}
-                            alternateicon={IoPerson}
-                            linkTo="/superadmin/workteam"
-                        />
-
-                        <BusmeButton
-                            text="Roles"
-                            icon={IoIdCardOutline}
-                            alternateicon={IoIdCard}
-                            linkTo="/superadmin/rols"
-                        />
-                    </>
-                )}
-
-                {userRole === 'admin' && (
-                    <>
-                        <BusmeButton
-                            text="Inicio"
-                            icon={IoHomeOutline}
-                            alternateicon={IoHome}
-                            linkTo="/admin"
-                        />
-
-                        <BusmeButton
-                            text="Rutas"
-                            icon={IoPinOutline}
-                            alternateicon={IoPin}
-                            linkTo="/admin/rutas"
-                        />
-
-                        <BusmeButton
-                            text="Vehículos"
-                            icon={IoBusOutline}
-                            alternateicon={IoBusSharp}
-                            linkTo="/admin/vehiculos"
-                        />
-
-                        <BusmeButton
-                            text="Estadísticas"
-                            icon={IoBarChartOutline}
-                            alternateicon={IoBarChart}
-                            linkTo="/admin/estadisticas"
-                        />
-
-                        <BusmeButton
-                            text="Avisos"
-                            icon={IoMailUnreadOutline}
-                            alternateicon={IoMailUnread}
-                            linkTo="/admin/avisos"
-                        />
-                    </>
-                )}
+                {itemsToShow.map((item, index) => (
+                    <BusmeNavButton key={index} item={item} />
+                ))}
             </div>
 
             <div>
                 <p className='text-muted-800 text-xs font-semibold font-poppins mt-5'>Configuraciones</p>
-                <BusmeButton
-                    text="Configuraciones"
-                    icon={IoSettingsOutline}
-                    alternateicon={IoSettings}
-                    linkTo="/"
-                />
-                <BusmeButton
-                    text="Cerrar sesión"
-                    icon={IoLogOutOutline}
-                    alternateicon={IoLogOut}
-                    linkTo="/"
-                    customClass="hover:bg-danger text-danger"
-                />
+
+                {itemsConfig.map((item, index) => (
+                    <BusmeNavButton key={index} item={item} />
+                ))}
             </div>
         </div>
     );
