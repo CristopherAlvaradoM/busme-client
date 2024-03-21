@@ -8,9 +8,10 @@ interface BusmeInputProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
     value: string;
+    validation: any;
 }
 
-const BusmeInput: React.FC<BusmeInputProps> = ({name, title, placeholder, type, onChange, onBlur, value}) => {
+const BusmeInput: React.FC<BusmeInputProps> = ({name, title, placeholder, type, onChange, onBlur, value, validation}) => {
     return (
         <div className="mt-5">
             <p className="caption-text">{title}</p>
@@ -19,6 +20,7 @@ const BusmeInput: React.FC<BusmeInputProps> = ({name, title, placeholder, type, 
                    onBlur={onBlur}
                    value={value}
                    className="w-full rounded-lg bg-muted-200 p-3 font-poppins mt-2"/>
+            <p className="font-poppins font-normal text-danger mt-1">{validation}</p>
         </div>
     )
 }
