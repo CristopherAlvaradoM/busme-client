@@ -53,6 +53,10 @@
         @apply text-[16px] font-medium text-primary-600 font-poppins;
     }
 
+    .error-text {
+        @apply font-poppins font-normal text-sm text-danger mt-1;
+    }
+
     .button-primary {
         @apply bg-primary-800 text-white font-poppins font-semi-bold rounded-3xl py-2 px-5 cursor-pointer;
     }
