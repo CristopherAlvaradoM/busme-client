@@ -106,19 +106,11 @@ export default function NewUserPage() {
                                                         value={values.role}
                                                         validation={errors.role && touched.role && errors.role}/>
                                         </div>
-                                        <div className="flex justify-between">
-                                            <BusmeInput name={"password"} title={"Contraseña"} placeholder={"Ingresa una contraseña"}
-                                                        type={"password"}
-                                                        onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.password}
-                                                        validation={errors.password && touched.password && errors.password}/>
-                                            <div className="mx-4"/>
-                                            <BusmeInput name={"email"} title={"Apellido materno"} placeholder={"ei"}
-                                                        type={"email"}
-                                                        onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.email}
-                                                        validation={errors.email && touched.email && errors.email}/>
-                                        </div>
+                                        <BusmeInput name={"password"} title={"Contraseña"} placeholder={"Ingresa una contraseña"}
+                                                    type={"password"}
+                                                    onChange={handleChange} onBlur={handleBlur}
+                                                    value={values.password}
+                                                    validation={errors.password && touched.password && errors.password}/>
                                         <button type="submit" disabled={isSubmitting}
                                                 className="button-secondary button-secondary-hover w-full mt-6">
                                             Generar perfil de usuario
