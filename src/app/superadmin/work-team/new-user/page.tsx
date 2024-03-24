@@ -3,6 +3,7 @@ import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeInput from "@/app/components/BusmeInput";
 import {Formik} from "formik";
+import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 
 export default function NewUserPage() {
     return (
@@ -44,7 +45,7 @@ export default function NewUserPage() {
                                         errors.role = 'Campo requerido';
                                     }
                                     if (!values.password) {
-                                        errors.password = 'Ingresa una contraseña';
+                                        errors.password = 'Campo requerido';
                                     } else if (values.password.length < 8) {
                                         errors.password = 'La contraseña debe tener al menos 8 caracteres';
                                     }
@@ -111,10 +112,7 @@ export default function NewUserPage() {
                                                     onChange={handleChange} onBlur={handleBlur}
                                                     value={values.password}
                                                     validation={errors.password && touched.password && errors.password}/>
-                                        <button type="submit" disabled={isSubmitting}
-                                                className="button-secondary button-secondary-hover w-full mt-6">
-                                            Generar perfil de usuario
-                                        </button>
+                                        <BusmeSecondaryButton title={"Generar nuevo perfil de usuario"} disabled={isSubmitting}/>
                                     </form>
                                 )}
                             </Formik>
