@@ -3,6 +3,7 @@ import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeInput from "@/app/components/BusmeInput";
 import {Formik} from "formik";
+import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 
 export default function NewUserPage() {
     return (
@@ -111,6 +112,7 @@ export default function NewUserPage() {
                                                     onChange={handleChange} onBlur={handleBlur}
                                                     value={values.password}
                                                     validation={errors.password && touched.password && errors.password}/>
+                                        <BusmeSecondaryButton title={"Generar nuevo perfil de usuario"} disabled={isSubmitting}/>
                                     </form>
                                 )}
                             </Formik>
