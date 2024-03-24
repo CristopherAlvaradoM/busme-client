@@ -1,11 +1,9 @@
 "use client"
 
-import { Metadata } from "next";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import BusmePageHeader from "../components/BusmePageHeader";
-
-
+import BusmeInput from "../components/BusmeInput";
 
 function textoSaludo(): string {
     const horaActual = new Date().getHours();
@@ -22,8 +20,50 @@ function textoSaludo(): string {
     return saludo;
 }
 
+interface BusesRecorrido {
+    'Nombre': string;
+    'No. de placas': string;
+    'Chofer': string;
+    'Estado': string;
+    'Sig. Parada': string;
+}
+
+const header: (keyof BusesRecorrido)[] = ['Nombre', 'No. de placas', 'Chofer', 'Estado', 'Sig. Parada'];
+const data: BusesRecorrido[] = [
+    { 'Nombre': 'BUS-A', 'No. de placas': 'AHJ-91S2', 'Chofer': 'Daniel M.', 'Estado': 'En ruta', 'Sig. Parada': 'Las Cuatas' },
+    { 'Nombre': 'BUS-B', 'No. de placas': 'V1K-X125', 'Chofer': 'Arturo P.', 'Estado': 'Abordando', 'Sig. Parada': 'Banus' },
+];
+
 export default function Page() {
     const saludo = textoSaludo()
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [titleError, setTitleError] = useState("");
+    const [contentError, setContentError] = useState("");
+
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value);
+    };
+
+    const handleTitleBlur = () => {
+        if (!title) {
+            setTitleError("El título es requerido");
+        } else {
+            setTitleError("");
+        }
+    };
+
+    const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setContent(e.target.value);
+    };
+
+    const handleContentBlur = () => {
+        if (!content) {
+            setContentError("El contenido es requerido");
+        } else {
+            setContentError("");
+        }
+    };
 
     const mapRef = React.useRef<HTMLDivElement>(null)
 
@@ -69,14 +109,59 @@ export default function Page() {
         <div>
             <BusmePageHeader title={saludo + " " + "Anthony"} username={"Anthony"} rol={"Administrador"} />
             <div className="mt-5">
-                <div ref={mapRef} style={{ width: "100%", height: "400px" }}></div>
+                <div ref={mapRef} style={{ width: "100%", height: "350px" }}></div>
             </div>
-            <div className="grid grid-cols-12 w-full h-full items-center mt-6 gap-x-4">
-                <div className='col-span-7 bg-white rounded-2xl p-3'>
+            <div className="grid grid-cols-12 w-full h-full  mt-6 gap-x-4">
+                <div className='col-span-7 bg-white rounded-2xl p-5'>
                     <p className="subtitle-text">Autobuses en recorrido</p>
+                    <table className="w-full text-center font-poppins mt-5">
+                        <thead className="text-black border-white">
+                            <tr>
+                                {header.map(columna => (
+                                    <th key={columna} className="px-5 py-3 font-Bold">{columna}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map(constante => (
+                                <tr key={constante.Nombre} className="font-poppins text-black">
+                                    {header.map(columna => (
+                                        <td key={columna} className="px-3">
+                                            <div className={`px-3 py-1.5 mb-2 
+                                            ${columna === 'Estado' ? (constante.Estado === 'En ruta' ? 'bg-primary-800 text-white rounded-3xl text-sm font-semi-bold' :
+                                                    (constante.Estado === 'Abordando' ? 'bg-warning text-white rounded-3xl text-sm font-semi-bold' : '')) : ''}`}>
+                                                {constante[columna]}
+                                            </div>
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
                 <div className='col-span-5 bg-white rounded-2xl p-4'>
                     <p className="subtitle-text">Crear aviso rápido</p>
+                    <BusmeInput
+                        title=""
+                        name="titleNotice"
+                        type="text"
+                        placeholder="Ingresa un título para el aviso"
+                        onChange={handleTitleChange}
+                        onBlur={handleTitleBlur}
+                        value={title}
+                        validation={titleError}
+                    />
+
+                    <BusmeInput
+                        title=""
+                        name="noticeContent"
+                        type="text"
+                        placeholder="Coloca el contenido del aviso"
+                        onChange={handleContentChange}
+                        onBlur={handleContentBlur}
+                        value={content}
+                        validation={contentError}
+                    />
                 </div>
             </div>
         </div>
