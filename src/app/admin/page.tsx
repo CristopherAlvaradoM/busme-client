@@ -1,9 +1,11 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import BusmePageHeader from "../components/BusmePageHeader";
 import BusmeInput from "../components/BusmeInput";
+import { Formik } from "formik";
+import BusmeSecondaryButton from "../components/BusmeSecondaryButton";
 
 function textoSaludo(): string {
     const horaActual = new Date().getHours();
@@ -36,34 +38,6 @@ const data: BusesRecorrido[] = [
 
 export default function Page() {
     const saludo = textoSaludo()
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [titleError, setTitleError] = useState("");
-    const [contentError, setContentError] = useState("");
-
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value);
-    };
-
-    const handleTitleBlur = () => {
-        if (!title) {
-            setTitleError("El título es requerido");
-        } else {
-            setTitleError("");
-        }
-    };
-
-    const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setContent(e.target.value);
-    };
-
-    const handleContentBlur = () => {
-        if (!content) {
-            setContentError("El contenido es requerido");
-        } else {
-            setContentError("");
-        }
-    };
 
     const mapRef = React.useRef<HTMLDivElement>(null)
 
@@ -141,29 +115,65 @@ export default function Page() {
                 </div>
                 <div className='col-span-5 bg-white rounded-2xl p-4'>
                     <p className="subtitle-text">Crear aviso rápido</p>
-                    <BusmeInput
-                        title=""
-                        name="titleNotice"
-                        type="text"
-                        placeholder="Ingresa un título para el aviso"
-                        onChange={handleTitleChange}
-                        onBlur={handleTitleBlur}
-                        value={title}
-                        validation={titleError}
-                    />
-
-                    <BusmeInput
-                        title=""
-                        name="noticeContent"
-                        type="text"
-                        placeholder="Coloca el contenido del aviso"
-                        onChange={handleContentChange}
-                        onBlur={handleContentBlur}
-                        value={content}
-                        validation={contentError}
-                    />
+                    <Formik
+                        initialValues={{ title: '', noticeContent: '' }}
+                        validate={values => {
+                            const errors = {} as { title?: string, noticeContent?: string };
+                            if (!values.title) {
+                                errors.title = 'Campo requerido';
+                            }
+                            if (!values.noticeContent) {
+                                errors.noticeContent = 'Campo requerido';
+                            }
+                            return errors;
+                        }}
+                        onSubmit={(values, { setSubmitting }) => {
+                            setTimeout(() => {
+                                alert(JSON.stringify(values, null, 2));
+                                setSubmitting(false);
+                            }, 400);
+                        }}
+                    >
+                        {({
+                            values,
+                            errors,
+                            touched,
+                            handleChange,
+                            handleBlur,
+                            handleSubmit,
+                            isSubmitting,
+                        }) => (
+                            <form onSubmit={handleSubmit}>
+                                <div>
+                                    <BusmeInput
+                                        name="title"
+                                        title=""
+                                        placeholder="Ingresa un título para el aviso"
+                                        type={"text"}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.title}
+                                        validation={errors.title && touched.title && errors.title}
+                                    />
+                                </div>
+                                <div className="">
+                                    <BusmeInput
+                                        name="noticeContent"
+                                        title=""
+                                        placeholder="Coloca el contenido del aviso"
+                                        type="text"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.noticeContent}
+                                        validation={errors.noticeContent && touched.noticeContent && errors.noticeContent}
+                                    />
+                                </div>
+                                <BusmeSecondaryButton title="Guardar aviso" disabled={isSubmitting} />
+                            </form>
+                        )}
+                    </Formik>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
