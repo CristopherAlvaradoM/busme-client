@@ -1,11 +1,11 @@
 "use client"
 
-import { Metadata } from "next";
 import React, { useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import BusmePageHeader from "../components/BusmePageHeader";
-
-
+import BusmeInput from "../components/BusmeInput";
+import { Formik } from "formik";
+import BusmeSecondaryButton from "../components/BusmeSecondaryButton";
 
 function textoSaludo(): string {
     const horaActual = new Date().getHours();
@@ -21,6 +21,20 @@ function textoSaludo(): string {
 
     return saludo;
 }
+
+interface BusesRecorrido {
+    'Nombre': string;
+    'No. de placas': string;
+    'Chofer': string;
+    'Estado': string;
+    'Sig. Parada': string;
+}
+
+const header: (keyof BusesRecorrido)[] = ['Nombre', 'No. de placas', 'Chofer', 'Estado', 'Sig. Parada'];
+const data: BusesRecorrido[] = [
+    { 'Nombre': 'BUS-A', 'No. de placas': 'AHJ-91S2', 'Chofer': 'Daniel M.', 'Estado': 'En ruta', 'Sig. Parada': 'Las Cuatas' },
+    { 'Nombre': 'BUS-B', 'No. de placas': 'V1K-X125', 'Chofer': 'Arturo P.', 'Estado': 'Abordando', 'Sig. Parada': 'Banus' },
+];
 
 export default function Page() {
     const saludo = textoSaludo()
@@ -69,16 +83,97 @@ export default function Page() {
         <div>
             <BusmePageHeader title={saludo + " " + "Anthony"} username={"Anthony"} rol={"Administrador"} />
             <div className="mt-5">
-                <div ref={mapRef} style={{ width: "100%", height: "400px" }}></div>
+                <div ref={mapRef} style={{ width: "100%", height: "350px" }}></div>
             </div>
-            <div className="grid grid-cols-12 w-full h-full items-center mt-6 gap-x-4">
-                <div className='col-span-7 bg-white rounded-2xl p-3'>
+            <div className="grid grid-cols-12 w-full h-full  mt-6 gap-x-4">
+                <div className='col-span-7 bg-white rounded-2xl p-5'>
                     <p className="subtitle-text">Autobuses en recorrido</p>
+                    <table className="w-full text-center font-poppins mt-5">
+                        <thead className="text-black border-white">
+                            <tr>
+                                {header.map(columna => (
+                                    <th key={columna} className="px-5 py-3 font-Bold">{columna}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map(constante => (
+                                <tr key={constante.Nombre} className="font-poppins text-black">
+                                    {header.map(columna => (
+                                        <td key={columna} className="px-3">
+                                            <div className={`px-3 py-1.5 mb-2 
+                                            ${columna === 'Estado' ? (constante.Estado === 'En ruta' ? 'bg-primary-800 text-white rounded-3xl text-sm font-semi-bold' :
+                                                    (constante.Estado === 'Abordando' ? 'bg-warning text-white rounded-3xl text-sm font-semi-bold' : '')) : ''}`}>
+                                                {constante[columna]}
+                                            </div>
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
                 <div className='col-span-5 bg-white rounded-2xl p-4'>
                     <p className="subtitle-text">Crear aviso rápido</p>
+                    <Formik
+                        initialValues={{ title: '', noticeContent: '' }}
+                        validate={values => {
+                            const errors = {} as { title?: string, noticeContent?: string };
+                            if (!values.title) {
+                                errors.title = 'Campo requerido';
+                            }
+                            if (!values.noticeContent) {
+                                errors.noticeContent = 'Campo requerido';
+                            }
+                            return errors;
+                        }}
+                        onSubmit={(values, { setSubmitting }) => {
+                            setTimeout(() => {
+                                alert(JSON.stringify(values, null, 2));
+                                setSubmitting(false);
+                            }, 400);
+                        }}
+                    >
+                        {({
+                            values,
+                            errors,
+                            touched,
+                            handleChange,
+                            handleBlur,
+                            handleSubmit,
+                            isSubmitting,
+                        }) => (
+                            <form onSubmit={handleSubmit}>
+                                <div>
+                                    <BusmeInput
+                                        name="title"
+                                        title=""
+                                        placeholder="Ingresa un título para el aviso"
+                                        type={"text"}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.title}
+                                        validation={errors.title && touched.title && errors.title}
+                                    />
+                                </div>
+                                <div className="">
+                                    <BusmeInput
+                                        name="noticeContent"
+                                        title=""
+                                        placeholder="Coloca el contenido del aviso"
+                                        type="text"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.noticeContent}
+                                        validation={errors.noticeContent && touched.noticeContent && errors.noticeContent}
+                                    />
+                                </div>
+                                <BusmeSecondaryButton title="Guardar aviso" disabled={isSubmitting} />
+                            </form>
+                        )}
+                    </Formik>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
