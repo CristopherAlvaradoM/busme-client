@@ -75,13 +75,13 @@ const itemsSuperadmin: ISidebarItem[] = [
         name: "Equipo de trabajo",
         icon: IoPersonOutline,
         alternateicon: IoPerson,
-        path: "/superadmin/workteam"
+        path: "/superadmin/work-team"
     },
     {
         name: "Roles",
         icon: IoIdCardOutline,
         alternateicon: IoIdCard,
-        path: "/superadmin/rols"
+        path: "/superadmin/roles"
     }
 ];
 
