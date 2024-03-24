@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import React from 'react';
 import {
@@ -140,7 +140,7 @@ const itemsConfig: ISidebarItem[] = [
                 path: "/",
             },
             {
-                name: "Notifications",
+                name: "Notifications",  
                 path: "/",
             },
         ],
