@@ -58,7 +58,7 @@
     }
 
     .button-primary {
-        @apply bg-primary-800 text-white font-poppins font-semi-bold rounded-3xl py-2 px-5 cursor-pointer;
+        @apply bg-primary-800 text-white font-poppins text-base font-semi-bold rounded-3xl py-2 px-5 cursor-pointer;
     }
 
     .button-primary-hover {
@@ -70,7 +70,7 @@
     }
 
     .button-secondary {
-        @apply bg-primary-600 text-white font-poppins font-medium text-sm rounded-lg py-3 px-5 cursor-pointer;
+        @apply bg-primary-600 text-white font-poppins font-medium text-base rounded-lg py-3 px-5 cursor-pointer;
     }
 
     .button-secondary-hover {
