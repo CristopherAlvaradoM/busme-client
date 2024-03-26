@@ -1,18 +1,10 @@
 import React from "react";
 import Select from "react-select";
+import { useField, FieldAttributes } from "formik";
 
-interface BusmeSelectProps {
-    name: string;
-    title: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-    options: any;
-    value: string;
-    validation: any;
-}
-
-const defaultValue = (options: any[], value: string) => {
-    return options ? options.find(option => option.value === value) : '';
+interface CustomSelectProps extends FieldAttributes<any> {
+    label: string;
+    options: { value: any; label: string }[];
 }
 
 const customStyles = {
@@ -28,19 +20,28 @@ const customStyles = {
     }),
 };
 
-const BusmeSelect: React.FC<BusmeSelectProps> = ({name, title, options, value, onChange, onBlur, validation}) => {
+const BusmeSelect: React.FC<CustomSelectProps> = ({ label, options, ...props }) => {
+    const [field, meta, helpers] = useField(props.name || "");
+
+    const handleChange = (selectedOption: any) => {
+        helpers.setValue(selectedOption ? selectedOption.value : "");
+    };
+
     return (
-        <div className="mt-5 w-1/2">
-            <p className="caption-text">{title}</p>
-            <Select name={name}
-                    styles={customStyles}
-                    value={defaultValue(options, value)}
-                    options={options}
-                    onChange={value=>onChange(value)}
-                    onBlur={onBlur}/>
-            <p className="error-text">{validation}</p>
+        <div className="mt-5">
+            <p className="caption-text">{label}</p>
+            <Select
+                {...field}
+                {...props}
+                styles={customStyles}
+                options={options}
+                onChange={handleChange}
+                onBlur={() => helpers.setTouched(true)}
+                value={options.find(option => option.value === field.value)}
+            />
+            {meta.touched && meta.error && <p className="error-text">{meta.error}</p>}
         </div>
-    )
-}
+    );
+};
 
 export default BusmeSelect;
