@@ -4,85 +4,98 @@ import BusmeCard from "@/app/components/BusmeCard";
 import BusmeInput from "@/app/components/BusmeInput";
 import {Formik} from "formik";
 import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
+import React from "react";
+import BusmeSelect from "@/app/components/BusmeSelect";
 
 export default function NewUserPage() {
+
+    const options = [
+        { value: 'superadmin', label: 'Super Administrador', privileges: ['Crear usuarios', 'Crear roles']},
+        { value: 'admin', label: 'Administrador', privileges: ['Visualización de vehículos de transporte en tiempo real', 'Creación y envío de avisos', 'Estadísticas y gráficos', 'Administración de vehículos', 'Administración de rutas']},
+        { value: 'quality', label: 'Calidad', privileges: ['Control y gestión de quejas/comentarios']}
+    ]
+
     return (
         <div>
             <BusmePageHeader rol={"Superadministrador"} title={"Nuevo usuario"} username={"Anthony"}
                              showBackIcon={true}/>
-            <div className="flex justify-between h-full">
-                <div className="w-7/12 h-full">
-                    <BusmeCard>
-                        <p className="subtitle-text">Información del usuario</p>
-                            <Formik
-                                initialValues={{ name: '', paternalLastName: '', maternalLastName: '', telephone: '', email: '', role: '', password: ''}}
-                                validate={values => {
-                                    const errors = {} as {name?: string, paternalLastName?: string, maternalLastName?: string, telephone?: string, email?: string, role?: string, password?: string};
-                                    if (!values.name) {
-                                        errors.name = 'Campo requerido';
-                                    }
-                                    if (!values.paternalLastName) {
-                                        errors.paternalLastName = 'Campo requerido';
-                                    }
-                                    if (!values.maternalLastName) {
-                                        errors.maternalLastName = 'Campo requerido';
-                                    }
-                                    if (!values.telephone) {
-                                        errors.telephone = 'Campo requerido';
-                                    } else if (values.telephone.length < 10 || values.telephone.length > 10) {
-                                        errors.telephone = 'Debe tener 10 dígitos';
-                                    } else if (!/^\d+$/.test(values.telephone)) {
-                                        errors.telephone = 'Debe contener solo números';
-                                    }
-                                    if (!values.email) {
-                                        errors.email = 'Campo requerido';
-                                    } else if (
-                                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                                    ) {
-                                        errors.email = 'Dirección de correo electrónico inválida';
-                                    }
-                                    if (!values.role) {
-                                        errors.role = 'Campo requerido';
-                                    }
-                                    if (!values.password) {
-                                        errors.password = 'Campo requerido';
-                                    } else if (values.password.length < 8) {
-                                        errors.password = 'La contraseña debe tener al menos 8 caracteres';
-                                    }
-                                    return errors;
-                                }}
-                                onSubmit={(values, { setSubmitting }) => {
-                                    setTimeout(() => {
-                                        alert(JSON.stringify(values, null, 2));
-                                        setSubmitting(false);
-                                    }, 400);
-                                }}
-                            >
-                                {({
-                                      values,
-                                      errors,
-                                      touched,
-                                      handleChange,
-                                      handleBlur,
-                                      handleSubmit,
-                                      isSubmitting,
-                                      /* and other goodies */
-                                  }) => (
+            <div className="flex justify-between h-full pb-10">
+                <Formik
+                    initialValues={{ name: '', paternalLastName: '', maternalLastName: '', telephone: '', email: '', role: '', password: ''}}
+                    validate={values => {
+                        const errors = {} as {name?: string, paternalLastName?: string, maternalLastName?: string, telephone?: string, email?: string, role?: string, password?: string};
+                        if (!values.name) {
+                            errors.name = 'Campo requerido';
+                        }
+                        if (!values.paternalLastName) {
+                            errors.paternalLastName = 'Campo requerido';
+                        }
+                        if (!values.maternalLastName) {
+                            errors.maternalLastName = 'Campo requerido';
+                        }
+                        if (!values.telephone) {
+                            errors.telephone = 'Campo requerido';
+                        } else if (values.telephone.length < 10 || values.telephone.length > 10) {
+                            errors.telephone = 'Debe tener 10 dígitos';
+                        } else if (!/^\d+$/.test(values.telephone)) {
+                            errors.telephone = 'Debe contener solo números';
+                        }
+                        if (!values.email) {
+                            errors.email = 'Campo requerido';
+                        } else if (
+                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                        ) {
+                            errors.email = 'Dirección de correo electrónico inválida';
+                        }
+                        if (!values.role) {
+                            errors.role = 'Campo requerido';
+                        }
+                        if (!values.password) {
+                            errors.password = 'Campo requerido';
+                        } else if (values.password.length < 8) {
+                            errors.password = 'La contraseña debe tener al menos 8 caracteres';
+                        }
+                        return errors;
+                    }}
+                    onSubmit={(values, { setSubmitting }) => {
+                        setTimeout(() => {
+                            alert(JSON.stringify(values, null, 2));
+                            setSubmitting(false);
+                        }, 400);
+                    }}
+                >
+                    {({
+                          values,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleBlur,
+                          handleSubmit,
+                          isSubmitting,
+                          /* and other goodies */
+                      }) => (
+                        <>
+                            <div className="w-7/12 flex-grow">
+                                <BusmeCard>
+                                    <p className="subtitle-text">Información del usuario</p>
                                     <form onSubmit={handleSubmit}>
                                         <div className="flex justify-between">
-                                            <BusmeInput name={"name"} title={"Nombre(s)"} placeholder={"Ingresa el nombre del usuario"}
+                                            <BusmeInput name={"name"} title={"Nombre(s)"}
+                                                        placeholder={"Ingresa el nombre del usuario"}
                                                         type={"text"}
                                                         onChange={handleChange} onBlur={handleBlur}
                                                         value={values.name}
                                                         validation={errors.name && touched.email && errors.name}/>
                                             <div className="mx-4"/>
-                                            <BusmeInput name={"paternalLastName"} title={"Apellido paterno"} placeholder={"Ingresa el apellido paterno"}
+                                            <BusmeInput name={"paternalLastName"} title={"Apellido paterno"}
+                                                        placeholder={"Ingresa el apellido paterno"}
                                                         type={"text"} onChange={handleChange} onBlur={handleBlur}
                                                         value={values.paternalLastName}
                                                         validation={errors.paternalLastName && touched.paternalLastName && errors.paternalLastName}/>
                                         </div>
                                         <div className="flex justify-between">
-                                            <BusmeInput name={"maternalLastName"} title={"Apellido materno"} placeholder={"Ingresa el apellido materno"}
+                                            <BusmeInput name={"maternalLastName"} title={"Apellido materno"}
+                                                        placeholder={"Ingresa el apellido materno"}
                                                         type={"text"}
                                                         onChange={handleChange} onBlur={handleBlur}
                                                         value={values.maternalLastName}
@@ -96,34 +109,48 @@ export default function NewUserPage() {
                                         </div>
                                         <p className="subtitle-text mt-5">Información de la cuenta</p>
                                         <div className="flex justify-between">
-                                            <BusmeInput name={"email"} title={"Correo electrónico"} placeholder={"correo@dominio.com"}
-                                                        type={"email"}
-                                                        onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.email}
-                                                        validation={errors.email && touched.email && errors.email}/>
+                                            <div className="w-1/2">
+                                                <BusmeInput name={"email"} title={"Correo electrónico"}
+                                                            placeholder={"correo@dominio.com"}
+                                                            type={"email"}
+                                                            onChange={handleChange} onBlur={handleBlur}
+                                                            value={values.email}
+                                                            validation={errors.email && touched.email && errors.email}/>
+                                            </div>
                                             <div className="mx-4"/>
-                                            <BusmeInput name={"role"} title={"Rol de usuario"} placeholder={"Selecciona un rol de usuario"}
-                                                        type={"text"} onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.role}
-                                                        validation={errors.role && touched.role && errors.role}/>
+                                            <div className="w-1/2">
+                                                <BusmeSelect
+                                                    name="role"
+                                                    label="Rol de usuario"
+                                                    options={options}
+                                                />
+                                            </div>
                                         </div>
-                                        <BusmeInput name={"password"} title={"Contraseña"} placeholder={"Ingresa una contraseña"}
+                                        <BusmeInput name={"password"} title={"Contraseña"}
+                                                    placeholder={"Ingresa una contraseña"}
                                                     type={"password"}
                                                     onChange={handleChange} onBlur={handleBlur}
                                                     value={values.password}
                                                     validation={errors.password && touched.password && errors.password}/>
-                                        <BusmeSecondaryButton title={"Generar nuevo perfil de usuario"} disabled={isSubmitting}/>
+                                        <BusmeSecondaryButton title={"Generar nuevo perfil de usuario"}
+                                                              disabled={isSubmitting}/>
                                     </form>
-                                )}
-                            </Formik>
-                    </BusmeCard>
-                </div>
-                <div className="w-5/12 ml-7">
-                    <BusmeCard>
-                        <p className="subtitle-text">Vista previa</p>
-                        <p className="body-text mt-5">Estás a punto de crear un nuevo perfil para:</p>
-                    </BusmeCard>
-                </div>
+                                </BusmeCard>
+                            </div>
+                            <div className="w-5/12 flex-grow ml-7">
+                                <BusmeCard>
+                                    <p className="subtitle-text">Vista previa</p>
+                                    <p className="body-text mt-5">Estás a punto de crear un nuevo perfil para:</p>
+                                    <p className="bold-body-text">{values.name} {values.paternalLastName} {values.maternalLastName}</p>
+                                    <p className="body-text mt-5">Con el siguiente rol de usuario:</p>
+                                    <p className="bold-body-text">{values.role}</p>
+                                    <p className="body-text mt-5">Teniendo permisos para acceder y/o modificar la siguiente información:</p>
+                                    <p className="bold-body-text">{values.role}</p>
+                                </BusmeCard>
+                            </div>
+                        </>
+                    )}
+                </Formik>
             </div>
         </div>
     );

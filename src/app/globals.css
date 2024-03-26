@@ -45,6 +45,10 @@
         @apply text-[16px] font-normal text-black font-poppins;
     }
 
+    .bold-body-text {
+        @apply text-[16px] font-medium text-black font-poppins;
+    }
+
     .caption-text {
         @apply text-[16px] font-medium text-muted-800 font-poppins;
     }
