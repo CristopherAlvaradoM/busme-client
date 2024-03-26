@@ -23,8 +23,7 @@ const BusmeNavButton: React.FC<BusmeButtonProps> = ({
 }: BusmeButtonProps) => {
   const pathname = usePathname();
 
-  const isActive = useMemo(() => {+
-    console.log(path, path.toString().split('/').length);
+  const isActive = useMemo(() => {
     if(path === "/") return false
     if (path.toString().split('/').length < 3) return pathname === path.toString();
     return pathname.includes(path.toString());
