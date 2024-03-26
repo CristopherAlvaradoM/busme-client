@@ -5,8 +5,17 @@ import BusmeInput from "@/app/components/BusmeInput";
 import {Formik} from "formik";
 import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 import Select from "react-select";
+import React from "react";
+import BusmeSelect from "@/app/components/BusmeSelect";
 
 export default function NewUserPage() {
+
+    const options = [
+        { value: 'superadmin', label: 'Super Administrador', privileges: ['Crear usuarios', 'Crear roles']},
+        { value: 'admin', label: 'Administrador', privileges: ['Visualización de vehículos de transporte en tiempo real', 'Creación y envío de avisos', 'Estadísticas y gráficos', 'Administración de vehículos', 'Administración de rutas']},
+        { value: 'quality', label: 'Calidad', privileges: ['Control y gestión de quejas/comentarios']}
+    ]
+
     return (
         <div>
             <BusmePageHeader rol={"Superadministrador"} title={"Nuevo usuario"} username={"Anthony"}
@@ -64,6 +73,7 @@ export default function NewUserPage() {
                           handleBlur,
                           handleSubmit,
                           isSubmitting,
+                          setFieldValue,
                           /* and other goodies */
                       }) => (
                         <>
@@ -101,18 +111,22 @@ export default function NewUserPage() {
                                         </div>
                                         <p className="subtitle-text mt-5">Información de la cuenta</p>
                                         <div className="flex justify-between">
-                                            <BusmeInput name={"email"} title={"Correo electrónico"}
-                                                        placeholder={"correo@dominio.com"}
-                                                        type={"email"}
-                                                        onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.email}
-                                                        validation={errors.email && touched.email && errors.email}/>
+                                            <div className="w-1/2">
+                                                <BusmeInput name={"email"} title={"Correo electrónico"}
+                                                            placeholder={"correo@dominio.com"}
+                                                            type={"email"}
+                                                            onChange={handleChange} onBlur={handleBlur}
+                                                            value={values.email}
+                                                            validation={errors.email && touched.email && errors.email}/>
+                                            </div>
                                             <div className="mx-4"/>
-                                            <BusmeInput name={"role"} title={"Rol de usuario"}
-                                                        placeholder={"Selecciona un rol de usuario"}
-                                                        type={"text"} onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.role}
-                                                        validation={errors.role && touched.role && errors.role}/>
+                                            <div className="w-1/2">
+                                                <BusmeSelect
+                                                    name="role"
+                                                    label="Rol de usuario"
+                                                    options={options}
+                                                />
+                                            </div>
                                         </div>
                                         <BusmeInput name={"password"} title={"Contraseña"}
                                                     placeholder={"Ingresa una contraseña"}
