@@ -4,7 +4,6 @@ import BusmeCard from "@/app/components/BusmeCard";
 import BusmeInput from "@/app/components/BusmeInput";
 import {Formik} from "formik";
 import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
-import Select from "react-select";
 import React from "react";
 import BusmeSelect from "@/app/components/BusmeSelect";
 
@@ -73,7 +72,6 @@ export default function NewUserPage() {
                           handleBlur,
                           handleSubmit,
                           isSubmitting,
-                          setFieldValue,
                           /* and other goodies */
                       }) => (
                         <>
