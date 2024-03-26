@@ -42,7 +42,7 @@ const BusmeNavButton = ({ item }: { item: ISidebarItem }) => {
       }
     }
 
-    return path === pathname;
+    return pathname.includes(path);
   }, [items, path, pathname]);
 
   return (
@@ -50,7 +50,7 @@ const BusmeNavButton = ({ item }: { item: ISidebarItem }) => {
       <div
         className={`flex h-[48px] grow items-center justify-center gap-2 rounded-md p-3 text-sm font-madium font-poppins cursor-pointer
         transition duration-300 ease-in-out hover:bg-primary-600 hover:text-white md:flex-none md:justify-start md:p-2 md:px-3 md:mt-2
-        ${isActive && ' text-white bg-primary-600'} ${customClass ? customClass : ''}
+        ${isActive && ' text-white bg-primary-600'} ${customClass || ''}
     `}
         onClick={onClick}
       >
