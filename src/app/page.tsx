@@ -39,7 +39,7 @@ export default function LoginPage() {
                   name="password" 
                 />
               </div>
-              <Link href="./requestemail">
+              <Link href="./forget-password">
                 <span className="link-text flex mt-2 justify-end">Olvidé mi contraseña</span>
               </Link>
               <div className='mt-20'>
