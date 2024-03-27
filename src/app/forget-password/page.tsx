@@ -6,7 +6,7 @@ import {IoArrowBack} from "react-icons/io5";
 
 export default function ForgetPasswordPage() {
   return (
-    <main className="flex flex-col h-screen w-full p-8 md:p-10">
+    <main className="flex flex-col md:h-screen w-full p-8 md:p-10 overflow-auto">
       <div className='w-full'>
         <Image
           src={Logotipo}
