@@ -48,7 +48,7 @@ export default function SuperAdminPage() {
             </BusmeCard>
 
             <BusmeCard>
-                <BusmeCardHeader subtitle={"Lista de roles de administración"} linkText={"Ver más"} to={"/superadmin/work-team"}/>
+                <BusmeCardHeader subtitle={"Lista de roles de administración"} linkText={"Ver más"} to={"/superadmin/roles"}/>
                 <BusmeTable headers={rolsHeaders} data={rolsData}/>
             </BusmeCard>
         </div>
