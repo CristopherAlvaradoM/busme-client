@@ -23,13 +23,13 @@ const InputField: React.FC<InputFieldProps> = ({ label, type, name, onChange, on
         name={name}
         placeholder={label}
         style={{ borderBottomWidth: '1.8px' }}
-        className={`border-b border-muted-500 py-2 w-full text-base font-medium outline-none focus:border-primary-800 ${touched && error && 'border-red-500'}`}
+        className={`border-b border-muted-500 py-2 w-full text-base font-medium outline-none focus:border-primary-800 ${touched && error}`}
         onChange={onChange}
         onBlur={onBlur}
         value={value}
         required
       />
-      {touched && error && <p className="text-danger">{error}</p>}
+      {touched && error && <p className="text-danger text-sm mt-1">{error}</p>}
     </div>
   );
 };

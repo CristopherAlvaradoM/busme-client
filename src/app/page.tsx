@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image';
 import Link from 'next/link';
+import { Formik } from 'formik';
 import FondoPag from '@/assets/img/fondo-page.png';
 import FondoLog from '@/assets/img/fondo-login.png';
 import CustomButton from '@/app/components/BusmeButtonLogin';
@@ -23,40 +24,78 @@ export default function LoginPage() {
         <div className="md:w-1/2 p-8 py-12 lg:py-16 lg:px-14">
           <div className="flex flex-col">
             <h2 className="title-text mb-16">Inicia Sesión</h2>
-            <form>
-              <div className='flex flex-col gap-y-10'>
-              <InputField
-                label="Correo electrónico"
-                type="email"
-                name="email"
-                onChange={() => {}}
-                onBlur={() => {}}
-                value=""
-                error=""
-                touched={false}
-              />
-              <InputField
-                label="Contraseña"
-                type="password"
-                name="password"
-                onChange={() => {}}
-                onBlur={() => {}}
-                value=""
-                error=""
-                touched={false}
-              />
-              </div>
-              <Link href="./forget-password">
-                <span className="link-text flex mt-2 justify-end">Olvidé mi contraseña</span>
-              </Link>
-              <div className='mt-20'>
-                <CustomButton
-                  text="Ingresar" 
-                  type="submit"
-                  // disabled={''}
-                />
-              </div>
-            </form>
+            <Formik
+              initialValues={{ email: '', password: '' }}
+              validate={values => {
+                const errors = {} as {email?: string, password?: string};
+                // Validación personalizada para el correo electrónico y la contraseña
+                if (!values.email) {
+                  errors.email = 'Campo requerido';
+                } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                  errors.email = 'Dirección de correo electrónico inválida';
+                }
+                if (!values.password) {
+                  errors.password = 'Campo requerido';
+                }
+                return errors;
+              }}
+              onSubmit={(values, { setSubmitting }) => {
+                // Verificar si el usuario y la contraseña son correctos
+                const user = values.email === 'user@gmail.com';
+                const password = values.password === '1234';
+              
+                if (user && password) {
+                  // Mostrar alerta de inicio de sesión exitoso
+                  alert('¡Inicio de sesión exitoso!\n¡Bienvenido de vuelta!');
+                } else {
+                  // Mostrar alerta de error de inicio de sesión
+                  alert('Error de inicio de sesión\nEl usuario o la contraseña son incorrectos.');
+                }
+              
+                // Establecer que el formulario ya no está siendo enviado
+                setSubmitting(false);
+              }}
+            >
+              {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                <form onSubmit={handleSubmit}>
+                  {/* Campos de entrada */}
+                  <div className='flex flex-col gap-y-10'>
+                    <InputField 
+                      label="Correo electrónico" 
+                      type="email" 
+                      name="email" 
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                      error={errors.email}
+                      touched={touched.email}
+                    />
+                    <InputField 
+                      label="Contraseña" 
+                      type="password" 
+                      name="password" 
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.password}
+                      error={errors.password}
+                      touched={touched.password}
+                    />
+                  </div>
+                  {/* Enlace para olvidar contraseña */}
+                  <Link href="./forget-password">
+                    <span className="link-text flex mt-2 justify-end">Olvidé mi contraseña</span>
+                  </Link>
+                  {/* Botón de inicio de sesión */}
+                  <div className='mt-20'>
+                    <CustomButton
+                      text="Ingresar" 
+                      type="submit"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                </form>
+              )}
+            </Formik>
           </div>
         </div>
         <div className="md:w-1/2 hidden md:block ">
