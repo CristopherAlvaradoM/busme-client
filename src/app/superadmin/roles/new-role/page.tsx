@@ -27,11 +27,14 @@ export default function NewUserPage() {
                              showBackIcon={true}/>
             <div className="flex justify-between h-full">
                 <Formik
-                    initialValues={{ maternalLastName: '' }}
+                    initialValues={{ rolName: '', selectedPages: [] }}
                     validate={values => {
-                        const errors = {} as {maternalLastName?: string};
-                        if (!values.maternalLastName) {
-                            errors.maternalLastName = 'Campo requerido';
+                        const errors = {} as { rolName?: string, selectedPages?: string };
+                        if (!values.rolName) {
+                            errors.rolName = 'Campo requerido';
+                        }
+                        if (values.selectedPages.length === 0) {
+                            errors.selectedPages = 'Selecciona al menos una página';
                         }
                         return errors;
                     }}
@@ -60,20 +63,25 @@ export default function NewUserPage() {
                                 <BusmeCard>
                                     <p className="subtitle-text">Información del rol</p>
                                     <form onSubmit={handleSubmit}>
-                                        <BusmeInput name={"maternalLastName"} title={"Apellido materno"}
-                                                    placeholder={"Ingresa el apellido materno"}
+                                        <BusmeInput name={"rolName"} title={"Nombre del rol"}
+                                                    placeholder={"Ingresa el nombre del rol"}
                                                     type={"text"}
                                                     onChange={handleChange} onBlur={handleBlur}
-                                                    value={values.maternalLastName}
-                                                    validation={errors.maternalLastName && touched.maternalLastName && errors.maternalLastName}/>
+                                                    value={values.rolName}
+                                                    validation={errors.rolName && touched.rolName && errors.rolName}/>
                                         <p className="subtitle-text mt-10">Selecciona a que información tendrá acceso el rol</p>
-                                        <div className="flex flex-grow">
-                                                {pages_access.map(page => (
-                                                    <div className="w-1/3" key={page.label}>
-                                                        <BusmeCheckbox value={page.value} name={page.value} label={page.label}/>
-                                                    </div>
-                                                ))}
+                                        <div className="flex flex-wrap py-5">
+                                            {pages_access.map(page => (
+                                                <div className="w-1/3" key={page.label}>
+                                                    <BusmeCheckbox
+                                                        value={page.value}
+                                                        name={page.value}
+                                                        label={page.label}
+                                                    />
+                                                </div>
+                                            ))}
                                         </div>
+                                        {errors.selectedPages && <div className="error-text">{errors.selectedPages}</div>}
                                         <BusmeSecondaryButton title={"Generar nuevo perfil de usuario"}
                                                               disabled={isSubmitting}/>
                                     </form>
