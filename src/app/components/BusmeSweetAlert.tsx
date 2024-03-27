@@ -11,6 +11,13 @@ export const BusmeSweetAlert = (title: string, text: string, icon: BusmeSweetAle
     Swal.fire({
         title: title,
         text: text,
-        icon: icon
+        icon: icon,
+        customClass:{
+            title: 'title-text',
+            validationMessage: 'subtitle-text',
+            confirmButton: 'font-poppins',
+            denyButton: 'font-poppins',
+            cancelButton: 'font-poppins',
+        }
     });
 };
