@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { IoHomeOutline, IoHome, IoPinOutline, IoPin, IoBusOutline, IoBusSharp, IoBarChartOutline, IoBarChart, IoMailUnreadOutline, IoSettingsOutline,
-    IoSettings, IoMailUnread, IoLogOutOutline, IoLogOut, IoPersonOutline, IoPerson, IoPersonAddOutline, IoPersonAdd, IoIdCardOutline, IoIdCard
+    IoSettings, IoMailUnread, IoLogOutOutline, IoLogOut, IoPersonOutline, IoPerson, IoPersonAddOutline, IoPersonAdd, IoIdCardOutline, IoIdCard, IoPeople, IoPeopleOutline
 } from "react-icons/io5";
 import BusmeLogo from "@/assets/img/busme-logo.jpeg";
 import BusmeNavButton from './BusmeNavButton';
@@ -47,8 +47,8 @@ const itemsSuperadmin: ISidebarItem[] = [
     },
     {
         name: "Equipo de trabajo",
-        icon: IoPersonOutline,
-        alternateicon: IoPerson,
+        icon: IoPeopleOutline,
+        alternateicon: IoPeople,
         path: "/superadmin/work-team"
     },
     {
