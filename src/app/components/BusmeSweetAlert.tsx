@@ -7,7 +7,6 @@ export enum BusmeSweetAlertIconType {
     Question = 'question'
 }
 
-// Definir la función showSweetAlert con el enum como el tipo del tercer parámetro
 export const BusmeSweetAlert = (title: string, text: string, icon: BusmeSweetAlertIconType) => {
     Swal.fire({
         title: title,
