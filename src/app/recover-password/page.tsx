@@ -1,3 +1,4 @@
+"use client"
 import CustomButton from '@/app/components/BusmeButtonLogin';
 import InputField from '@/app/components/BusmeInputLogin';
 import Image from 'next/image';
@@ -16,10 +17,6 @@ export default function RecoverPasswordPage() {
         />
       </div>
       <div className="flex flex-col mx-auto my-24 xl:my-auto justify-center text-center gap-y-10">
-        <div className='w-full flex justify-start items-center'>
-          <IoArrowBack className="w-[30px] h-[30px] mr-2 cursor-pointer"/>
-          <p className="subtitle-text">Regresar</p>
-        </div>
         <div>
           <h2 className="font-poppins font-semi-bold text-2xl md:text-3xl mb-2">Restablecer mi contraseña</h2>
           <p className="body-text">
@@ -31,6 +28,11 @@ export default function RecoverPasswordPage() {
               label="Nueva contraseña" 
               type="Password" 
               name="NewPassword"
+              onChange={() => {}}
+              onBlur={() => {}}
+              value=""
+              error=""
+              touched={false}
             />
           </div>
           <div className=''>
@@ -38,6 +40,11 @@ export default function RecoverPasswordPage() {
               label="Confirmar contraseña" 
               type="Password" 
               name="ConfPassword"
+              onChange={() => {}}
+              onBlur={() => {}}
+              value=""
+              error=""
+              touched={false}
             />
           </div>
           <div className=''>

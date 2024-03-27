@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image';
 import Link from 'next/link';
 import FondoPag from '@/assets/img/fondo-page.png';
@@ -5,10 +6,6 @@ import FondoLog from '@/assets/img/fondo-login.png';
 import CustomButton from '@/app/components/BusmeButtonLogin';
 import InputField from './components/BusmeInputLogin';
 
-export const metadata = {
-  title: "BusMe - Inicio de sesión",
-  description: "Login",
-};
 
 export default function LoginPage() {
   return (
@@ -28,16 +25,26 @@ export default function LoginPage() {
             <h2 className="title-text mb-16">Inicia Sesión</h2>
             <form>
               <div className='flex flex-col gap-y-10'>
-                <InputField 
-                  label="Correo electrónico" 
-                  type="email" 
-                  name="email" 
-                />
-                <InputField 
-                  label="Contraseña" 
-                  type="password" 
-                  name="password" 
-                />
+              <InputField
+                label="Correo electrónico"
+                type="email"
+                name="email"
+                onChange={() => {}}
+                onBlur={() => {}}
+                value=""
+                error=""
+                touched={false}
+              />
+              <InputField
+                label="Contraseña"
+                type="password"
+                name="password"
+                onChange={() => {}}
+                onBlur={() => {}}
+                value=""
+                error=""
+                touched={false}
+              />
               </div>
               <Link href="./forget-password">
                 <span className="link-text flex mt-2 justify-end">Olvidé mi contraseña</span>

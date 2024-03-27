@@ -1,3 +1,4 @@
+"use client"
 import CustomButton from '@/app/components/BusmeButtonLogin';
 import InputField from '@/app/components/BusmeInputLogin';
 import Image from 'next/image';
@@ -31,6 +32,11 @@ export default function ForgetPasswordPage() {
             label="Correo electrónico" 
             type="email" 
             name="email"
+            onChange={() => {}}
+            onBlur={() => {}}
+            value=""
+            error=""
+            touched={false}
           />
         </div>
         <div className=''>
