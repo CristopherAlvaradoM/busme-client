@@ -52,7 +52,8 @@ export default function LoginPage() {
               <div className='mt-20'>
                 <CustomButton
                   text="Ingresar" 
-                  // onClick={}
+                  type="submit"
+                  // disabled={''}
                 />
               </div>
             </form>

@@ -3,7 +3,6 @@ import CustomButton from '@/app/components/BusmeButtonLogin';
 import InputField from '@/app/components/BusmeInputLogin';
 import Image from 'next/image';
 import Logotipo from '@/assets/img/LogotipoBusme.jpg';
-import {IoArrowBack} from "react-icons/io5";
 
 export default function RecoverPasswordPage() {
   return (
@@ -48,11 +47,11 @@ export default function RecoverPasswordPage() {
             />
           </div>
           <div className=''>
-            <CustomButton
-              type='submit'
-              text="Enviar" 
-              //onClick={}
-            />
+          <CustomButton
+            text="Ingresar" 
+            type="submit"
+            // disabled={''}
+          />
           </div>
       </div>
     </main>
