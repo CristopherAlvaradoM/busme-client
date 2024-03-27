@@ -35,6 +35,7 @@ export default function ForgetPasswordPage() {
         </div>
         <div className=''>
           <CustomButton
+            type='submit'
             text="Enviar" 
             //onClick={}
           />
