@@ -1,33 +1,13 @@
 "use client"
 
 import React from 'react';
-import {
-    IoHomeOutline,
-    IoHome,
-    IoPinOutline,
-    IoPin,
-    IoBusOutline,
-    IoBusSharp,
-    IoBarChartOutline,
-    IoBarChart,
-    IoMailUnreadOutline,
-    IoSettingsOutline,
-    IoSettings,
-    IoMailUnread,
-    IoLogOutOutline,
-    IoLogOut,
-    IoPersonOutline,
-    IoPerson,
-    IoPersonAddOutline,
-    IoPersonAdd,
-    IoIdCardOutline,
-    IoIdCard
+import { IoHomeOutline, IoHome, IoPinOutline, IoPin, IoBusOutline, IoBusSharp, IoBarChartOutline, IoBarChart, IoMailUnreadOutline, IoSettingsOutline,
+    IoSettings, IoMailUnread, IoLogOutOutline, IoLogOut, IoPersonOutline, IoPerson, IoPersonAddOutline, IoPersonAdd, IoIdCardOutline, IoIdCard, IoPeople, IoPeopleOutline
 } from "react-icons/io5";
 import BusmeLogo from "@/assets/img/busme-logo.jpeg";
 import BusmeNavButton from './BusmeNavButton';
 import Image from 'next/image';
 import { IconBaseProps } from 'react-icons';
-
 
 interface ISidebarItem {
     name: string;
@@ -35,12 +15,6 @@ interface ISidebarItem {
     icon: React.ComponentType<IconBaseProps>;
     alternateicon: React.ComponentType<IconBaseProps>;
     customClass?: string;
-    items?: ISubItem[];
-}
-
-interface ISubItem {
-    name: string;
-    path: string;
 }
 
 const itemsQuality: ISidebarItem[] = [
@@ -73,8 +47,8 @@ const itemsSuperadmin: ISidebarItem[] = [
     },
     {
         name: "Equipo de trabajo",
-        icon: IoPersonOutline,
-        alternateicon: IoPerson,
+        icon: IoPeopleOutline,
+        alternateicon: IoPeople,
         path: "/superadmin/work-team"
     },
     {
@@ -124,26 +98,13 @@ const itemsAdmin: ISidebarItem[] = [
     },
 
 ];
+
 const itemsConfig: ISidebarItem[] = [
     {
         name: "Configuraciones",
         icon: IoSettingsOutline,
         alternateicon: IoSettings,
         path: "/",
-        items: [
-            {
-                name: "General",
-                path: "/",
-            },
-            {
-                name: "Security",
-                path: "/",
-            },
-            {
-                name: "Notifications",  
-                path: "/",
-            },
-        ],
     },
     {
         name: "Cerrar sesión",
@@ -186,17 +147,28 @@ const BusmeSidebar = ({ userRole }: { userRole: string }) => {
                 </div>
 
                 <p className='text-muted-800 text-xs font-semibold font-poppins mt-5'>General</p>
-
-                {itemsToShow.map((item, index) => (
-                    <BusmeNavButton key={index} item={item} />
+                {itemsToShow.map(item => (
+                    <BusmeNavButton
+                        key={item.name} // Asegúrate de tener un identificador único para cada elemento
+                        name={item.name}
+                        path={item.path}
+                        icon={item.icon}
+                        iconAlternative={item.alternateicon}
+                    />
                 ))}
             </div>
 
             <div>
                 <p className='text-muted-800 text-xs font-semibold font-poppins mt-5'>Configuraciones</p>
-
-                {itemsConfig.map((item, index) => (
-                    <BusmeNavButton key={index} item={item} />
+                {itemsConfig.map(item => (
+                    <BusmeNavButton
+                        key={item.name} // Asegúrate de tener un identificador único para cada elemento
+                        name={item.name}
+                        path={item.path}
+                        icon={item.icon}
+                        iconAlternative={item.alternateicon}
+                        customClass={item.customClass}
+                    />
                 ))}
             </div>
         </div>
