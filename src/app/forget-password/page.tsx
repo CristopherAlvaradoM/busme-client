@@ -4,6 +4,9 @@ import InputField from '@/app/components/BusmeInputLogin';
 import Image from 'next/image';
 import Logotipo from '@/assets/img/LogotipoBusme.jpg';
 import {IoArrowBack} from "react-icons/io5";
+import { Formik } from 'formik';
+import Link from 'next/link';
+import { Span } from 'next/dist/trace';
 
 export default function ForgetPasswordPage() {
   return (
@@ -16,10 +19,14 @@ export default function ForgetPasswordPage() {
           priority
         />
       </div>
-      <div className="flex flex-col mx-auto my-24 xl:my-auto justify-center text-center gap-y-14">
+      <div className="flex flex-col mx-auto my-24 xl:my-auto justify-center text-center gap-y-12">
         <div className='w-full flex justify-start items-center'>
-          <IoArrowBack className="w-[30px] h-[30px] mr-2 cursor-pointer"/>
-          <p className="subtitle-text">Regresar</p>
+          <Link href="./"> {/* Enlace de regreso a la página de inicio de sesión */}
+            <span className="flex items-center">
+              <IoArrowBack className="w-[30px] h-[30px] mr-2 cursor-pointer"/>
+              <p className="subtitle-text">Regresar</p>
+            </span>
+          </Link>
         </div>
         <div>
           <h2 className="font-poppins font-semi-bold text-2xl md:text-3xl mb-2">Recuperar mi contraseña</h2>
@@ -27,25 +34,60 @@ export default function ForgetPasswordPage() {
             Ingrese la dirección de correo electrónico para continuar
           </p>
         </div>
-        <div className=''>
-          <InputField 
-            label="Correo electrónico" 
-            type="email" 
-            name="email"
-            onChange={() => {}}
-            onBlur={() => {}}
-            value=""
-            error=""
-            touched={false}
-          />
-        </div>
-        <div className=''>
-          <CustomButton
-            text="Ingresar" 
-            type="submit"
-            // disabled={''}
-          />
-        </div>
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          validate={values => {
+            const errors = {} as {email?: string};
+            // Validación personalizada para el correo electrónico y la contraseña
+            if (!values.email) {
+              errors.email = 'Campo requerido';
+            }else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+              errors.email = 'Dirección de correo electrónico inválida';
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            // Lista de correos existentes
+            const existingEmails = ['user1@example.com', 'user2@example.com', 'user3@example.com'];
+            
+            if (existingEmails.includes(values.email)) {
+
+              alert('¡El correo se envió correctamente!');
+
+            } else {
+
+              alert('¡Error! El correo no existe.');
+              
+            }
+
+            // Establecemos que el formulario ya no está siendo enviado
+            setSubmitting(false);
+          }}
+        >
+          {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+            <form onSubmit={handleSubmit}>
+              <div className='mb-14'>
+                <InputField 
+                  label="Correo electrónico" 
+                  type="email" 
+                  name="email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  error={errors.email}
+                  touched={touched.email}
+                />
+              </div>
+              <div className=''>
+                <CustomButton
+                  text="Ingresar" 
+                  type="submit"
+                  disabled={isSubmitting}
+                />
+              </div>
+            </form>
+          )}
+        </Formik>
       </div>
     </main>
   );
