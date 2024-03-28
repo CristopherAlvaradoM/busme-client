@@ -6,7 +6,6 @@ import Logotipo from '@/assets/img/LogotipoBusme.jpg';
 import {IoArrowBack} from "react-icons/io5";
 import { Formik } from 'formik';
 import Link from 'next/link';
-import { Span } from 'next/dist/trace';
 
 export default function ForgetPasswordPage() {
   return (
@@ -21,7 +20,7 @@ export default function ForgetPasswordPage() {
       </div>
       <div className="flex flex-col mx-auto my-24 xl:my-auto justify-center text-center gap-y-12">
         <div className='w-full flex justify-start items-center'>
-          <Link href="./"> {/* Enlace de regreso a la página de inicio de sesión */}
+          <Link href="./"> 
             <span className="flex items-center">
               <IoArrowBack className="w-[30px] h-[30px] mr-2 cursor-pointer"/>
               <p className="subtitle-text">Regresar</p>
