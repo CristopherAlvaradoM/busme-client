@@ -6,6 +6,7 @@ import FondoPag from '@/assets/img/fondo-page.png';
 import FondoLog from '@/assets/img/fondo-login.png';
 import CustomButton from '@/app/components/BusmeButtonLogin';
 import InputField from './components/BusmeInputLogin';
+import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 
 
 export default function LoginPage() {
@@ -43,13 +44,21 @@ export default function LoginPage() {
                 // Verificar si el usuario y la contraseña son correctos
                 const user = values.email === 'user@gmail.com';
                 const password = values.password === '1234';
-              
+                
                 if (user && password) {
                   // Mostrar alerta de inicio de sesión exitoso
-                  alert('¡Inicio de sesión exitoso!\n¡Bienvenido de vuelta!');
+                  BusmeSweetAlert(
+                    '¡Inicio de sesión exitoso!',
+                    '¡Bienvenido de vuelta!',
+                    BusmeSweetAlertIconType.Success
+                  );
                 } else {
                   // Mostrar alerta de error de inicio de sesión
-                  alert('Error de inicio de sesión\nEl usuario o la contraseña son incorrectos.');
+                  BusmeSweetAlert(
+                    'Error de inicio de sesión',
+                    'El usuario o la contraseña son incorrectos.',
+                    BusmeSweetAlertIconType.Error
+                  );
                 }
               
                 // Establecer que el formulario ya no está siendo enviado
