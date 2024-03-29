@@ -4,6 +4,7 @@ import InputField from '@/app/components/BusmeInputLogin';
 import Image from 'next/image';
 import Logotipo from '@/assets/img/LogotipoBusme.jpg';
 import { Formik } from 'formik';
+import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 
 export default function RecoverPasswordPage() {
   return (
@@ -61,8 +62,12 @@ export default function RecoverPasswordPage() {
           
             if (values.NewPassword === values.ConfPassword && values.NewPassword) {
               // Contraseña válida y coincidente
-              alert(`Contraseña restablecida correctamente. Nueva contraseña: ${values.NewPassword}`);
-          
+              BusmeSweetAlert(
+                'Contraseña Restablecida',
+                `¡Tu contraseña ha sido restablecida exitosamente!`,
+                BusmeSweetAlertIconType.Success
+              );
+            
               // Establecemos que el formulario ya no está siendo enviado
               setSubmitting(false);
             }

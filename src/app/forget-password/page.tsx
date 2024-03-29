@@ -6,6 +6,7 @@ import Logotipo from '@/assets/img/LogotipoBusme.jpg';
 import {IoArrowBack} from "react-icons/io5";
 import { Formik } from 'formik';
 import Link from 'next/link';
+import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 
 export default function ForgetPasswordPage() {
   return (
@@ -48,18 +49,24 @@ export default function ForgetPasswordPage() {
           onSubmit={(values, { setSubmitting }) => {
             // Lista de correos existentes
             const existingEmails = ['user1@example.com', 'user2@example.com', 'user3@example.com'];
-            
+          
             if (existingEmails.includes(values.email)) {
-
-              alert('¡El correo se envió correctamente!');
-
+              // Mostrar alerta de éxito
+              BusmeSweetAlert(
+                'Correo Enviado',
+                'Hemos enviado un correo para restablecer tu contraseña.',
+                BusmeSweetAlertIconType.Success
+              );
             } else {
-
-              alert('¡Error! El correo no existe.');
-              
+              // Mostrar alerta de error
+              BusmeSweetAlert(
+                'Correo inválido',
+                'El correo electrónico que ingresaste no está asociado con ninguna cuenta.',
+                BusmeSweetAlertIconType.Error
+              );
             }
-
-            // Establecemos que el formulario ya no está siendo enviado
+            
+            // Establecer que el formulario ya no está siendo enviado
             setSubmitting(false);
           }}
         >
