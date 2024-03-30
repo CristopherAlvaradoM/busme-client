@@ -25,7 +25,7 @@ const BusmeSearchInput: React.FC<SearchInputProps> = ({ placeholder = 'Buscar...
         placeholder={placeholder}
         value={searchTerm}
         onChange={handleChange}
-        className="pl-10 w-full rounded-lg bg-muted-200 p-3 font-poppins mt-2 border border-muted-200"
+        className="pl-10 w-full rounded-lg bg-white p-3 font-poppins mt-2 border border-muted-200"
       />
     </div>
   );

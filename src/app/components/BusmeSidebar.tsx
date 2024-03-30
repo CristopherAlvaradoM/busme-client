@@ -5,7 +5,7 @@ import { IoHomeOutline, IoHome, IoPinOutline, IoPin, IoBusOutline, IoBusSharp, I
     IoSettings, IoMailUnread, IoLogOutOutline, IoLogOut, IoPersonOutline, IoPerson, IoPersonAddOutline, IoPersonAdd, IoIdCardOutline, IoIdCard
 } from "react-icons/io5";
 import BusmeLogo from "@/assets/img/busme-logo.jpeg";
-import BusmeNavButton from './BusmeNavButton';
+import BusmeNavButton from './BusmeNavbutton';
 import Image from 'next/image';
 import { IconBaseProps } from 'react-icons';
 
@@ -23,18 +23,6 @@ const itemsQuality: ISidebarItem[] = [
         icon: IoHomeOutline,
         alternateicon: IoHome,
         path: "/quality",
-    },
-    {
-        name: "Equipo de trabajo",
-        icon: IoPersonOutline,
-        alternateicon: IoPerson,
-        path: "/"
-    },
-    {
-        name: "Roles",
-        icon: IoPersonAddOutline,
-        alternateicon: IoPersonAdd,
-        path: "/"
     }
 ];
 
