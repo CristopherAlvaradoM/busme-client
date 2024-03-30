@@ -4,6 +4,7 @@ import BusmeCard from "@/app/components/BusmeCard";
 import ProgressBar from "@ramonak/react-progress-bar";
 import {IoShareOutline} from "react-icons/io5";
 import Link from "next/link";
+import Chart from "react-apexcharts";
 
 const header = ['ID', 'Punto de abordaje', 'Frecuencia', 'Porcentaje'];
 const data = [
@@ -27,6 +28,45 @@ const getBgColor = (percent: number) => {
 };
 
 export default function Page() {
+
+    const chartData = {
+        options: {
+            chart: {
+                height: 350,
+                type: "area",
+                toolbar: {
+                    show: false
+                },
+            },
+            colors: ['#A700FF', '#4BB5FF', '#3CD856'],
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: "smooth",
+            },
+            xaxis: {
+                type: "datetime",
+                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+            },
+            tooltip: {
+                x: {
+                    format: "dd/MM/yy HH:mm"
+                },
+            },
+        },
+        series: [{
+            name: 'Banús',
+            data: [31, 40, 28, 51, 42, 109, 100]
+        }, {
+            name: 'Las Cuatas',
+            data: [11, 32, 45, 32, 34, 52, 41]
+        }, {
+            name: 'Santa Cruz',
+            data: [5, 52, 40, 72, 14, 22, 31]
+        }]
+    };
+
     return (
         <div>
             <div className="flex">
@@ -71,7 +111,8 @@ export default function Page() {
                                         />
                                     </td>
                                     <td>
-                                        <div className="ml-6 text-white rounded-lg p-1" style={{backgroundColor: getBgColor((item.approaches / totalApproaches) * 100)}}>
+                                        <div className="ml-6 text-white font-medium rounded-lg p-1"
+                                             style={{backgroundColor: getBgColor((item.approaches / totalApproaches) * 100)}}>
                                             {((item.approaches / totalApproaches) * 100).toFixed(1)}%
                                         </div>
                                     </td>
@@ -85,6 +126,15 @@ export default function Page() {
             <div className="pt-6">
                 <BusmeCard>
                     <p className="subtitle-text">Frecuencia de abordajes</p>
+                    <Chart
+                        options={chartData.options}
+                        series={chartData.series}
+                        type="area"
+                        toolbar={false}
+                        width="100%"
+                        height="400"
+                        className="font-poppins"
+                    />
                 </BusmeCard>
             </div>
         </div>
