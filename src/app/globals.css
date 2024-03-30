@@ -84,4 +84,16 @@
     .button-secondary-disabled {
         @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
     }
+
+    .muted-button {
+        @apply bg-white text-muted-950 font-poppins font-normal text-base rounded-lg py-2.5 px-4 border border-complementary-900 cursor-pointer;
+    }
+
+    .muted-button-hover {
+        @apply hover:bg-complementary-900 hover:text-white transition duration-300 ease-in-out;
+    }
+
+    .muted-button-disabled {
+        @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
+    }
 }
