@@ -89,6 +89,22 @@
         @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
     }
 
+    .active-status{
+        @apply bg-primary-700 text-white text-center text-sm font-semi-bold py-1.5 rounded-full
+    }
+
+    .damaged-status{
+        @apply bg-danger text-white text-center text-sm font-semi-bold py-1.5 rounded-full
+    }
+
+    .repairing-status{
+        @apply bg-warning text-white text-center text-sm font-semi-bold py-1.5  rounded-full
+    }
+
+    .inactive-status{
+        @apply bg-muted-800 text-white text-center text-sm font-semi-bold py-1.5 rounded-full
+    }
+
     .muted-button {
         @apply bg-white text-muted-950 font-poppins font-normal text-base rounded-lg py-2.5 px-4 border border-complementary-900 cursor-pointer;
     }

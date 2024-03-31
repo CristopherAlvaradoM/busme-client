@@ -56,7 +56,6 @@ const config: Config = {
             warning: "#EDB82A",
             danger: "#E23636",
             rojo: "#E23636",
-            active: "#6b32ec",
         },
         extend: {
             backgroundImage: {
