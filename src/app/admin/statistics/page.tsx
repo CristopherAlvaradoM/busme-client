@@ -2,9 +2,10 @@
 import React from "react";
 import BusmeCard from "@/app/components/BusmeCard";
 import ProgressBar from "@ramonak/react-progress-bar";
-import {IoShareOutline} from "react-icons/io5";
+import {IoShareOutline, IoTimer, IoBus, IoGolf} from "react-icons/io5";
 import Link from "next/link";
 import Chart from "react-apexcharts";
+import BusmeFilterCard from "@/app/components/BusmeFilterCard";
 
 const header = ['ID', 'Punto de abordaje', 'Frecuencia', 'Porcentaje'];
 const data = [
@@ -82,6 +83,32 @@ export default function Page() {
                             </Link>
                         </div>
                         <p className="caption-text mt-2">Resumen del día</p>
+                        <div className="flex flex-row w-full font-poppins gap-x-5 mt-6">
+                            <div className='w-full h-full'>
+                                <BusmeFilterCard
+                                    title="Total de abordajes"
+                                    amount={350}
+                                    isActive={true}
+                                    icon={<IoBus/>}
+                                />
+                            </div>
+                            <div className='w-full h-full'>
+                                <BusmeFilterCard
+                                    title="Total de viajes"
+                                    amount={5}
+                                    isActive={true}
+                                    icon={<IoGolf/>}
+                                />
+                            </div>
+                            <div className='w-full h-full'>
+                                <BusmeFilterCard
+                                    title="Tiempo recorrido"
+                                    amount={10}
+                                    isActive={true}
+                                    icon={<IoTimer/>}
+                                />
+                            </div>
+                        </div>
                     </BusmeCard>
                 </div>
                 <div className="mx-3"/>
