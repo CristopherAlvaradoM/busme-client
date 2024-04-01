@@ -51,6 +51,19 @@ const config: Config = {
                 900: "#616161",
                 950: "#454545"
             },
+            select: {
+                50: "#FCFAFF",
+                100: "#F6F1FE",
+                200: "#F0E7FE",
+                300: "#E8D8FD",
+                400: "#DFCAFC",
+                500: "#D6BBFB",
+                600: "#C7A3FA",
+                700: "#B687F8",
+                800: "#A165F6",
+                900: "#751DF2",
+                950: "#570BC1"
+            },
             info: "#4A90E2",
             success: "#82DD55",
             warning: "#EDB82A",
