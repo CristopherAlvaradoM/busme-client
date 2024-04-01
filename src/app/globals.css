@@ -97,6 +97,18 @@
         @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
     }
 
+    .outline-button-secondary {
+        @apply bg-white text-black border-[1px] border-muted-600 font-poppins font-medium text-base rounded-lg py-3 px-5 cursor-pointer;
+    }
+
+    .outline-button-secondary-hover {
+        @apply hover:bg-muted-800 hover:border-muted-800 hover:text-white transition duration-300 ease-in-out;
+    }
+
+    .outline-button-secondary-disabled {
+        @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
+    }
+
     .active-status{
         @apply bg-primary-700 text-white text-center text-sm font-semi-bold py-1.5 rounded-full
     }
