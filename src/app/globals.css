@@ -70,7 +70,7 @@
     }
 
     .modal-body-text {
-        @apply text-[15px] font-normal text-muted-900 font-poppins mt-2;
+        @apply text-[15px] font-normal text-muted-900 font-poppins;
     }
 
     .button-primary {
