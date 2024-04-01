@@ -17,18 +17,14 @@ const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: I
         if (isOpen) {
             setTimeout(() => {
                 setModalOpen(true);
-            }, 50); // Ajusta el tiempo de espera según la duración de tu transición CSS
+            }, 50);
         } else {
             setModalOpen(false);
         }
     }, [isOpen]);
 
-    const handleBackgroundClick = () => {
-        onClose();
-    };
-
     return (
-        <div className={`fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto ${modalOpen ? '' : 'hidden'}`} onClick={handleBackgroundClick}>
+        <div className={`fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto ${modalOpen ? '' : 'hidden'}`}>
             <div className={`fixed inset-0 bg-black opacity-50 transition-opacity ${isOpen ? 'ease-out duration-300' : 'ease-in duration-200'}`}></div>
             {modalOpen && (
                 <div
