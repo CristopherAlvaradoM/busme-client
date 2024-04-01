@@ -1,11 +1,14 @@
 "use client"
-import React from "react";
+import React, {useState} from "react";
 import BusmeCard from "@/app/components/BusmeCard";
 import ProgressBar from "@ramonak/react-progress-bar";
-import {IoShareOutline, IoTimer, IoBus, IoGolf} from "react-icons/io5";
-import Link from "next/link";
+import {IoShareOutline, IoTimer, IoBus, IoGolf, IoDocumentOutline, IoClose} from "react-icons/io5";
 import Chart from "react-apexcharts";
 import BusmeFilterCard from "@/app/components/BusmeFilterCard";
+import BusmeModal from "@/app/components/BusmeModal";
+import BusmeOption from "@/app/components/BusmeOption";
+import {FaFileExcel, FaFilePdf, FaFileImage} from "react-icons/fa6";
+import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 
 const header = ['ID', 'Punto de abordaje', 'Frecuencia', 'Porcentaje'];
 const data = [
@@ -29,6 +32,29 @@ const getBgColor = (percent: number) => {
 };
 
 export default function Page() {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [selectedValue, setSelectedValue] = useState<string | null>(null);
+
+    const generateFile = () => {
+        closeModal()
+        BusmeSweetAlert(
+            'Archivo generado',
+            'Tu archivo ha sido generado con éxito',
+            BusmeSweetAlertIconType.Success
+        )
+    }
+    const handleOptionSelect = (value: string) => {
+        setSelectedValue(value === selectedValue ? null : value); // Desseleccionar si ya está seleccionado
+    };
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     const chartData = {
         options: {
@@ -75,21 +101,52 @@ export default function Page() {
                     <BusmeCard>
                         <div className="flex justify-between items-center">
                             <h1 className="subtitle-text">Abordajes de hoy</h1>
-                            <Link href="/">
+                            <button onClick={openModal}>
                                 <div className="flex items-center justify-center muted-button muted-button-hover">
                                     <IoShareOutline className="mr-2.5 size-5"/>
                                     <p>Exportar información</p>
                                 </div>
-                            </Link>
+                            </button>
+                            <BusmeModal isOpen={isModalOpen} onClose={closeModal} showIcon={true} icon={IoDocumentOutline} buttonFunction={generateFile} successButtonTitle={"Generar archivo"}>
+                                <p className="modal-title-text">Formato para exportar la información</p>
+                                <p className="modal-body-text">Seleccione un formato para exportar la información</p>
+                                <BusmeOption
+                                    value={"PDF"}
+                                    title={"Formato PDF"}
+                                    description={"Se exportará la información en un archivo PDF"}
+                                    icon={FaFilePdf}
+                                    iconColor={"text-primary-600"}
+                                    selected={selectedValue === "PDF"}
+                                    onSelect={() => handleOptionSelect("PDF")}
+                                />
+                                <BusmeOption
+                                    value={"Excel"}
+                                    title={"Formato Excel"}
+                                    description={"Se exportará la información en un archivo Excel"}
+                                    icon={FaFileExcel}
+                                    iconColor={"text-primary-600"}
+                                    selected={selectedValue === "Excel"}
+                                    onSelect={() => handleOptionSelect("Excel")}
+                                />
+                                <BusmeOption
+                                    value={"PNG"}
+                                    title={"Formato de Imagen PNG"}
+                                    description={"Se generará una imagen PNG con la información"}
+                                    icon={FaFileImage}
+                                    iconColor={"text-primary-600"}
+                                    selected={selectedValue === "PNG"}
+                                    onSelect={() => handleOptionSelect("PNG")}
+                                />
+                            </BusmeModal>
                         </div>
                         <p className="caption-text mt-2">Resumen del día</p>
                         <div className="flex flex-row w-full font-poppins gap-x-5 mt-6">
-                            <div className='w-full h-full'>
+                        <div className='w-full h-full'>
                                 <BusmeFilterCard
                                     title="Total de abordajes"
                                     amount={350}
                                     isActive={true}
-                                    icon={<IoBus/>}
+                                    icon={<IoGolf className="size-10"/>}
                                 />
                             </div>
                             <div className='w-full h-full'>
@@ -97,7 +154,7 @@ export default function Page() {
                                     title="Total de viajes"
                                     amount={5}
                                     isActive={true}
-                                    icon={<IoGolf/>}
+                                    icon={<IoBus className="size-10"/>}
                                 />
                             </div>
                             <div className='w-full h-full'>
@@ -105,7 +162,7 @@ export default function Page() {
                                     title="Tiempo recorrido"
                                     amount={10}
                                     isActive={true}
-                                    icon={<IoTimer/>}
+                                    icon={<IoTimer className="size-10"/>}
                                 />
                             </div>
                         </div>
