@@ -65,6 +65,14 @@
         @apply font-poppins font-normal text-sm text-danger mt-1;
     }
 
+    .modal-title-text {
+        @apply text-[16px] font-medium text-black font-poppins;
+    }
+
+    .modal-body-text {
+        @apply text-[15px] font-normal text-muted-900 font-poppins mt-2;
+    }
+
     .button-primary {
         @apply bg-primary-800 text-white font-poppins text-base font-semi-bold rounded-3xl py-2 px-5 cursor-pointer;
     }
