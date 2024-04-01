@@ -1,6 +1,7 @@
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { IoClose } from "react-icons/io5";
 import { IconBaseProps } from "react-icons";
+import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 
 interface ModalProps {
     isOpen: boolean;
@@ -8,9 +9,11 @@ interface ModalProps {
     showIcon?: boolean;
     icon?: React.ComponentType<IconBaseProps>;
     children: ReactNode;
+    successButtonTitle: string;
+    buttonFunction: () => void;
 }
 
-const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: Icon, children }) => {
+const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: Icon, children, buttonFunction, successButtonTitle }) => {
     const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
@@ -22,6 +25,8 @@ const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: I
             setModalOpen(false);
         }
     }, [isOpen]);
+
+
 
     return (
         <div className={`fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto ${modalOpen ? '' : 'hidden'}`}>
@@ -39,6 +44,17 @@ const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: I
                     </div>
                     <div className="mt-5">
                         {children}
+                    </div>
+                    <div className="flex mt-2 justify-between">
+                        <button type="submit" onClick={onClose}
+                                className="outline-button-secondary outline-button-secondary-hover w-full mt-6">
+                            Cancelar
+                        </button>
+                        <div className={"mx-3"}/>
+                        <button type="submit" onClick={buttonFunction}
+                                className="button-secondary button-secondary-hover w-full mt-6">
+                            {successButtonTitle}
+                        </button>
                     </div>
                 </div>
             )}
