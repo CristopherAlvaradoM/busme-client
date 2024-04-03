@@ -17,8 +17,13 @@ import { IoAdd } from "react-icons/io5";
       console.log('Término de búsqueda:', searchTerm);
     };
   
-    const options = [
-      { value: '', label: '' },
+    const optionsHours = [
+      { value: '', label: 'Horarios' },
+      { value: '', label: '' }
+    ]
+
+    const optionsDrivers = [
+      { value: '', label: 'Choferes' },
       { value: '', label: '' }
     ]
   
@@ -78,14 +83,22 @@ import { IoAdd } from "react-icons/io5";
         </div>
         <div className='w-full'>
           <div className="flex justify-between gap-x-6">
-            <div className="w-9/12 flex-grow ">
+            <div className="w-6/12 flex-grow">
               <BusmeSearchInput  placeholder="Buscar por Nombre o Chofer" onSearch={handleSearch} />
             </div>
             <div className="w-3/12 flex-grow">
               <BusmeSelectFilter
                 value={selectedFilter}
                 label=""
-                options={options}
+                options={optionsHours}
+                onChange={handleFilterChange}
+              />
+            </div>
+            <div className="w-3/12 flex-grow">
+              <BusmeSelectFilter
+                value={selectedFilter}
+                label=""
+                options={optionsDrivers}
                 onChange={handleFilterChange}
               />
             </div>
