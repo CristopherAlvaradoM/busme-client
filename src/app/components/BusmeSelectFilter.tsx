@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 
 interface SelectFilterProps {
-    label: string;
+    placeholder: string;
     options: { value: any; label: string }[];
     value: any;
     onChange: (selectedValue: any) => void;
@@ -21,17 +21,17 @@ const customStyles = {
     }),
 };
 
-const BusmeSelectFilter: React.FC<SelectFilterProps> = ({ label, options, value, onChange }) => {
+const BusmeSelectFilter: React.FC<SelectFilterProps> = ({ placeholder, options, value, onChange }) => {
 
     const handleChange = (selectedOption: any) => {
-        onChange(selectedOption ? selectedOption.value : "");
+        onChange(selectedOption);
     };
 
     return (
         <div className="mt-7">
-            <p className="caption-text">{label}</p>
             <Select
                 value={options.find(option => option.value === value)}
+                placeholder = {placeholder}
                 styles={customStyles}
                 options={options}
                 onChange={handleChange}
