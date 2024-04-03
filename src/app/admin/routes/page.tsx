@@ -2,8 +2,12 @@
 import BusmeFilterCard from '@/app/components/BusmeFilterCard'; 
 import BusmeSelectFilter from '@/app/components/BusmeSelectFilter'; 
 import BusmeSearchInput from '@/app/components/BusmeSearchInput';
+import BusmeCard from "@/app/components/BusmeCard";
+import BusmeCardButtonHeader from "@/app/components/BusmeCardButtonHeader";
+import BusmeTable from "@/app/components/BusmeTable";
 import React, { useState } from 'react';
 import { Route, MapPinned, UserRound, Clock10  } from 'lucide-react';
+import { IoAdd } from "react-icons/io5";
 
 
   export default function RoutesPage() {
@@ -23,10 +27,22 @@ import { Route, MapPinned, UserRound, Clock10  } from 'lucide-react';
     const handleFilterChange = (selectedOption: any) => {
       setSelectedFilter(selectedOption ? selectedOption.value : "");
     };
+    
+    const routesHeaders = ['Nombre', 'Horario', 'Chofer', 'Origen - Destino'];
+    const routesData = [
+      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
+      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
+      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
+      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
+      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
+      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
+      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
+      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas']
+    ];
 
     return (
-      <div className="flex flex-col h-full w-full gap-y-5">
-        <div className="flex flex-row w-full font-poppins gap-x-6">
+      <div className="flex flex-col w-full">
+        <div className="flex flex-row w-full font-poppins gap-x-7">
           <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
             <BusmeFilterCard
               title="Total de rutas"
@@ -76,7 +92,14 @@ import { Route, MapPinned, UserRound, Clock10  } from 'lucide-react';
           </div>
         </div>
         <div className=''>
-          TABLE
+        <BusmeCard>
+          <BusmeCardButtonHeader subtitle={"Rutas"} to={""} buttonText={"Agregar nueva ruta"} icon={IoAdd} />
+          <BusmeTable 
+            headers={routesHeaders} 
+            data={routesData} 
+            showDeleteColumn={true} 
+            showEditColumn={true} />
+        </BusmeCard>
         </div>
       </div>
     );
