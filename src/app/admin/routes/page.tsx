@@ -12,11 +12,28 @@ import { IoAdd } from "react-icons/io5";
 
   export default function RoutesPage() {
 
+    const [searchTerm, setSearchTerm] = useState(""); // Estado para almacenar el término de búsqueda
+    
     const handleSearch = (searchTerm: string) => {
-      // Aquí puedes manejar la lógica de búsqueda, como realizar una solicitud a un servidor o filtrar datos locales
-      console.log('Término de búsqueda:', searchTerm);
+      setSearchTerm(searchTerm); // Actualiza el estado con el término de búsqueda
     };
-  
+    
+    const routesHeaders = ['Nombre', 'Horario', 'Chofer', 'Origen - Destino'];
+    const routesData = [
+      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
+      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
+      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
+      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Raul Nuño', 'UTZMG - Las Cuatas'],
+      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Jaimito elchofer', 'UTZMG - Las Cuatas'],
+      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Itachi Uchiha', 'UTZMG - Las Cuatas'],
+    ];
+
+    // Filtrar los datos por nombre y chofer
+    const filteredRoutesData = routesData.filter(route =>
+      route[0].toLowerCase().includes(searchTerm.toLowerCase()) || // Filtrar por nombre
+      route[2].toLowerCase().includes(searchTerm.toLowerCase())    // Filtrar por chofer
+    );
+
     const optionsHours = [
       { value: '', label: 'Horarios' },
       { value: '', label: '' }
@@ -33,18 +50,6 @@ import { IoAdd } from "react-icons/io5";
       setSelectedFilter(selectedOption ? selectedOption.value : "");
     };
     
-    const routesHeaders = ['Nombre', 'Horario', 'Chofer', 'Origen - Destino'];
-    const routesData = [
-      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
-      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
-      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
-      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
-      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
-      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
-      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
-      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas']
-    ];
-
     return (
       <div className="flex flex-col w-full">
         <div className="flex flex-row w-full font-poppins gap-x-7">
@@ -109,7 +114,7 @@ import { IoAdd } from "react-icons/io5";
           <BusmeCardButtonHeader subtitle={"Rutas"} to={""} buttonText={"Agregar nueva ruta"} icon={IoAdd} />
           <BusmeTable 
             headers={routesHeaders} 
-            data={routesData} 
+            data={filteredRoutesData} 
             showDeleteColumn={true} 
             showEditColumn={true} />
         </BusmeCard>
