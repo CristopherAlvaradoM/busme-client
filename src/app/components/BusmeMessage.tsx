@@ -24,7 +24,7 @@ const BusmeMessage: React.FC<BusmeMessageProps> = ({
     return (
         <>
             <div
-                className={`p-5 w-full cursor-pointer transition ease-in-out duration-300 ${isSelected ? 'bg-primary-500' : ''}`}
+                className={`p-5 w-full cursor-pointer transition ease-in-out duration-300 ${isSelected ? 'bg-complementary-900' : ''}`}
                 onClick={onClick}>
                 <div className="flex justify-between items-center py-2">
                     <p className={`bold-body-text ${isSelected ? 'text-white' : ''}`}>{username}</p>

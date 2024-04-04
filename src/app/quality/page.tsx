@@ -127,7 +127,7 @@ export default function Page() {
                                 <p className="body-text mt-7">Enviado el {selectedMessage.date} a las {selectedMessage.hour}</p>
                                 <div className="w-full border-[1px] border-muted-500 my-5"></div>
                                 <div>
-                                    <BusmeButtonLogin text={"Jere"}/>
+                                    <BusmeButtonLogin text={"Responder"}/>
                                 </div>
                             </>
                         )}
