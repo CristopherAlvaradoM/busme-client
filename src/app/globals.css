@@ -65,6 +65,14 @@
         @apply font-poppins font-normal text-sm text-danger mt-1;
     }
 
+    .modal-title-text {
+        @apply text-[16px] font-medium text-black font-poppins;
+    }
+
+    .modal-body-text {
+        @apply text-[15px] font-normal text-muted-900 font-poppins;
+    }
+
     .button-primary {
         @apply bg-primary-800 text-white font-poppins text-base font-semi-bold rounded-3xl py-2 px-5 cursor-pointer;
     }
@@ -86,6 +94,18 @@
     }
 
     .button-secondary-disabled {
+        @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
+    }
+
+    .outline-button-secondary {
+        @apply bg-white text-black border-[1px] border-muted-600 font-poppins font-medium text-base rounded-lg py-3 px-5 cursor-pointer;
+    }
+
+    .outline-button-secondary-hover {
+        @apply hover:bg-muted-800 hover:border-muted-800 hover:text-white transition duration-300 ease-in-out;
+    }
+
+    .outline-button-secondary-disabled {
         @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
     }
 

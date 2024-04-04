@@ -6,11 +6,14 @@ import { Formik } from "formik";
 import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 import React from "react";
 import BusmeSelect from "@/app/components/BusmeSelect";
+import { BusmeSweetAlert, BusmeSweetAlertIconType } from "@/app/components/BusmeSweetAlert";
+import { useRouter } from "next/navigation";
 
 export default function NewVehiclePage() {
+    const router = useRouter();
 
     const status = [
-        { value: 'Active', label: 'En reparacion' },
+        { value: 'active', label: 'En servicio' },
         { value: 'damaged', label: 'Dañado' },
         { value: 'repairing', label: 'En reparacion' },
         { value: 'inactive', label: 'Inactivo' }
@@ -58,7 +61,15 @@ export default function NewVehiclePage() {
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
+                            (JSON.stringify(values, null, 2));
+                            BusmeSweetAlert(
+                                '¡Vehículo nuevo generado!',
+                                '',
+                                BusmeSweetAlertIconType.Success
+                                );
+                                setTimeout(() => {
+                                    router.back();
+                                }, 2000);                                
                             setSubmitting(false);
                         }, 400);
                     }}
