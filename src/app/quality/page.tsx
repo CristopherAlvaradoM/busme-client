@@ -11,10 +11,10 @@ export const metadata = {
 };
 
 const messageData = [
-    {'username': 'Anthony', 'title': 'Retraso de Transporte', 'description': 'El trasporte llega tarde todos los días a las paradas asignadas, siempre llega tarde principalmente a las cuatas.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': false},
-    {'username': 'Braulio', 'title': 'Desviación de Ruta', 'description': 'El trasporte no hace el recorrido completo de la ruta, me quedo como pendejo esperando en Banús y nomas no llega el guaje.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': true},
-    {'username': 'Angélica', 'title': 'Actitud del Conductor', 'description': 'El conductor del transporte es un pendejo, no respeta los límites de velocidad y siempre llega tarde a las paradas.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': true},
-    {'username': 'Un Guaje', 'title': 'Mejora o Sugerencia', 'description': 'El transporte debería de tener un horario fijo para que los usuarios puedan planear sus viajes con anticipación.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': true},
+    {'username': 'Anthony', 'category': 'Retraso de Transporte', 'description': 'El trasporte llega tarde todos los días a las paradas asignadas, siempre llega tarde principalmente a las cuatas.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': false},
+    {'username': 'Braulio', 'category': 'Desviación de Ruta', 'description': 'El trasporte no hace el recorrido completo de la ruta, me quedo como pendejo esperando en Banús y nomas no llega el guaje.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': true},
+    {'username': 'Angélica', 'category': 'Actitud del Conductor', 'description': 'El conductor del transporte es un pendejo, no respeta los límites de velocidad y siempre llega tarde a las paradas.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': true},
+    {'username': 'Un Guaje', 'category': 'Mejora o Sugerencia', 'description': 'El transporte debería de tener un horario fijo para que los usuarios puedan planear sus viajes con anticipación.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': true},
 ]
 
 export default function Page() {
@@ -35,7 +35,7 @@ export default function Page() {
                 <div className="flex justify-between h-full">
                     <div className="w-6/12 overflow-auto h-full">
                         {messageData.map((message, index) => (
-                            <BusmeMessage key={index} isRead={message.isRead} username={message.username} title={message.title} description={message.description} date={message.date} hour={message.hour}/>
+                            <BusmeMessage key={index} isRead={message.isRead} username={message.username} title={message.category} description={message.description} date={message.date} hour={message.hour}/>
                         ))}
                     </div>
                     <div
