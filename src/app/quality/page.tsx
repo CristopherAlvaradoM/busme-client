@@ -1,10 +1,21 @@
 "use client"
 import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeFilterCard from "@/app/components/BusmeFilterCard";
-import {FaInbox, FaFaceAngry, FaMapLocationDot, FaStar, FaClock} from "react-icons/fa6";
+import {
+    FaInbox,
+    FaFaceAngry,
+    FaMapLocationDot,
+    FaStar,
+    FaClock,
+    FaFilePdf,
+    FaFileExcel,
+    FaFileImage
+} from "react-icons/fa6";
 import React, {useEffect, useState} from "react";
 import BusmeButtonLogin from "@/app/components/BusmeButtonLogin";
 import BusmeMessage from "@/app/components/BusmeMessage";
+import { IoMailOpenOutline} from "react-icons/io5";
+import BusmeModal from "@/app/components/BusmeModal";
 
 interface Message {
     username: string;
@@ -63,6 +74,7 @@ const categories = [
 ];
 
 export default function Page() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null); // Estado para el mensaje seleccionado
     const [filter, setFilter] = useState('Todas las quejas');
     const [categoryCounts, setCategoryCounts] = useState<CategoryCount>({}); // Tipo definido para categoryCounts
@@ -84,6 +96,14 @@ export default function Page() {
     };
 
     const filteredMessages = filter === 'Todas las quejas' ? messageData : messageData.filter(message => message.category === filter);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <div className="h-full pb-9">
@@ -127,7 +147,10 @@ export default function Page() {
                                 <p className="body-text mt-7">Enviado el {selectedMessage.date} a las {selectedMessage.hour}</p>
                                 <div className="w-full border-[1px] border-muted-500 my-5"></div>
                                 <div>
-                                    <BusmeButtonLogin text={"Responder"}/>
+                                    <BusmeButtonLogin text={"Responder"} onClick={openModal}/>
+                                    <BusmeModal isOpen={isModalOpen} onClose={closeModal} showIcon={true} icon={IoMailOpenOutline} buttonFunction={()=>{}} successButtonTitle={"Enviar"}>
+                                        <p className="modal-title-text">Respuesta</p>
+                                    </BusmeModal>
                                 </div>
                             </>
                         )}
