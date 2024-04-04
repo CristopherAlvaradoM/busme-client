@@ -7,9 +7,6 @@ import {
     FaMapLocationDot,
     FaStar,
     FaClock,
-    FaFilePdf,
-    FaFileExcel,
-    FaFileImage
 } from "react-icons/fa6";
 import React, {useEffect, useState} from "react";
 import BusmeButtonLogin from "@/app/components/BusmeButtonLogin";
