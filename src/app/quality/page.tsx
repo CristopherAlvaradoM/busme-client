@@ -1,14 +1,18 @@
+"use client"
 import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeFilterCard from "@/app/components/BusmeFilterCard";
 import {FaInbox, FaFaceAngry, FaMapLocationDot, FaStar, FaClock} from "react-icons/fa6";
-import React from "react";
+import React, {useState} from "react";
 import BusmeButtonLogin from "@/app/components/BusmeButtonLogin";
 import BusmeMessage from "@/app/components/BusmeMessage";
 
-export const metadata = {
-    title: "BusMe - Calidad",
-    description: "Dashboard",
-};
+const categories = [
+    { title: 'Todas las quejas', icon: <FaInbox className="size-10" /> },
+    { title: 'Retraso de Transporte', icon: <FaClock className="size-10" /> },
+    { title: 'Desviación de Ruta', icon: <FaMapLocationDot className="size-10" /> },
+    { title: 'Actitud del Conductor', icon: <FaFaceAngry className="size-10" /> },
+    { title: 'Mejora o Sugerencia', icon: <FaStar className="size-10" /> }
+];
 
 const messageData = [
     {'username': 'Anthony', 'category': 'Retraso de Transporte', 'description': 'El trasporte llega tarde todos los días a las paradas asignadas, siempre llega tarde principalmente a las cuatas.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': false},
@@ -18,24 +22,43 @@ const messageData = [
 ]
 
 export default function Page() {
+
+    const [filter, setFilter] = useState('Todas las quejas');
+
+    const handleFilterChange = (title: string) => {
+        setFilter(title);
+    };
+
+    const filteredMessages = filter === 'Todas las quejas' ? messageData : messageData.filter(message => message.category === filter);
+
     return (
         <div className="h-full pb-9">
             <BusmePageHeader title={"Buzón de quejas"} rol={"Calidad"} username={"Anthony"}/>
             <div className="flex flex-row w-full font-poppins gap-x-5 mt-6">
-                <BusmeFilterCard title={"Todas las quejas"} amount={10} isActive={true}
-                                 icon={<FaInbox className={"size-10"}/>}/>
-                <BusmeFilterCard title={"Retraso de Transporte"} amount={10}
-                                 icon={<FaClock className={"size-10"}/>}/>
-                <BusmeFilterCard title={"Desviación de Ruta"} amount={10} icon={<FaMapLocationDot className={"size-10"}/>}/>
-                <BusmeFilterCard title={"Actitud del Conductor"} amount={10}
-                                 icon={<FaFaceAngry className={"size-10"}/>}/>
-                <BusmeFilterCard title={"Mejora o Sugerencia"} amount={10} icon={<FaStar className={"size-10"}/>}/>
+                {categories.map((category, index) => (
+                    <BusmeFilterCard
+                        key={index}
+                        title={category.title}
+                        amount={filteredMessages.filter(message => message.category === category.title).length}
+                        isActive={filter === category.title}
+                        icon={category.icon}
+                        onClick={() => handleFilterChange(category.title)}
+                    />
+                ))}
             </div>
             <div className="w-full h-4/6 bg-white rounded-[10px] mt-8">
                 <div className="flex justify-between h-full">
                     <div className="w-6/12 overflow-auto h-full">
-                        {messageData.map((message, index) => (
-                            <BusmeMessage key={index} isRead={message.isRead} username={message.username} title={message.category} description={message.description} date={message.date} hour={message.hour}/>
+                        {filteredMessages.map((message, index) => (
+                            <BusmeMessage
+                                key={index}
+                                isRead={message.isRead}
+                                username={message.username}
+                                title={message.category}
+                                description={message.description}
+                                date={message.date}
+                                hour={message.hour}
+                            />
                         ))}
                     </div>
                     <div
