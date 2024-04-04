@@ -37,12 +37,14 @@ import { IoAdd } from "react-icons/io5";
     ];
   
     // Filtrar los datos por nombre, horario y chofer
-    const filteredRoutesData = routesData.filter(route =>
-      (route[0] && route[0].toLowerCase().includes(searchTerm.toLowerCase())) || // Filtrar por nombre
-      (route[2] && route[2].toLowerCase().includes(searchTerm.toLowerCase())) || // Filtrar por chofer
-      (selectedDriverFilter === '' || route[2].toLowerCase() === selectedDriverFilter.toLowerCase()) // Filtrar por chofer
-    );
-    
+    const filteredRoutesData = routesData.filter(route => {
+      const nameMatch = route[0] && route[0].toLowerCase().includes(searchTerm.toLowerCase());
+      const driverMatch = route[2] && route[2].toLowerCase().includes(searchTerm.toLowerCase());
+      const hourMatch = selectedHourFilter === '' || route[1].toLowerCase() === selectedHourFilter.toLowerCase();
+      const driverFilterMatch = selectedDriverFilter === '' || route[2].toLowerCase() === selectedDriverFilter.toLowerCase();
+
+      return (nameMatch || driverMatch) && hourMatch && driverFilterMatch;
+    });
   
     const optionsHours = [
       { value: '', label: 'Horarios' },
@@ -104,7 +106,7 @@ import { IoAdd } from "react-icons/io5";
             <div className="w-3/12 flex-grow">
               <BusmeSelectFilter
                 value={selectedHourFilter}
-                label=""
+                placeholder='filtrar por'
                 options={optionsHours}
                 onChange={handleHourFilterChange}
               />
@@ -112,7 +114,7 @@ import { IoAdd } from "react-icons/io5";
             <div className="w-3/12 flex-grow">
               <BusmeSelectFilter
                 value={selectedDriverFilter}
-                label=""
+                placeholder='filtrar por'
                 options={optionsDrivers}
                 onChange={handleDriverFilterChange}
               />
