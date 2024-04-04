@@ -2,28 +2,78 @@
 import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeFilterCard from "@/app/components/BusmeFilterCard";
 import {FaInbox, FaFaceAngry, FaMapLocationDot, FaStar, FaClock} from "react-icons/fa6";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BusmeButtonLogin from "@/app/components/BusmeButtonLogin";
 import BusmeMessage from "@/app/components/BusmeMessage";
 
-const categories = [
-    { title: 'Todas las quejas', icon: <FaInbox className="size-10" /> },
-    { title: 'Retraso de Transporte', icon: <FaClock className="size-10" /> },
-    { title: 'Desviación de Ruta', icon: <FaMapLocationDot className="size-10" /> },
-    { title: 'Actitud del Conductor', icon: <FaFaceAngry className="size-10" /> },
-    { title: 'Mejora o Sugerencia', icon: <FaStar className="size-10" /> }
+interface Message {
+    username: string;
+    category: string;
+    description: string;
+    date: string;
+    hour: string;
+    isRead: boolean;
+}
+
+interface CategoryCount {
+    [category: string]: number; // Firma de índice para el objeto categoryCounts
+}
+
+const messageData: Message[] = [
+    {
+        'username': 'Anthony',
+        'category': 'Retraso de Transporte',
+        'description': 'El trasporte llega tarde todos los días a las paradas asignadas, siempre llega tarde principalmente a las cuatas.',
+        'date': '03/04/2024',
+        'hour': '3:24 p.m',
+        'isRead': false
+    },
+    {
+        'username': 'Braulio',
+        'category': 'Desviación de Ruta',
+        'description': 'El trasporte no hace el recorrido completo de la ruta, me quedo como pendejo esperando en Banús y nomas no llega el guaje.',
+        'date': '03/04/2024',
+        'hour': '3:24 p.m',
+        'isRead': true
+    },
+    {
+        'username': 'Angélica',
+        'category': 'Actitud del Conductor',
+        'description': 'El conductor del transporte es un pendejo, no respeta los límites de velocidad y siempre llega tarde a las paradas.',
+        'date': '03/04/2024',
+        'hour': '3:24 p.m',
+        'isRead': true
+    },
+    {
+        'username': 'Un Guaje',
+        'category': 'Mejora o Sugerencia',
+        'description': 'El transporte debería de tener un horario fijo para que los usuarios puedan planear sus viajes con anticipación.',
+        'date': '03/04/2024',
+        'hour': '3:24 p.m',
+        'isRead': true
+    },
 ];
 
-const messageData = [
-    {'username': 'Anthony', 'category': 'Retraso de Transporte', 'description': 'El trasporte llega tarde todos los días a las paradas asignadas, siempre llega tarde principalmente a las cuatas.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': false},
-    {'username': 'Braulio', 'category': 'Desviación de Ruta', 'description': 'El trasporte no hace el recorrido completo de la ruta, me quedo como pendejo esperando en Banús y nomas no llega el guaje.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': true},
-    {'username': 'Angélica', 'category': 'Actitud del Conductor', 'description': 'El conductor del transporte es un pendejo, no respeta los límites de velocidad y siempre llega tarde a las paradas.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': true},
-    {'username': 'Un Guaje', 'category': 'Mejora o Sugerencia', 'description': 'El transporte debería de tener un horario fijo para que los usuarios puedan planear sus viajes con anticipación.', 'date': '03/04/2024', 'hour': '3:24 p.m', 'isRead': true},
-]
+const categories = [
+    {title: 'Todas las quejas', icon: <FaInbox className="size-10"/>},
+    {title: 'Retraso de Transporte', icon: <FaClock className="size-10"/>},
+    {title: 'Desviación de Ruta', icon: <FaMapLocationDot className="size-10"/>},
+    {title: 'Actitud del Conductor', icon: <FaFaceAngry className="size-10"/>},
+    {title: 'Mejora o Sugerencia', icon: <FaStar className="size-10"/>}
+];
 
 export default function Page() {
 
     const [filter, setFilter] = useState('Todas las quejas');
+    const [categoryCounts, setCategoryCounts] = useState<CategoryCount>({}); // Tipo definido para categoryCounts
+
+    useEffect(() => {
+        const counts: CategoryCount = {};
+        categories.forEach(category => {
+            counts[category.title] = category.title === 'Todas las quejas' ? messageData.length : messageData.filter(message => message.category === category.title).length;
+        });
+        setCategoryCounts(counts);
+    }, []);
 
     const handleFilterChange = (title: string) => {
         setFilter(title);
@@ -39,7 +89,7 @@ export default function Page() {
                     <BusmeFilterCard
                         key={index}
                         title={category.title}
-                        amount={filteredMessages.filter(message => message.category === category.title).length}
+                        amount={categoryCounts[category.title]} // Usa el estado de conteo para cada categoría
                         isActive={filter === category.title}
                         icon={category.icon}
                         onClick={() => handleFilterChange(category.title)}
