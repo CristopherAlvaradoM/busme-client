@@ -10,7 +10,7 @@ interface BusmeFilterCardProps {
 
 const BusmeFilterCard: React.FC<BusmeFilterCardProps> = ({ title, amount, isActive = false, icon, onClick }) => {
   return (
-    <div className={`w-full h-full ${isActive ? 'bg-green-200' : 'bg-muted-200'}`} onClick={onClick}>
+    <div className={`w-full h-full ${isActive ? 'bg-green-200' : ''}`} onClick={onClick}>
       <div className={`flex rounded-t-2xl border ${isActive ? 'border-primary-600 bg-primary-600' : 'border-muted-300 bg-muted-200'} h-10 px-2 justify-center items-center`}>
         <span className={`text-sm font-semi-bold ${isActive ? 'text-white' : 'text-black'}`}>{title}</span>
       </div>
