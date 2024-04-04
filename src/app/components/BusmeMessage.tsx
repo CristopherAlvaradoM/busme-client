@@ -7,12 +7,23 @@ interface BusmeMessageProps {
     date: string;
     hour: string;
     isRead: boolean;
+    onClick?: () => void;
 }
 
-const BusmeMessage: React.FC<BusmeMessageProps> = ({username, title, description, date, hour, isRead=false}) => {
+const BusmeMessage: React.FC<BusmeMessageProps> = ({
+                                                       username,
+                                                       title,
+                                                       description,
+                                                       date,
+                                                       hour,
+                                                       isRead = false,
+                                                       onClick
+                                                   }) => {
     return (
         <>
-            <div className={`p-5 w-full cursor-pointer transition ease-in-out duration-300 ${isRead ? 'hover:bg-primary-50' : 'bg-primary-50'}`}>
+            <div
+                className={`p-5 w-full cursor-pointer transition ease-in-out duration-300 ${isRead ? 'hover:bg-primary-50' : 'bg-primary-50'}`}
+                onClick={onClick}>
                 <p className="bold-body-text">{username}</p>
                 <div className="flex items-center justify-between w-full">
                     <div>
