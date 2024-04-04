@@ -63,7 +63,7 @@ const categories = [
 ];
 
 export default function Page() {
-
+    const [selectedMessage, setSelectedMessage] = useState<Message | null>(null); // Estado para el mensaje seleccionado
     const [filter, setFilter] = useState('Todas las quejas');
     const [categoryCounts, setCategoryCounts] = useState<CategoryCount>({}); // Tipo definido para categoryCounts
 
@@ -79,6 +79,10 @@ export default function Page() {
         setFilter(title);
     };
 
+    const handleSelectMessage = (message: Message) => {
+        setSelectedMessage(message); // Actualizar el estado del mensaje seleccionado
+    };
+
     const filteredMessages = filter === 'Todas las quejas' ? messageData : messageData.filter(message => message.category === filter);
 
     return (
@@ -89,7 +93,7 @@ export default function Page() {
                     <BusmeFilterCard
                         key={index}
                         title={category.title}
-                        amount={categoryCounts[category.title]} // Usa el estado de conteo para cada categoría
+                        amount={categoryCounts[category.title]}
                         isActive={filter === category.title}
                         icon={category.icon}
                         onClick={() => handleFilterChange(category.title)}
@@ -108,20 +112,25 @@ export default function Page() {
                                 description={message.description}
                                 date={message.date}
                                 hour={message.hour}
+                                isSelected={selectedMessage === message}
+                                onClick={() => handleSelectMessage(message)}
                             />
                         ))}
                     </div>
                     <div
                         className="w-6/12 overflow-auto h-full p-5 border-l-2 border-l-muted-500 flex flex-col justify-between">
-                        <p className="subtitle-text">Nombre de usuario</p>
-                        <p className="bold-body-text mt-7">Retraso de transporte</p>
-                        <p className="body-text mt-3">El trasporte llega tarde todos los días a las paradas
-                            asignadas, siempre llega tarde principalmente a las cuatas.</p>
-                        <p className="body-text mt-7">Enviado el 03/04/2024 a las 3:24 p.m</p>
-                        <div className="w-full border-[1px] border-muted-500 my-5"></div>
-                        <div>
-                            <BusmeButtonLogin text={"Jere"}/>
-                        </div>
+                        {selectedMessage && (
+                            <>
+                                <p className="subtitle-text">{selectedMessage.username}</p>
+                                <p className="bold-body-text mt-7">{selectedMessage.category}</p>
+                                <p className="body-text mt-3">{selectedMessage.description}</p>
+                                <p className="body-text mt-7">Enviado el {selectedMessage.date} a las {selectedMessage.hour}</p>
+                                <div className="w-full border-[1px] border-muted-500 my-5"></div>
+                                <div>
+                                    <BusmeButtonLogin text={"Jere"}/>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
