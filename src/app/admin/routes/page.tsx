@@ -47,14 +47,14 @@ import { IoAdd } from "react-icons/io5";
     });
   
     const optionsHours = [
-      { value: '', label: 'Horarios' },
+      { value: '', label: 'Todos los horarios' },
       { value: '7:30 a.m. - 7:45 a.m.', label: '7:30 a.m. - 7:45 a.m.' },
       { value: '7:45 a.m. - 8:15 a.m.', label: '7:45 a.m. - 8:15 a.m.' },
       { value: '8:45 a.m. - 8:15 a.m.', label: '7:45 a.m. - 8:15 a.m.' },
     ];
   
     const optionsDrivers = [
-      { value: '', label: 'Choferes' },
+      { value: '', label: 'Todos los choferes' },
       { value: 'Daniel Martinez', label: 'Daniel Martinez' },
       { value: 'Arturo Perez', label: 'Arturo Perez' },
       { value: 'Raul Nuño', label: 'Raul Nuño' },
@@ -106,7 +106,7 @@ import { IoAdd } from "react-icons/io5";
             <div className="w-3/12 flex-grow">
               <BusmeSelectFilter
                 value={selectedHourFilter}
-                placeholder='filtrar por'
+                placeholder='Filtrar por horario'
                 options={optionsHours}
                 onChange={handleHourFilterChange}
               />
@@ -114,7 +114,7 @@ import { IoAdd } from "react-icons/io5";
             <div className="w-3/12 flex-grow">
               <BusmeSelectFilter
                 value={selectedDriverFilter}
-                placeholder='filtrar por'
+                placeholder='Filtrar por chofer'
                 options={optionsDrivers}
                 onChange={handleDriverFilterChange}
               />
