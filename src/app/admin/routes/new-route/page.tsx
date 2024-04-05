@@ -40,13 +40,41 @@ export default function NewRoutePage() {
                   />
                 </div>
               </div>
-              <div className="flex flex-col w-8/12 gap-y-5">
+              <div className="flex flex-col w-8/12">
                 <p className="subtitle-text">Chofer asignado</p>
-                <div className="grid grid-cols-2 gap-y-5">
-                  <span>Inpust</span>
-                  <span>Inpust</span>
-                  <span>Inpust</span>
-                  <span>Inpust</span>
+                <div className="grid grid-cols-2 gap-x-8">
+                  <BusmeInput name={"names"} title={"Nombre(s)"}
+                    placeholder={"Ingresa el nombre del chofer"}
+                    type={"text"}
+                    onChange={() => {}} 
+                    onBlur={() => {}}
+                    value={''}
+                    validation={''} 
+                  />
+                  <BusmeInput name={"lastName"} title={"Apellido(s)"}
+                    placeholder={"Ingresa el apellido del chofer"}
+                    type={"text"}
+                    onChange={() => {}} 
+                    onBlur={() => {}}
+                    value={''}
+                    validation={''} 
+                  />
+                  <BusmeInput name={"email"} title={"Correo"}
+                    placeholder={"correo@ejemplo.com"}
+                    type={"email"}
+                    onChange={() => {}} 
+                    onBlur={() => {}}
+                    value={''}
+                    validation={''} 
+                  />
+                  <BusmeInput name={"employeeNumber"} title={"Número de empleado"}
+                    placeholder={"Ingresa el número de empleado"}
+                    type={"text"}
+                    onChange={() => {}} 
+                    onBlur={() => {}}
+                    value={''}
+                    validation={''} 
+                  />
                 </div>
               </div>
             </div>
