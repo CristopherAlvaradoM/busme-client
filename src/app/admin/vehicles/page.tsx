@@ -23,6 +23,7 @@ export default function BusmeVehicles() {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const statusOptions = [
+    { value: '', label: 'Todos los estado'},
     { value: 'En servicio', label: 'En servicio' },
     { value: 'Dañado', label: 'Dañado' },
     { value: 'En reparación', label: 'En reparación' },
@@ -30,6 +31,7 @@ export default function BusmeVehicles() {
   ];
 
   const routesOptions = [
+    { value: '', label: 'Todas las rutas'},
     { value: 'UTZMG - Las cuatas', label: 'UTZMG - Las cuatas' },
     { value: 'UTZMG - Banús', label: 'UTZMG - Banús' }
   ]

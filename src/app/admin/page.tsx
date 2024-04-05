@@ -170,6 +170,7 @@ export default function Page() {
                                             onBlur={handleBlur}
                                             value={values.noticeContent}
                                             validation={errors.noticeContent && touched.noticeContent && errors.noticeContent}
+                                            multiline={true}
                                         />
                                     </div>
                                     <BusmeSecondaryButton title="Guardar aviso" disabled={isSubmitting} />

@@ -61,7 +61,6 @@ export default function NewVehiclePage() {
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(() => {
-                            (JSON.stringify(values, null, 2));
                             BusmeSweetAlert(
                                 '¡Vehículo nuevo generado!',
                                 '',
@@ -69,7 +68,7 @@ export default function NewVehiclePage() {
                                 );
                                 setTimeout(() => {
                                     router.back();
-                                }, 2000);                                
+                                }, 400);                                
                             setSubmitting(false);
                         }, 400);
                     }}
