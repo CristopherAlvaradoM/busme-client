@@ -13,6 +13,8 @@ import BusmeButtonLogin from "@/app/components/BusmeButtonLogin";
 import BusmeMessage from "@/app/components/BusmeMessage";
 import { IoMailOpenOutline} from "react-icons/io5";
 import BusmeModal from "@/app/components/BusmeModal";
+import BusmeInput from "@/app/components/BusmeInput";
+import { Formik } from "formik";
 
 interface Message {
     username: string;
@@ -147,6 +149,41 @@ export default function Page() {
                                     <BusmeButtonLogin text={"Responder"} onClick={openModal}/>
                                     <BusmeModal isOpen={isModalOpen} onClose={closeModal} showIcon={true} icon={IoMailOpenOutline} buttonFunction={()=>{}} successButtonTitle={"Enviar"}>
                                         <p className="modal-title-text">Respuesta</p>
+                                        <Formik
+                                            initialValues={{ email: '', password: '' }}
+                                            validate={values => {
+                                                const errors = {} as { email?: string };
+                                                if (!values.email) {
+                                                    errors.email = 'Required';
+                                                } else if (
+                                                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                                                ) {
+                                                    errors.email = 'Invalid email address';
+                                                }
+                                                return errors;
+                                            }}
+                                            onSubmit={(values, { setSubmitting }) => {
+                                                setTimeout(() => {
+                                                    alert(JSON.stringify(values, null, 2));
+                                                    setSubmitting(false);
+                                                }, 400);
+                                            }}
+                                        >
+                                            {({
+                                                  values,
+                                                  errors,
+                                                  touched,
+                                                  handleChange,
+                                                  handleBlur,
+                                                  handleSubmit,
+                                                  isSubmitting,
+                                                  /* and other goodies */
+                                              }) => (
+                                                <form onSubmit={handleSubmit}>
+                                                    <BusmeInput name={"email"} title={"Jere"} placeholder={"El guaje"} type={"text"} onChange={handleChange} onBlur={handleBlur} value={values.email} validation={errors.email && touched.email && errors.email}/>
+                                                </form>
+                                            )}
+                                        </Formik>
                                     </BusmeModal>
                                 </div>
                             </>
