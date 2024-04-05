@@ -123,7 +123,7 @@ import { IoAdd } from "react-icons/io5";
         </div>
         <div className=''>
         <BusmeCard>
-          <BusmeCardButtonHeader subtitle={"Rutas"} to={""} buttonText={"Agregar nueva ruta"} icon={IoAdd} />
+          <BusmeCardButtonHeader subtitle={"Rutas"} to={"/admin/routes/new-route"} buttonText={"Agregar nueva ruta"} icon={IoAdd} />
           <BusmeTable 
             headers={routesHeaders} 
             data={filteredRoutesData} 
