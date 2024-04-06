@@ -1,8 +1,9 @@
 "use client"
+import React from "react";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmePageHeader from "@/app/components/BusmePageHeader";
-import React from "react";
 import BusmeInput from "@/app/components/BusmeInput";
+import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 
 
 export default function NewRoutePage() {
@@ -78,18 +79,35 @@ export default function NewRoutePage() {
                 </div>
               </div>
             </div>
-            <div className="w-full flex flex-row gap-5">
-              <div className="flex flex-col w-4/12 gap-y-5">
+            <div className="w-full flex flex-row gap-x-8">
+              <div className="flex flex-col w-4/12">
                 <p className="subtitle-text">Mapa de la ruta</p>
-                <div className="flex flex-col gap-y-5">
-                  <span>Inpust</span>
-                  <span>Inpust</span>
+                <div className="flex flex-col">
+                <p className="body-text mt-5">Añade los puntos de abordaje</p>
+                  <BusmeInput name={"destination"} title={"Origen"}
+                    placeholder={"Ingresa el Origen"}
+                    type={"text"}
+                    onChange={() => {}} 
+                    onBlur={() => {}}
+                    value={''}
+                    validation={''} 
+                  />
+                  <BusmeSecondaryButton 
+                    title={"Añadir nuevo punto"} 
+                    disabled={true} 
+                  />
                 </div>
               </div>
               <div className="w-8/12 h-full">
                 <div> contededor del mapa</div>
 
               </div>
+            </div>
+            <div className="mb-2">
+              <BusmeSecondaryButton 
+                title={"Generar nueva ruta"} 
+                disabled={true} 
+              />
             </div>
           </div>
         </BusmeCard>
