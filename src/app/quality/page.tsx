@@ -13,6 +13,10 @@ import BusmeButtonLogin from "@/app/components/BusmeButtonLogin";
 import BusmeMessage from "@/app/components/BusmeMessage";
 import { IoMailOpenOutline} from "react-icons/io5";
 import BusmeModal from "@/app/components/BusmeModal";
+import BusmeInput from "@/app/components/BusmeInput";
+import { Formik } from "formik";
+import {Bus} from "lucide-react";
+import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 
 interface Message {
     username: string;
@@ -102,6 +106,15 @@ export default function Page() {
         setIsModalOpen(false);
     };
 
+    const sendAnswer = () => {
+        closeModal()
+        BusmeSweetAlert(
+            'Respuesta enviada',
+            'Esta queja ha sido respondida con éxito',
+            BusmeSweetAlertIconType.Success
+        )
+    }
+
     return (
         <div className="h-full pb-9">
             <BusmePageHeader title={"Buzón de quejas"} rol={"Calidad"} username={"Anthony"}/>
@@ -145,9 +158,40 @@ export default function Page() {
                                 <div className="w-full border-[1px] border-muted-500 my-5"></div>
                                 <div>
                                     <BusmeButtonLogin text={"Responder"} onClick={openModal}/>
-                                    <BusmeModal isOpen={isModalOpen} onClose={closeModal} showIcon={true} icon={IoMailOpenOutline} buttonFunction={()=>{}} successButtonTitle={"Enviar"}>
-                                        <p className="modal-title-text">Respuesta</p>
-                                    </BusmeModal>
+                                    <Formik
+                                        initialValues={{ title: '', content: '' }}
+                                        validate={values => {
+                                            const errors = {} as { title?: string, content?: string};
+                                            if (!values.title) {
+                                                errors.title = 'Campo requerido';
+                                            } if (!values.content) {
+                                                errors.content = 'Campo requerido';
+                                            }
+                                            return errors;
+                                        }}
+                                        onSubmit={(values, { setSubmitting }) => {
+                                            sendAnswer();
+                                        }}
+                                    >
+                                        {({
+                                              values,
+                                              errors,
+                                              touched,
+                                              handleChange,
+                                              handleBlur,
+                                              handleSubmit,
+                                              isSubmitting,
+                                              /* and other goodies */
+                                          }) => (
+                                            <form onSubmit={handleSubmit}>
+                                                <BusmeModal isOpen={isModalOpen} onClose={closeModal} showIcon={true} icon={IoMailOpenOutline} disabled={isSubmitting} successButtonTitle={"Enviar"}>
+                                                    <p className="modal-title-text">Respuesta</p>
+                                                    <BusmeInput name={"title"} title={"Titulo"} placeholder={"Ingresa un título"} type={"text"} onChange={handleChange} onBlur={handleBlur} value={values.title} validation={errors.title && touched.title && errors.title}/>
+                                                    <BusmeInput multiline={true} name={"content"} title={"Contenido"} placeholder={"Coloca el contenido de la respuesta"} type={"password"} onChange={handleChange} onBlur={handleBlur} value={values.content} validation={errors.content && touched.content && errors.content}/>
+                                                </BusmeModal>
+                                            </form>
+                                        )}
+                                    </Formik>
                                 </div>
                             </>
                         )}

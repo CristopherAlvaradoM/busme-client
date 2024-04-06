@@ -10,10 +10,11 @@ interface ModalProps {
     icon?: React.ComponentType<IconBaseProps>;
     children: ReactNode;
     successButtonTitle: string;
-    buttonFunction: () => void;
+    buttonFunction?: () => void;
+    disabled?: boolean;
 }
 
-const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: Icon, children, buttonFunction, successButtonTitle }) => {
+const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: Icon, children, buttonFunction, successButtonTitle, disabled }) => {
     const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
@@ -33,7 +34,7 @@ const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: I
             <div className={`fixed inset-0 bg-black opacity-50 transition-opacity ${isOpen ? 'ease-out duration-300' : 'ease-in duration-200'}`}></div>
             {modalOpen && (
                 <div
-                    className={`relative w-auto max-w-md p-6 my-8 mx-auto bg-white rounded-lg shadow-lg transition-opacity ${isOpen ? 'ease-out duration-300' : 'ease-in duration-200'}`}>
+                    className={`relative w-auto max-w-lg p-6 my-8 mx-auto bg-white rounded-lg shadow-lg transition-opacity ${isOpen ? 'ease-out duration-300' : 'ease-in duration-200'}`}>
                     <div className="flex justify-between">
                         {showIcon && Icon && <Icon className="size-6 text-primary-600"/>}
                         <div className="flex flex-1 justify-end">
@@ -51,7 +52,7 @@ const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: I
                             Cancelar
                         </button>
                         <div className={"mx-3"}/>
-                        <button type="submit" onClick={buttonFunction}
+                        <button type="submit" onClick={buttonFunction} disabled={disabled}
                                 className="button-secondary button-secondary-hover w-full mt-6">
                             {successButtonTitle}
                         </button>
