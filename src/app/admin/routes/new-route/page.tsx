@@ -6,6 +6,8 @@ import BusmeCard from "@/app/components/BusmeCard";
 import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeInput from "@/app/components/BusmeInput";
 import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
+import BusmeModal from "@/app/components/BusmeModal";
+
 
 
 export default function NewRoutePage() {
@@ -20,6 +22,18 @@ export default function NewRoutePage() {
   const handleArrivalTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setArrivalTime(e.target.value);
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Función para abrir el modal
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    // Función para cerrar el modal
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -138,22 +152,41 @@ export default function NewRoutePage() {
                 <p className="subtitle-text">Mapa de la ruta</p>
                 <div className="flex flex-col">
                   <p className="body-text mt-5">Añade los puntos de abordaje</p>
-                  <BusmeInput name={"destination"} title={"Origen"}
-                    placeholder={"Ingresa el Origen"}
-                    type={"text"}
-                    onChange={() => {}} 
-                    onBlur={() => {}}
-                    value={''}
-                    validation={''} 
-                  />
+                  <div className="h-60 overflow-auto">
+                    <BusmeInput name={"destination"} title={""}
+                      placeholder={"Ingresa el Origen"}
+                      type={"text"}
+                      onChange={() => {}} 
+                      onBlur={() => {}}
+                      value={''}
+                      validation={''} 
+                    />
+                 </div>
                   <BusmeSecondaryButton 
                     title={"Añadir nuevo punto"} 
-                    disabled={true} 
-                  />
+                    disabled={false} 
+                    onClick={openModal}
+                  /> 
+                  <BusmeModal
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
+                    showIcon={true}
+                    successButtonTitle="Aceptar"
+                    buttonFunction={() => {
+                        // Lógica que quieres ejecutar cuando se presiona el botón de éxito
+                        console.log("Botón de éxito presionado");
+                        closeModal(); // Cierra el modal después de ejecutar la lógica
+                    }}
+                    disabled={false} // Cambia esto según sea necesario
+                  >
+                    {/* Contenido del modal */}
+                    <h1>Título del modal</h1>
+                    <p>Contenido del modal...</p>
+                  </BusmeModal>
                 </div>
               </div>
               <div className="w-8/12 h-full">
-                <div ref={mapRef} style={{ width: "100%", height: "350px", borderRadius: "10px" }}></div>
+                <div ref={mapRef} style={{ width: "100%", height: "380px", borderRadius: "10px" }}></div>
               </div>
             </div>
           </div>
