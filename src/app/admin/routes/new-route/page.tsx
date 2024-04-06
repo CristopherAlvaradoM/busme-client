@@ -1,5 +1,6 @@
 "use client"
-import React from "react";
+import React, { useState } from "react";
+import BusmeSelectHours from "@/app/components/BusmeSelectHours";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeInput from "@/app/components/BusmeInput";
@@ -7,6 +8,18 @@ import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 
 
 export default function NewRoutePage() {
+
+  const [departureTime, setDepartureTime] = useState("");
+  const [arrivalTime, setArrivalTime] = useState("");
+
+  const handleDepartureTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDepartureTime(e.target.value);
+  };
+
+  const handleArrivalTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setArrivalTime(e.target.value);
+  };
+
   
   return (
     <div>
@@ -31,14 +44,18 @@ export default function NewRoutePage() {
                     value={''}
                     validation={''} 
                   />
-                  <BusmeInput name={"name"} title={"Horarios"}
-                    placeholder={"Ingresa el nombre de la ruta"}
-                    type={"text"}
-                    onChange={() => {}} 
-                    onBlur={() => {}}
-                    value={''}
-                    validation={''} 
-                  />
+                  <div className="grid grid-cols-2 gap-x-8">
+                    <BusmeSelectHours
+                      placeholder="Hora de salida"
+                      value={departureTime}
+                      onChange={handleDepartureTimeChange}
+                    />
+                    <BusmeSelectHours
+                      placeholder="Hora de llegada"
+                      value={arrivalTime}
+                      onChange={handleArrivalTimeChange}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col w-8/12">
