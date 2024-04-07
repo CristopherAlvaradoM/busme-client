@@ -5,11 +5,13 @@ import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeInput from "@/app/components/BusmeInput";
 import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
+import BusmeDateInput from "@/app/components/BusmeDateInput";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { Formik } from "formik";
+import BusmeScheduleNotice from "@/app/components/BusmeScheduledNotice";
 
 export default function BusmeNotices() {
-  const [bar1Open, setBar1Open] = useState(false);
+  const [bar1Open, setBar1Open] = useState(true);
   const [bar2Open, setBar2Open] = useState(false);
 
   const OpenBar1 = () => {
@@ -116,24 +118,26 @@ export default function BusmeNotices() {
                   <Formik
                     initialValues={{ date: '', hour: '', title: '', noticeContent: '' }}
                     validate={values => {
-                      const errors = {} as { date?:string, hour?: string, title?: string, noticeContent?: string };
-                      if(!values.date){
-                        errors.date ='Campo requerido'
-                      } else if (!/^\d+$/.test(values.date)) {
-                        errors.date = 'Debe contener solo números';
+                      const errors = {} as { date?: string, hour?: string, title?: string, noticeContent?: string };
+                      if (!values.date) {
+                        errors.date = 'Campo requerido'
                       } else {
                         const currentDate = new Date();
+                        currentDate.setUTCHours(0, 0, 0, 0); // Establecer horas, minutos, segundos y milisegundos en 0
+                        console.log(currentDate)
+
                         const selectedDate = new Date(values.date);
-                    
-                        if (selectedDate < currentDate) {
+                        selectedDate.setDate(selectedDate.getDate() + 1);
+                        selectedDate.setUTCHours(0, 0, 0, 0); // Establecer horas, minutos, segundos y milisegundos en 0
+                        console.log(selectedDate)
+
+                        if (selectedDate.getTime() < currentDate.getTime()) {
                           errors.date = 'La fecha no puede ser una fecha pasada';
                         }
-                      } 
-                      if(!values.hour){
-                        errors.hour ='Campo requerido'
-                      } else if (!/^\d+$/.test(values.hour)) {
-                        errors.hour = 'Debe contener solo números';
-                      }                    
+                      }
+                      if (!values.hour) {
+                        errors.hour = 'Campo requerido'
+                      }
                       if (!values.title) {
                         errors.title = 'Campo requerido';
                       }
@@ -159,7 +163,13 @@ export default function BusmeNotices() {
                       isSubmitting,
                     }) => (
                       <form onSubmit={handleSubmit}>
-
+                        <div className="">
+                          <BusmeDateInput name="date" title="Fecha"
+                            onChange={handleChange} onBlur={handleBlur}
+                            value={values.date}
+                            validation={errors.date && touched.date && errors.date}
+                          />
+                        </div>
                         <div>
                           <BusmeInput name="title" title="Titulo del aviso"
                             placeholder="Ingresa un título para el aviso"
@@ -191,6 +201,9 @@ export default function BusmeNotices() {
         <div className="w-4/12 flex-grow">
           <BusmeCard>
             <p className="subtitle-text">Avisos programados</p>
+            <BusmeScheduleNotice title="El autobus esta llegando" content="El autobus esta llegando a la escuela"
+              day="Viernes" date="08/12/2023"
+            />
           </BusmeCard>
         </div>
       </div>
