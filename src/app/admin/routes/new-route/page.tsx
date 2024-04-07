@@ -196,7 +196,40 @@ export default function NewRoutePage() {
                     disabled={false} // Cambia esto según sea necesario
                   >
                     {/* Contenido del modal */}
-                    <p className="modal-title-text">Nuevo punto de abordaje</p>
+                    <div className="w-full h-full">
+                      <p className="modal-title-text">Nuevo punto de abordaje</p>
+                      <p className="modal-body-text">Agrega la información para el nuevo punto de abordaje</p>
+                      <BusmeInput name={"namepuntdeabordaje"} title={"Nombre"}
+                        placeholder={"Ingresa el nombre del punto de abordaje"}
+                        type={"text"}
+                        onChange={() => {}} 
+                        onBlur={() => {}}
+                        value={''}
+                        validation={''} 
+                      />
+                      <div className="grid grid-cols-2 gap-x-8 mb-4">
+                        <BusmeInput 
+                          name={"latitude"} 
+                          title={"Latitud"} 
+                          placeholder={"Ingresa la latitud"} 
+                          type={"text"} 
+                          onChange={() => {}} 
+                          onBlur={() => {}} 
+                          value={''} 
+                          validation={''} 
+                        />
+                        <BusmeInput 
+                            name={"longitude"} 
+                            title={"Longitud"} 
+                            placeholder={"Ingresa la longitud"} 
+                            type={"text"} 
+                            onChange={() => {}} 
+                            onBlur={() => {}} 
+                            value={''} 
+                            validation={''} 
+                        />
+                      </div>
+                    </div> 
                   </BusmeModal>
                 </div>
               </div>
