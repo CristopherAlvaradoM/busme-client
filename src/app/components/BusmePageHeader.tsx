@@ -27,16 +27,17 @@ const BusmePageHeader: React.FC<BusmePageHeaderProps> = ({title, rol, username, 
                 <p className="title-text">{title}</p>
             </div>
 
-            <div className="hidden md:flex items-center"> {/* Solo visible en pantallas medianas y grandes */}
+            <div className="flex items-center"> {/* Este contenedor se mostrará en todos los tamaños de pantalla */}
                 <div className="text-right mr-2"> {/* Ajuste de margen derecho */}
                     <p className="caption-text">{rol}</p>
                     <p className="subtitle-text">{username}</p>
                 </div>
-                <div className="w-12 ml-2 md:ml-5"> {/* Ajuste de margen izquierdo en pantallas medianas y grandes */}
+                <div className="w-12 ml-2"> {/* Ajuste de margen izquierdo */}
                     <Image src={UTZMGLogo} alt="UTZMG Logo" width={40} height={40}/> {/* Tamaño de la imagen */}
                 </div>
             </div>
         </div>
+
     );
 }
 
