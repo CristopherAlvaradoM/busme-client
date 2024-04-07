@@ -154,7 +154,23 @@ export default function NewRoutePage() {
                   <p className="body-text mt-5">Añade los puntos de abordaje</p>
                   <div className="h-60 overflow-auto">
                     <BusmeInput name={"destination"} title={""}
-                      placeholder={"Ingresa el Origen"}
+                      placeholder={"Nombre del punto"}
+                      type={"text"}
+                      onChange={() => {}} 
+                      onBlur={() => {}}
+                      value={''}
+                      validation={''} 
+                    />
+                    <BusmeInput name={"destination"} title={""}
+                      placeholder={"Nombre del punto"}
+                      type={"text"}
+                      onChange={() => {}} 
+                      onBlur={() => {}}
+                      value={''}
+                      validation={''} 
+                    />
+                    <BusmeInput name={"destination"} title={""}
+                      placeholder={"Nombre del punto"}
                       type={"text"}
                       onChange={() => {}} 
                       onBlur={() => {}}
@@ -180,8 +196,7 @@ export default function NewRoutePage() {
                     disabled={false} // Cambia esto según sea necesario
                   >
                     {/* Contenido del modal */}
-                    <h1>Título del modal</h1>
-                    <p>Contenido del modal...</p>
+                    <p className="modal-title-text">Nuevo punto de abordaje</p>
                   </BusmeModal>
                 </div>
               </div>
