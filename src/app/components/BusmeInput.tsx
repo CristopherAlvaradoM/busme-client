@@ -22,7 +22,7 @@ const BusmeInput: React.FC<BusmeInputProps> = ({name, title, placeholder, type, 
             value={value}
             className={`w-full rounded-lg bg-muted-200 p-3 font-poppins mt-2 border ${
                 validation ? 'border-danger' : 'border-muted-200'
-            } h-32 resize-none text-left`}
+            } h-32 resize-none text-left lg:text-base md:text-sm text-xs`}
         />
     ) : (
         <input
@@ -34,7 +34,7 @@ const BusmeInput: React.FC<BusmeInputProps> = ({name, title, placeholder, type, 
             value={value}
             className={`w-full rounded-lg bg-muted-200 p-3 font-poppins mt-2 border ${
                 validation ? 'border-danger' : 'border-muted-200'
-            }`}
+            } lg:text-base md:text-sm text-xs`}
         />
     );
     return (
