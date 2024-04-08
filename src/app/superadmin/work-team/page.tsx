@@ -15,7 +15,7 @@ export default function WorkTeamPage() {
         <div>
             <BusmePageHeader rol={"Superadministrador"} title={"Equipo de trabajo"} username={"Anthony"}/>
             <BusmeCard>
-                <BusmeCardButtonHeader subtitle={"Lista de equipo de trabajo"} to={"/superadmin/work-team/new-user"} buttonText={"Agregar usuario"} icon={IoPersonAdd}/>
+                <BusmeCardButtonHeader to={"/superadmin/work-team/new-user"} buttonText={"Agregar usuario"} icon={IoPersonAdd}/>
                 <BusmeTable headers={workTeamHeaders} data={workTeamData} showDeleteColumn={true}
                             showEditColumn={true}/>
             </BusmeCard>
