@@ -54,7 +54,7 @@
     }
 
     .caption-text {
-        @apply text-[16px] md:text-[14px] lg:text-[16px] font-medium text-muted-950 font-poppins;
+        @apply text-[12px] md:text-[14px] lg:text-[16px] font-medium text-muted-950 font-poppins;
     }
 
     .link-text {
