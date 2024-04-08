@@ -27,7 +27,7 @@ const BusmePageHeader: React.FC<BusmePageHeaderProps> = ({title, rol, username, 
                 <p className="title-text">{title}</p>
             </div>
 
-            <div className="flex items-center"> {/* Este contenedor se mostrará en todos los tamaños de pantalla */}
+            <div className="flex items-center ml-5"> {/* Este contenedor se mostrará en todos los tamaños de pantalla */}
                 <div className="text-right mr-2"> {/* Ajuste de margen derecho */}
                     <p className="caption-text">{rol}</p>
                     <p className="subtitle-text">{username}</p>
