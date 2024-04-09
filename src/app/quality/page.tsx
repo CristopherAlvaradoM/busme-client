@@ -15,7 +15,6 @@ import { IoMailOpenOutline, IoArrowBack} from "react-icons/io5";
 import BusmeModal from "@/app/components/BusmeModal";
 import BusmeInput from "@/app/components/BusmeInput";
 import { Formik } from "formik";
-import {Bus} from "lucide-react";
 import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 
 interface Message {
