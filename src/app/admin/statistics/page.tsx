@@ -1,14 +1,14 @@
 "use client"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BusmeCard from "@/app/components/BusmeCard";
 import ProgressBar from "@ramonak/react-progress-bar";
 import {IoShareOutline, IoTimer, IoBus, IoGolf, IoDocumentOutline, IoClose} from "react-icons/io5";
-import Chart from "react-apexcharts";
 import BusmeFilterCard from "@/app/components/BusmeFilterCard";
 import BusmeModal from "@/app/components/BusmeModal";
 import BusmeOption from "@/app/components/BusmeOption";
 import {FaFileExcel, FaFilePdf, FaFileImage} from "react-icons/fa6";
 import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
+import dynamic from "next/dynamic";
 
 const header = ['ID', 'Punto de abordaje', 'Frecuencia', 'Porcentaje'];
 const data = [
@@ -16,6 +16,8 @@ const data = [
     {'id': '02', 'punto': 'Santa Cruz', 'approaches': 1210},
     {'id': '03', 'punto': 'R. Banús', 'approaches': 2200},
 ];
+
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const totalApproaches = data.reduce((total, item) => total + item.approaches, 0);
 
@@ -55,6 +57,12 @@ export default function Page() {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     const chartData = {
         options: {
@@ -210,15 +218,16 @@ export default function Page() {
             <div className="pt-6">
                 <BusmeCard>
                     <p className="subtitle-text">Frecuencia de abordajes</p>
-                    <Chart
-                        options={chartData.options}
-                        series={chartData.series}
-                        type="area"
-                        toolbar={false}
-                        width="100%"
-                        height="400"
-                        className="font-poppins"
-                    />
+                    {isClient && (
+                        <Chart
+                            options={chartData.options}
+                            series={chartData.series}
+                            type="area"
+                            width="100%"
+                            height={400}
+                            className="font-poppins"
+                        />
+                    )}
                 </BusmeCard>
             </div>
         </div>
