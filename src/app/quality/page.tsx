@@ -11,7 +11,7 @@ import {
 import React, {useEffect, useState} from "react";
 import BusmeButtonLogin from "@/app/components/BusmeButtonLogin";
 import BusmeMessage from "@/app/components/BusmeMessage";
-import { IoMailOpenOutline} from "react-icons/io5";
+import { IoMailOpenOutline, IoArrowBack} from "react-icons/io5";
 import BusmeModal from "@/app/components/BusmeModal";
 import BusmeInput from "@/app/components/BusmeInput";
 import { Formik } from "formik";
@@ -118,7 +118,7 @@ export default function Page() {
     return (
         <div className="h-full pb-9">
             <BusmePageHeader title={"Buzón de quejas"} rol={"Calidad"} username={"Anthony"}/>
-            <div className="flex flex-row w-full font-poppins gap-x-5 mt-6">
+            <div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 gap-x-5 gap-y-5 mt-6">
                 {categories.map((category, index) => (
                     <BusmeFilterCard
                         key={index}
@@ -130,9 +130,68 @@ export default function Page() {
                     />
                 ))}
             </div>
-            <div className="w-full h-4/6 bg-white rounded-[10px] mt-8">
-                <div className="flex justify-between h-full">
-                    <div className="w-6/12 overflow-auto h-full">
+            <div className="w-full bg-white rounded-lg mt-8 overflow-hidden">
+                {selectedMessage ? (
+                    <div className="p-5">
+                        <div className="flex items-center cursor-pointer" onClick={() => setSelectedMessage(null)}>
+                            <IoArrowBack className="size-5"/>
+                            <p className="bold-body-text ml-2">Regresar</p>
+                        </div>
+                        <p className="subtitle-text mt-4">{selectedMessage.username}</p>
+                        <p className="bold-body-text mt-7">{selectedMessage.category}</p>
+                        <p className="body-text mt-3">{selectedMessage.description}</p>
+                        <p className="body-text mt-7">Enviado el {selectedMessage.date} a las {selectedMessage.hour}</p>
+                        <div className="w-full border-t border-muted-500 my-5"></div>
+                        <div>
+                            <BusmeButtonLogin text={"Responder"} onClick={openModal}/>
+                            <Formik
+                                initialValues={{title: '', content: ''}}
+                                validate={values => {
+                                    const errors = {} as { title?: string, content?: string };
+                                    if (!values.title) {
+                                        errors.title = 'Campo requerido';
+                                    }
+                                    if (!values.content) {
+                                        errors.content = 'Campo requerido';
+                                    }
+                                    return errors;
+                                }}
+                                onSubmit={(values, {setSubmitting}) => {
+                                    sendAnswer();
+                                }}
+                            >
+                                {({
+                                      values,
+                                      errors,
+                                      touched,
+                                      handleChange,
+                                      handleBlur,
+                                      handleSubmit,
+                                      isSubmitting,
+                                      /* and other goodies */
+                                  }) => (
+                                    <form onSubmit={handleSubmit}>
+                                        <BusmeModal isOpen={isModalOpen} onClose={closeModal} showIcon={true}
+                                                    icon={IoMailOpenOutline} disabled={isSubmitting}
+                                                    successButtonTitle={"Enviar"}>
+                                            <p className="modal-title-text">Respuesta</p>
+                                            <BusmeInput name={"title"} title={"Titulo"}
+                                                        placeholder={"Ingresa un título"} type={"text"}
+                                                        onChange={handleChange} onBlur={handleBlur} value={values.title}
+                                                        validation={errors.title && touched.title && errors.title}/>
+                                            <BusmeInput multiline={true} name={"content"} title={"Contenido"}
+                                                        placeholder={"Coloca el contenido de la respuesta"}
+                                                        type={"password"} onChange={handleChange} onBlur={handleBlur}
+                                                        value={values.content}
+                                                        validation={errors.content && touched.content && errors.content}/>
+                                        </BusmeModal>
+                                    </form>
+                                )}
+                            </Formik>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="overflow-auto">
                         {filteredMessages.map((message, index) => (
                             <BusmeMessage
                                 key={index}
@@ -147,56 +206,7 @@ export default function Page() {
                             />
                         ))}
                     </div>
-                    <div
-                        className="w-6/12 overflow-auto h-full p-5 border-l-2 border-l-muted-500 flex flex-col justify-between">
-                        {selectedMessage && (
-                            <>
-                                <p className="subtitle-text">{selectedMessage.username}</p>
-                                <p className="bold-body-text mt-7">{selectedMessage.category}</p>
-                                <p className="body-text mt-3">{selectedMessage.description}</p>
-                                <p className="body-text mt-7">Enviado el {selectedMessage.date} a las {selectedMessage.hour}</p>
-                                <div className="w-full border-[1px] border-muted-500 my-5"></div>
-                                <div>
-                                    <BusmeButtonLogin text={"Responder"} onClick={openModal}/>
-                                    <Formik
-                                        initialValues={{ title: '', content: '' }}
-                                        validate={values => {
-                                            const errors = {} as { title?: string, content?: string};
-                                            if (!values.title) {
-                                                errors.title = 'Campo requerido';
-                                            } if (!values.content) {
-                                                errors.content = 'Campo requerido';
-                                            }
-                                            return errors;
-                                        }}
-                                        onSubmit={(values, { setSubmitting }) => {
-                                            sendAnswer();
-                                        }}
-                                    >
-                                        {({
-                                              values,
-                                              errors,
-                                              touched,
-                                              handleChange,
-                                              handleBlur,
-                                              handleSubmit,
-                                              isSubmitting,
-                                              /* and other goodies */
-                                          }) => (
-                                            <form onSubmit={handleSubmit}>
-                                                <BusmeModal isOpen={isModalOpen} onClose={closeModal} showIcon={true} icon={IoMailOpenOutline} disabled={isSubmitting} successButtonTitle={"Enviar"}>
-                                                    <p className="modal-title-text">Respuesta</p>
-                                                    <BusmeInput name={"title"} title={"Titulo"} placeholder={"Ingresa un título"} type={"text"} onChange={handleChange} onBlur={handleBlur} value={values.title} validation={errors.title && touched.title && errors.title}/>
-                                                    <BusmeInput multiline={true} name={"content"} title={"Contenido"} placeholder={"Coloca el contenido de la respuesta"} type={"password"} onChange={handleChange} onBlur={handleBlur} value={values.content} validation={errors.content && touched.content && errors.content}/>
-                                                </BusmeModal>
-                                            </form>
-                                        )}
-                                    </Formik>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </div>
+                )}
             </div>
         </div>
     );
