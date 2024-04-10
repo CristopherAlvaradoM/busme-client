@@ -46,7 +46,7 @@ const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: I
                     <div className="mt-5">
                         {children}
                     </div>
-                    <div className="flex flex-col mt-2 sm:flex-row sm:justify-between">
+                    <div className="flex flex-col mt-5 sm:flex-row sm:justify-between">
                         <button type="submit" onClick={onClose}
                                 className="outline-button-secondary outline-button-secondary-hover w-full sm:w-auto mt-6 sm:mt-0 sm:mr-3">
                             Cancelar
