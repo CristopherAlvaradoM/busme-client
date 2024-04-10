@@ -117,17 +117,19 @@ export default function Page() {
     return (
         <div className="h-full pb-9">
             <BusmePageHeader title={"Buzón de quejas"} rol={"Calidad"} username={"Anthony"}/>
-            <div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 gap-x-5 gap-y-5 mt-6">
-                {categories.map((category, index) => (
-                    <BusmeFilterCard
-                        key={index}
-                        title={category.title}
-                        amount={categoryCounts[category.title]}
-                        isActive={filter === category.title}
-                        icon={category.icon}
-                        onClick={() => handleFilterChange(category.title)}
-                    />
-                ))}
+            <div className="overflow-x-auto">
+                <div className="flex w-full gap-x-5 mt-7">
+                    {categories.map((category, index) => (
+                        <BusmeFilterCard
+                            key={index}
+                            title={category.title}
+                            amount={categoryCounts[category.title]}
+                            isActive={filter === category.title}
+                            icon={category.icon}
+                            onClick={() => handleFilterChange(category.title)}
+                        />
+                    ))}
+                </div>
             </div>
             <div className="w-full bg-white rounded-lg mt-8 overflow-hidden">
                 {selectedMessage ? (
