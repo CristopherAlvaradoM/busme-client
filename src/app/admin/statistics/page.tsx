@@ -10,7 +10,7 @@ import {FaFileExcel, FaFilePdf, FaFileImage} from "react-icons/fa6";
 import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 import dynamic from "next/dynamic";
 
-const header = ['ID', 'Punto de abordaje', 'Frecuencia', 'Porcentaje'];
+const header = ['ID', 'Punto', 'Frecuencia', '%'];
 const data = [
     {'id': '01', 'punto': 'Las Cuatas', 'approaches': 5000},
     {'id': '02', 'punto': 'Santa Cruz', 'approaches': 1210},
@@ -104,18 +104,21 @@ export default function Page() {
 
     return (
         <div>
-            <div className="flex">
-                <div className="flex-grow w-7/12">
+            <div className="flex flex-col lg:flex-row items-start justify-between">
+                <div className="mb-6 w-full lg:w-7/12">
                     <BusmeCard>
                         <div className="flex justify-between items-center">
                             <h1 className="subtitle-text">Abordajes de hoy</h1>
-                            <button onClick={openModal}>
-                                <div className="flex items-center justify-center muted-button muted-button-hover">
-                                    <IoShareOutline className="mr-2.5 size-5"/>
-                                    <p>Exportar información</p>
+                            <button onClick={openModal} className="w-auto">
+                                <div
+                                    className="flex items-center justify-center rounded-md muted-button muted-button-hover">
+                                    <IoShareOutline className="size-5"/>
+                                    <p className="hidden md:block ml-2.5">Exportar información</p>
                                 </div>
                             </button>
-                            <BusmeModal isOpen={isModalOpen} onClose={closeModal} showIcon={true} icon={IoDocumentOutline} buttonFunction={generateFile} successButtonTitle={"Generar archivo"}>
+                            <BusmeModal isOpen={isModalOpen} onClose={closeModal} showIcon={true}
+                                        icon={IoDocumentOutline} buttonFunction={generateFile}
+                                        successButtonTitle={"Generar archivo"}>
                                 <p className="modal-title-text">Formato para exportar la información</p>
                                 <p className="modal-body-text">Seleccione un formato para exportar la información</p>
                                 <BusmeOption
@@ -148,8 +151,8 @@ export default function Page() {
                             </BusmeModal>
                         </div>
                         <p className="caption-text mt-2">Resumen del día</p>
-                        <div className="flex flex-row w-full font-poppins gap-x-5 mt-6">
-                        <div className='w-full h-full'>
+                        <div className="flex flex-col md:flex-row w-full font-poppins mt-6 gap-y-5 md:gap-x-5">
+                            <div className='w-full md:w-1/3'>
                                 <BusmeFilterCard
                                     title="Total de abordajes"
                                     amount={350}
@@ -157,7 +160,7 @@ export default function Page() {
                                     icon={<IoGolf className="size-10"/>}
                                 />
                             </div>
-                            <div className='w-full h-full'>
+                            <div className='w-full md:w-1/3'>
                                 <BusmeFilterCard
                                     title="Total de viajes"
                                     amount={5}
@@ -165,7 +168,7 @@ export default function Page() {
                                     icon={<IoBus className="size-10"/>}
                                 />
                             </div>
-                            <div className='w-full h-full'>
+                            <div className='w-full md:w-1/3'>
                                 <BusmeFilterCard
                                     title="Tiempo recorrido"
                                     amount={10}
@@ -177,7 +180,7 @@ export default function Page() {
                     </BusmeCard>
                 </div>
                 <div className="mx-3"/>
-                <div className="flex-grow w-5/12">
+                <div className="w-full lg:w-5/12">
                     <BusmeCard>
                         <div className="subtitle-text">Puntos de abordaje</div>
                         <table className="text-center w-full">
@@ -217,7 +220,7 @@ export default function Page() {
             </div>
             <div className="pt-6">
                 <BusmeCard>
-                    <p className="subtitle-text">Frecuencia de abordajes</p>
+                <p className="subtitle-text">Frecuencia de abordajes</p>
                     {isClient && (
                         <Chart
                             options={chartData.options}
