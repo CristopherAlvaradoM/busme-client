@@ -7,7 +7,7 @@ import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeInput from "@/app/components/BusmeInput";
 import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 import BusmeModal from "@/app/components/BusmeModal";
-
+import { Formik, Field } from 'formik';
 
 
 export default function NewRoutePage() {
@@ -82,6 +82,41 @@ export default function NewRoutePage() {
       />
       <div>
         <BusmeCard>
+        <Formik
+          initialValues={{name: '', departureTime: '', arrivalTime: '', driverName: '', driverLastName: '', driverEmail: '', employeeNumber: '', destination1: '', destination2: '', destination3: '', newDestinationName: '', newDestinationLatitude: '', newDestinationLongitude: ''}}
+          validate={values => {
+            const errors: any = {};
+            if (!values.name) {
+              errors.name = 'Campo requerido';
+            }
+            if (!values.driverName) {
+              errors.driverName = 'Campo requerido';
+            }
+            if (!values.driverLastName) {
+              errors.driverLastName = 'Campo requerido';
+            }
+            if (!values.driverEmail) {
+              errors.driverEmail = 'Campo requerido';
+            }
+            if (!values.employeeNumber) {
+              errors.employeeNumber = 'Campo requerido';
+            }
+            if (!values.departureTime) {
+              errors.departureTime = 'Campo requerido';
+            }
+            if (!values.arrivalTime) {
+              errors.arrivalTime = 'Campo requerido';
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            // Realiza las acciones de envío del formulario aquí
+            console.log(values);
+            setSubmitting(false);
+          }}
+        >
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-8">
             <div className="w-full flex flex-row gap-8">
               <div className="flex flex-col w-4/12">
@@ -90,59 +125,61 @@ export default function NewRoutePage() {
                   <BusmeInput name={"name"} title={"Nombre"}
                     placeholder={"Ingresa el nombre del vehículo"}
                     type={"text"}
-                    onChange={() => {}} 
-                    onBlur={() => {}}
-                    value={''}
-                    validation={''} 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.name}
+                    validation={errors.name}
                   />
                   <div className="grid grid-cols-2 gap-x-8">
-                    <BusmeSelectHours
-                      placeholder="Hora de salida"
-                      value={departureTime}
-                      onChange={handleDepartureTimeChange}
-                    />
-                    <BusmeSelectHours
-                      placeholder="Hora de llegada"
-                      value={arrivalTime}
-                      onChange={handleArrivalTimeChange}
-                    />
+                  <BusmeSelectHours
+                    placeholder="Hora de salida"
+                    value={departureTime}
+                    onChange={handleDepartureTimeChange}
+                    validation={errors.departureTime} 
+                  />
+                  <BusmeSelectHours
+                    placeholder="Hora de llegada"
+                    value={arrivalTime}
+                    onChange={handleArrivalTimeChange}
+                    validation={errors.arrivalTime}
+                  />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col w-8/12">
                 <p className="subtitle-text">Chofer asignado</p>
                 <div className="grid grid-cols-2 gap-x-8">
-                  <BusmeInput name={"names"} title={"Nombre(s)"}
+                  <BusmeInput name={"driverName"} title={"Nombre(s)"}
                     placeholder={"Ingresa el nombre del chofer"}
                     type={"text"}
-                    onChange={() => {}} 
-                    onBlur={() => {}}
-                    value={''}
-                    validation={''} 
+                    onChange={handleChange} 
+                    onBlur={handleBlur}
+                    value={values.driverName}
+                    validation={errors.driverName} 
                   />
-                  <BusmeInput name={"lastName"} title={"Apellido(s)"}
+                  <BusmeInput name={"driverLastName"} title={"Apellido(s)"}
                     placeholder={"Ingresa el apellido del chofer"}
                     type={"text"}
-                    onChange={() => {}} 
-                    onBlur={() => {}}
-                    value={''}
-                    validation={''} 
+                    onChange={handleChange} 
+                    onBlur={handleBlur}
+                    value={values.driverLastName}
+                    validation={errors.driverLastName} 
                   />
-                  <BusmeInput name={"email"} title={"Correo"}
+                  <BusmeInput name={"driverEmail"} title={"Correo"}
                     placeholder={"correo@ejemplo.com"}
                     type={"email"}
-                    onChange={() => {}} 
-                    onBlur={() => {}}
-                    value={''}
-                    validation={''} 
+                    onChange={handleChange} 
+                    onBlur={handleBlur}
+                    value={values.driverEmail}
+                    validation={errors.driverEmail} 
                   />
                   <BusmeInput name={"employeeNumber"} title={"Número de empleado"}
                     placeholder={"Ingresa el número de empleado"}
                     type={"text"}
-                    onChange={() => {}} 
-                    onBlur={() => {}}
-                    value={''}
-                    validation={''} 
+                    onChange={handleChange} 
+                    onBlur={handleBlur}
+                    value={values.employeeNumber}
+                    validation={errors.employeeNumber} 
                   />
                 </div>
               </div>
@@ -178,7 +215,7 @@ export default function NewRoutePage() {
                       validation={''} 
                     />
                  </div>
-                  <BusmeSecondaryButton 
+                 <BusmeSecondaryButton 
                     title={"Añadir nuevo punto"} 
                     disabled={false} 
                     onClick={openModal}
@@ -219,14 +256,14 @@ export default function NewRoutePage() {
                           validation={''} 
                         />
                         <BusmeInput 
-                            name={"longitude"} 
-                            title={"Longitud"} 
-                            placeholder={"Ingresa la longitud"} 
-                            type={"text"} 
-                            onChange={() => {}} 
-                            onBlur={() => {}} 
-                            value={''} 
-                            validation={''} 
+                          name={"longitude"} 
+                          title={"Longitud"} 
+                          placeholder={"Ingresa la longitud"} 
+                          type={"text"} 
+                          onChange={() => {}} 
+                          onBlur={() => {}} 
+                          value={''} 
+                          validation={''} 
                         />
                       </div>
                     </div> 
@@ -241,9 +278,12 @@ export default function NewRoutePage() {
           <div className="mb-2 mt-4">
             <BusmeSecondaryButton 
               title={"Generar nueva ruta"} 
-              disabled={true} 
+              disabled={isSubmitting}
             />
           </div>
+        </form>
+        )}
+        </Formik>
         </BusmeCard>
       </div>
     </div>
