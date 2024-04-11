@@ -7,9 +7,14 @@ import FondoLog from '@/assets/img/fondo-login.png';
 import CustomButton from '@/app/components/BusmeButtonLogin';
 import InputField from './components/BusmeInputLogin';
 import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 
 export default function LoginPage() {
+
+  const router = useRouter();
+
   return (
     <main className="min-w-full min-h-screen flex justify-center xl:items-center relative">
       <div className='absolute inset-0'>
@@ -41,28 +46,43 @@ export default function LoginPage() {
                 return errors;
               }}
               onSubmit={(values, { setSubmitting }) => {
-                // Verificar si el usuario y la contraseña son correctos
-                const user = values.email === 'user@gmail.com';
-                const password = values.password === '1234';
+                const { email, password} = values
                 
-                if (user && password) {
-                  // Mostrar alerta de inicio de sesión exitoso
+                fetch(`http://localhost:3000/login?correo=${email}&contrasena=${password}`, {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  }
+                })
+                .then(response => {                  
+                  setSubmitting(false);
+                  if(response.ok) return response.json();
+                  if (response.status === 401) throw new Error('Usuario o contraseña incorrectos');
+                })
+                .then(data => {                  
+                  const { token, rol } = data
+                  Cookies.set('token',  token)
                   BusmeSweetAlert(
                     '¡Inicio de sesión exitoso!',
                     '¡Bienvenido de vuelta!',
-                    BusmeSweetAlertIconType.Success
-                  );
-                } else {
-                  // Mostrar alerta de error de inicio de sesión
+                    BusmeSweetAlertIconType.Success,
+                    () => {
+                      if(rol === 'Superadministrador') router.push('/superadmin')
+                      if(rol === 'Administrador') router.push('/admin')
+                      if(rol === 'Calidad') router.push('/quality') 
+                    }
+                  )
+                })
+                .catch(error => {
+                  setSubmitting(false);
                   BusmeSweetAlert(
                     'Error de inicio de sesión',
                     'El usuario o la contraseña son incorrectos.',
                     BusmeSweetAlertIconType.Error
                   );
-                }
+                })
               
-                // Establecer que el formulario ya no está siendo enviado
-                setSubmitting(false);
+                
               }}
             >
               {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (

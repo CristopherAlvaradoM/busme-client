@@ -7,7 +7,7 @@ export enum BusmeSweetAlertIconType {
     Question = 'question'
 }
 
-export const BusmeSweetAlert = (title: string, text: string, icon: BusmeSweetAlertIconType) => {
+export const BusmeSweetAlert = (title: string, text: string, icon: BusmeSweetAlertIconType, onConfirm?: () => void) => {
     Swal.fire({
         title: title,
         text: text,
@@ -18,6 +18,11 @@ export const BusmeSweetAlert = (title: string, text: string, icon: BusmeSweetAle
             confirmButton: 'font-poppins',
             denyButton: 'font-poppins',
             cancelButton: 'font-poppins',
+        }
+    })
+    .then((result) => {
+        if (result.isConfirmed && onConfirm) {
+            onConfirm();
         }
     });
 };
