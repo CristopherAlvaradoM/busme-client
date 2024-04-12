@@ -49,11 +49,11 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, showEditColumn = false
                 </tr>
                 </thead>
                 <tbody>
-                {data.map((row, rowIndex) => (
+                {/* {data.map((row, rowIndex) => (
                     <tr key={rowIndex} className="bg-white border border-muted-600 font-poppins text-black">
                         {row.map((cell, cellIndex) => (
                             <td key={cellIndex}
-                                className="px-5 py-3 md:py-7"> {/* Ajuste del relleno en dispositivos móviles */}
+                                className="px-5 py-3 md:py-7">
                                 <div className={`${getStatusClass(cell)}`}>
                                     {cell}
                                 </div>
@@ -64,7 +64,7 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, showEditColumn = false
                         {showDeleteColumn && <td className="px-5 py-3 md:py-7 text-center"><IoTrashOutline
                             className="w-[20px] h-[20px] text-danger cursor-pointer"/></td>}
                     </tr>
-                ))}
+                ))} */}
                 </tbody>
             </table>
         </div>
