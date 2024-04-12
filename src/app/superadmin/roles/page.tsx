@@ -1,7 +1,5 @@
 import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeCard from "@/app/components/BusmeCard";
-import BusmeCardButtonHeader from "@/app/components/BusmeCardButtonHeader";
-import {IoPersonAdd} from "react-icons/io5";
 import BusmeTable from "@/app/components/BusmeTable";
 
 export const metadata = {
@@ -20,9 +18,7 @@ export default function Page() {
         <div>
             <BusmePageHeader title={"Roles de administración"} rol={"Superadministrador"} username={"Anthony"}/>
             <BusmeCard>
-                <BusmeCardButtonHeader subtitle={"Lista de roles"} to={"/superadmin/roles/new-role"}
-                                       buttonText={"Agregar rol"} icon={IoPersonAdd}/>
-                <BusmeTable headers={headers} data={data} showEditColumn={true} showDeleteColumn={true}/>
+                <BusmeTable headers={headers} data={data} showDeleteColumn={true}/>
             </BusmeCard>
         </div>
     );

@@ -10,20 +10,40 @@ import BusmeSelect from "@/app/components/BusmeSelect";
 export default function NewUserPage() {
 
     const options = [
-        { value: 'superadmin', label: 'Super Administrador', privileges: ['Crear usuarios', 'Crear roles']},
-        { value: 'admin', label: 'Administrador', privileges: ['Visualización de vehículos de transporte en tiempo real', 'Creación y envío de avisos', 'Estadísticas y gráficos', 'Administración de vehículos', 'Administración de rutas']},
-        { value: 'quality', label: 'Calidad', privileges: ['Control y gestión de quejas/comentarios']}
+        {value: 'superadmin', label: 'Super Administrador', privileges: ['Crear usuarios', 'Crear roles']},
+        {
+            value: 'admin',
+            label: 'Administrador',
+            privileges: ['Visualización de vehículos de transporte en tiempo real', 'Creación y envío de avisos', 'Estadísticas y gráficos', 'Administración de vehículos', 'Administración de rutas']
+        },
+        {value: 'quality', label: 'Calidad', privileges: ['Control y gestión de quejas/comentarios']}
     ]
 
     return (
         <div>
             <BusmePageHeader rol={"Superadministrador"} title={"Nuevo usuario"} username={"Anthony"}
                              showBackIcon={true}/>
-            <div className="flex justify-between h-full pb-10">
+            <div className="flex flex-col lg:flex-row justify-between">
                 <Formik
-                    initialValues={{ name: '', paternalLastName: '', maternalLastName: '', telephone: '', email: '', role: '', password: ''}}
+                    initialValues={{
+                        name: '',
+                        paternalLastName: '',
+                        maternalLastName: '',
+                        telephone: '',
+                        email: '',
+                        role: '',
+                        password: ''
+                    }}
                     validate={values => {
-                        const errors = {} as {name?: string, paternalLastName?: string, maternalLastName?: string, telephone?: string, email?: string, role?: string, password?: string};
+                        const errors = {} as {
+                            name?: string,
+                            paternalLastName?: string,
+                            maternalLastName?: string,
+                            telephone?: string,
+                            email?: string,
+                            role?: string,
+                            password?: string
+                        };
                         if (!values.name) {
                             errors.name = 'Campo requerido';
                         }
@@ -57,7 +77,7 @@ export default function NewUserPage() {
                         }
                         return errors;
                     }}
-                    onSubmit={(values, { setSubmitting }) => {
+                    onSubmit={(values, {setSubmitting}) => {
                         setTimeout(() => {
                             alert(JSON.stringify(values, null, 2));
                             setSubmitting(false);
@@ -75,37 +95,45 @@ export default function NewUserPage() {
                           /* and other goodies */
                       }) => (
                         <>
-                            <div className="w-7/12 flex-grow">
+                            <div className="lg:w-7/12 lg:mr-7">
                                 <BusmeCard>
                                     <p className="subtitle-text">Información del usuario</p>
                                     <form onSubmit={handleSubmit}>
                                         <div className="flex justify-between">
-                                            <BusmeInput name={"name"} title={"Nombre(s)"}
-                                                        placeholder={"Ingresa el nombre del usuario"}
-                                                        type={"text"}
-                                                        onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.name}
-                                                        validation={errors.name && touched.email && errors.name}/>
+                                            <div className="w-1/2">
+                                                <BusmeInput name={"name"} title={"Nombre(s)"}
+                                                            placeholder={"Ingresa el nombre del usuario"}
+                                                            type={"text"}
+                                                            onChange={handleChange} onBlur={handleBlur}
+                                                            value={values.name}
+                                                            validation={errors.name && touched.email && errors.name}/>
+                                            </div>
                                             <div className="mx-4"/>
-                                            <BusmeInput name={"paternalLastName"} title={"Apellido paterno"}
-                                                        placeholder={"Ingresa el apellido paterno"}
-                                                        type={"text"} onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.paternalLastName}
-                                                        validation={errors.paternalLastName && touched.paternalLastName && errors.paternalLastName}/>
+                                            <div className="w-1/2">
+                                                <BusmeInput name={"paternalLastName"} title={"Apellido paterno"}
+                                                            placeholder={"Ingresa el apellido paterno"}
+                                                            type={"text"} onChange={handleChange} onBlur={handleBlur}
+                                                            value={values.paternalLastName}
+                                                            validation={errors.paternalLastName && touched.paternalLastName && errors.paternalLastName}/>
+                                            </div>
                                         </div>
                                         <div className="flex justify-between">
-                                            <BusmeInput name={"maternalLastName"} title={"Apellido materno"}
-                                                        placeholder={"Ingresa el apellido materno"}
-                                                        type={"text"}
-                                                        onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.maternalLastName}
-                                                        validation={errors.maternalLastName && touched.maternalLastName && errors.maternalLastName}/>
+                                            <div className="w-1/2">
+                                                <BusmeInput name={"maternalLastName"} title={"Apellido materno"}
+                                                            placeholder={"Ingresa el apellido materno"}
+                                                            type={"text"}
+                                                            onChange={handleChange} onBlur={handleBlur}
+                                                            value={values.maternalLastName}
+                                                            validation={errors.maternalLastName && touched.maternalLastName && errors.maternalLastName}/>
+                                            </div>
                                             <div className="mx-4"/>
-                                            <BusmeInput name={"telephone"} title={"Número de teléfono"}
-                                                        placeholder={"Ingresa tu número de teléfono"}
-                                                        type={"tel"} onChange={handleChange} onBlur={handleBlur}
-                                                        value={values.telephone}
-                                                        validation={errors.telephone && touched.telephone && errors.telephone}/>
+                                            <div className="w-1/2">
+                                                <BusmeInput name={"telephone"} title={"Número de teléfono"}
+                                                            placeholder={"Ingresa tu número de teléfono"}
+                                                            type={"tel"} onChange={handleChange} onBlur={handleBlur}
+                                                            value={values.telephone}
+                                                            validation={errors.telephone && touched.telephone && errors.telephone}/>
+                                            </div>
                                         </div>
                                         <p className="subtitle-text mt-5">Información de la cuenta</p>
                                         <div className="flex justify-between">
@@ -137,14 +165,15 @@ export default function NewUserPage() {
                                     </form>
                                 </BusmeCard>
                             </div>
-                            <div className="w-5/12 flex-grow ml-7">
+                            <div className="lg:w-5/12 mt-7 lg:mt-0">
                                 <BusmeCard>
                                     <p className="subtitle-text">Vista previa</p>
                                     <p className="body-text mt-5">Estás a punto de crear un nuevo perfil para:</p>
                                     <p className="bold-body-text">{values.name} {values.paternalLastName} {values.maternalLastName}</p>
                                     <p className="body-text mt-5">Con el siguiente rol de usuario:</p>
                                     <p className="bold-body-text">{values.role}</p>
-                                    <p className="body-text mt-5">Teniendo permisos para acceder y/o modificar la siguiente información:</p>
+                                    <p className="body-text mt-5">Teniendo permisos para acceder y/o modificar la
+                                        siguiente información:</p>
                                     <p className="bold-body-text">{values.role}</p>
                                 </BusmeCard>
                             </div>

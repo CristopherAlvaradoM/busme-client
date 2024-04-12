@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeCardButtonHeader from "@/app/components/BusmeCardButtonHeader";
 import BusmeSearchInput from "@/app/components/BusmeSearchInput";
 import BusmeTable from "@/app/components/BusmeTable";
 import BusmeSelectFilter from "@/app/components/BusmeSelectFilter";
-import { IoAdd } from "react-icons/io5";
+import BusmeFilterCard from "@/app/components/BusmeFilterCard";
+import { IoAdd, IoBus, IoBuild, IoGolf, IoGitCompareSharp } from "react-icons/io5";
 
 const vehiclesHeaders = ['Nombre', 'No. de placas', 'Estado', 'Nombre de ruta'];
 const vehiclesData = [
@@ -17,41 +18,101 @@ const vehiclesData = [
 ];
 
 export default function BusmeVehicles() {
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
+  const [selectedRoute, setSelectedRoute] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const handleSearch = (searchTerm: string) => {
-    // Aquí puedes manejar la lógica de búsqueda, como realizar una solicitud a un servidor o filtrar datos locales
-    console.log('Término de búsqueda:', searchTerm);
-  };
+  const statusOptions = [
+    { value: '', label: 'Todos los estado'},
+    { value: 'En servicio', label: 'En servicio' },
+    { value: 'Dañado', label: 'Dañado' },
+    { value: 'En reparación', label: 'En reparación' },
+    { value: 'Inactivo', label: 'Inactivo' }
+  ];
 
-  const options = [
-    { value: 'estado', label: 'Estado' },
-    { value: 'nombreRuta', label: 'Nombre de Ruta' }
+  const routesOptions = [
+    { value: '', label: 'Todas las rutas'},
+    { value: 'UTZMG - Las cuatas', label: 'UTZMG - Las cuatas' },
+    { value: 'UTZMG - Banús', label: 'UTZMG - Banús' }
   ]
 
-  const [selectedFilter, setSelectedFilter] = useState<string>("");
+  const filteredVehiclesData = vehiclesData.filter(vehicle => {
+    return (!selectedStatus || vehicle[2] === selectedStatus) && (!selectedRoute || vehicle[3] === selectedRoute) &&
+      (vehicle[0].toLowerCase().includes(searchTerm.toLowerCase()) || vehicle[1].toLowerCase().includes(searchTerm.toLowerCase()));
+  });
 
-  const handleFilterChange = (selectedOption: any) => {
-    setSelectedFilter(selectedOption ? selectedOption.value : "");
+  const handleSearch = (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+  };
+
+  const handleStatusChange = (selectedOption: any) => {
+    setSelectedStatus(selectedOption ? selectedOption.value : "");
+  };
+
+  const handleRouteChange = (selectedOption: any) => {
+    setSelectedRoute(selectedOption ? selectedOption.value : "");
   };
 
   return (
     <div>
+      <div className="flex flex-row w-full font-poppins gap-x-5">
+        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+          <BusmeFilterCard
+            title="Vehículos disponibles"
+            amount={3}
+            isActive={true}
+            icon={<IoBus className="size-10" />}
+          />
+        </div>
+        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+          <BusmeFilterCard
+            title="Vehículos en Reparación"
+            amount={1}
+            isActive={true}
+            icon={<IoBuild className="size-10" />}
+          />
+        </div>
+        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+          <BusmeFilterCard
+            title="Total de viajes realizados"
+            amount={15}
+            isActive={true}
+            icon={<IoGolf className="size-10" />}
+          />
+        </div>
+        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+          <BusmeFilterCard
+            title="Total de rutas"
+            amount={2}
+            isActive={true}
+            icon={<IoGitCompareSharp className="size-10" />}
+          />
+        </div>
+      </div>
       <div className="flex justify-between gap-x-10">
-        <div className="w-9/12 flex-grow">
+        <div className="w-6/12 flex-grow">
           <BusmeSearchInput placeholder="Buscar por Nombre o No. de Placas" onSearch={handleSearch} />
         </div>
-        <div className="w-3/12 flex-grow">
+        <div className="w-2/12 flex-grow">
           <BusmeSelectFilter
-            value={selectedFilter}
-            label=""
-            options={options}
-            onChange={handleFilterChange}
+            value={selectedRoute}
+            placeholder="Filtrar por ruta"
+            options={routesOptions}
+            onChange={handleRouteChange}
+          />
+        </div>
+        <div className="w-2/12 flex-grow">
+          <BusmeSelectFilter
+            value={selectedStatus}
+            placeholder="Filtrar por estado"
+            options={statusOptions}
+            onChange={handleStatusChange}
           />
         </div>
       </div>
       <BusmeCard>
         <BusmeCardButtonHeader subtitle={"Vehículos"} to={"/admin/vehicles/new-vehicle"} buttonText={"Agregar transporte"} icon={IoAdd} />
-        <BusmeTable headers={vehiclesHeaders} data={vehiclesData} showDeleteColumn={true} showEditColumn={true} />
+        <BusmeTable headers={vehiclesHeaders} data={filteredVehiclesData} showDeleteColumn={true} showEditColumn={true} />
       </BusmeCard>
     </div>
   );

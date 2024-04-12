@@ -17,20 +17,27 @@ const BusmePageHeader: React.FC<BusmePageHeaderProps> = ({title, rol, username, 
     return (
         <div className="flex justify-between items-center">
             <div className="flex items-center">
-                {showBackIcon &&
-                    <IoArrowBack className="w-[35px] h-[35px] mr-4 cursor-pointer" onClick={() => router.back()}/>}
+                {/* Icono de flecha hacia atrás */}
+                {showBackIcon && (
+                    <IoArrowBack
+                        className="w-7 h-7 md:w-8 md:h-8 mr-2 md:mr-4 cursor-pointer" // Tamaño del ícono
+                        onClick={() => router.back()} // Acción al hacer clic
+                    />
+                )}
                 <p className="title-text">{title}</p>
             </div>
-            <div className="flex items-center">
-                <div className="text-right">
+
+            <div className="flex items-center ml-5"> {/* Este contenedor se mostrará en todos los tamaños de pantalla */}
+                <div className="text-right mr-2"> {/* Ajuste de margen derecho */}
                     <p className="caption-text">{rol}</p>
                     <p className="subtitle-text">{username}</p>
                 </div>
-                <div className="w-14 ml-5">
-                    <Image src={UTZMGLogo} alt="UTZMG Logo"/>
+                <div className="w-12 ml-2"> {/* Ajuste de margen izquierdo */}
+                    <Image src={UTZMGLogo} alt="UTZMG Logo" width={40} height={40}/> {/* Tamaño de la imagen */}
                 </div>
             </div>
         </div>
+
     );
 }
 
