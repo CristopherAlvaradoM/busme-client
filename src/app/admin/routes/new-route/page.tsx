@@ -7,6 +7,7 @@ import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeInput from "@/app/components/BusmeInput";
 import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 import BusmeModal from "@/app/components/BusmeModal";
+import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 import { Formik, Field} from 'formik';
 
 
@@ -115,6 +116,11 @@ export default function NewRoutePage() {
           onSubmit={(values, { setSubmitting }) => {
             // Realiza las acciones de envío del formulario aquí
             console.log(values);
+            BusmeSweetAlert(
+              'Ruta creada con éxito',
+              '¡La nueva ruta se ha creado satisfactoriamente!',
+              BusmeSweetAlertIconType.Success
+            );
             setSubmitting(false);
           }}
         >
@@ -228,18 +234,14 @@ export default function NewRoutePage() {
                     onClose={closeModal}
                     showIcon={true}
                     successButtonTitle="Aceptar"
-                    buttonFunction={() => {
-                        // Lógica que quieres ejecutar cuando se presiona el botón de éxito
-                        console.log("Botón de éxito presionado");
-                        closeModal(); // Cierra el modal después de ejecutar la lógica
-                    }}
+                    buttonFunction={() => {}}
                     disabled={false} // Cambia esto según sea necesario
                   >
                     {/* Contenido del modal */}
                     <div className="w-full h-full">
                       <p className="modal-title-text">Nuevo punto de abordaje</p>
                       <p className="modal-body-text">Agrega la información para el nuevo punto de abordaje</p>
-                      <BusmeInput name={"namepuntdeabordaje"} title={"Nombre"}
+                      <BusmeInput name={"boardingPointName"} title={"Nombre"}
                         placeholder={"Ingresa el nombre del punto de abordaje"}
                         type={"text"}
                         onChange={() => {}} 
@@ -280,6 +282,7 @@ export default function NewRoutePage() {
           </div>
           <div className="mb-2 mt-4">
             <BusmeSecondaryButton 
+              type="submit"
               title={"Generar nueva ruta"} 
               disabled={isSubmitting}
             />
