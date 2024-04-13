@@ -3,8 +3,6 @@ import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeTable from "@/app/components/BusmeTable";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeCardHeader from "@/app/components/BusmeCardHeader";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 function textoSaludo(): string {
   const horaActual = new Date().getHours();
@@ -64,32 +62,6 @@ const rolsData = [
   ["Calidad", "Buzón de quejas"],
 ];
 export default function SuperAdminPage() {
-  const router = useRouter();
-
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/admin", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: sessionStorage.getItem("token") || "",
-      },
-      mode: "cors",
-    })
-      .then((response) => {
-        // if (response.status === 401) router.back();
-
-        return response.json();
-      })
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
   return (
     <div>
       <BusmePageHeader
