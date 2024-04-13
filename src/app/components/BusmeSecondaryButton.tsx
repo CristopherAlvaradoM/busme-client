@@ -3,15 +3,16 @@ import React from "react";
 interface BusmeSecondaryButtonProps {
     title: string;
     disabled: boolean;
-    onClick?: () => void; // Hacer onClick opcional agregando "?" antes del ":"
+    onClick?: () => void;
+    type?: "button" | "submit" | "reset"; // Definir la propiedad type como opcional y restringir los valores a "button", "submit", o "reset"
 }
 
-const BusmeSecondaryButton: React.FC<BusmeSecondaryButtonProps> = ({title, disabled, onClick}) => {
+const BusmeSecondaryButton: React.FC<BusmeSecondaryButtonProps> = ({title, disabled, onClick, type = "button"}) => {
     return (
         <button
-            type="submit" // Cambiar el tipo a "button" para evitar enviar formularios
+            type={type} // Usar el tipo de botón especificado en las props o el valor por defecto "button"
             disabled={disabled}
-            onClick={onClick} // Usar la función onClick si está definida
+            onClick={onClick}
             className="button-secondary button-secondary-hover w-full mt-6"
         >
             {title}
