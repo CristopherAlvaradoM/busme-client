@@ -15,9 +15,9 @@ const BusmeSelectHours: React.FC<BusmeSelectHoursProps> = ({ placeholder, value,
         type="time"
         value={value}
         onChange={onChange}
-        className={`w-full rounded-lg bg-muted-200 p-3 font-poppins mt-2 ${validation ? 'border-danger' : 'border-primary-300'}`}
+        className={`w-full rounded-lg bg-muted-200 px-3 py-2.5 font-poppins mt-2 border ${validation ? 'border-danger' : 'border-muted-200'}`}
       />
-      {validation && <p className="mt-2 text-sm text-danger">{validation}</p>}
+      {validation && <p className="error-text">{validation}</p>}
     </div>
   );
 };
