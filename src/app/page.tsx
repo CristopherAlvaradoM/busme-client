@@ -9,11 +9,16 @@ import InputField from './components/BusmeInputLogin';
 import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import { useEffect } from 'react';
 
 
 export default function LoginPage() {
 
   const router = useRouter();
+
+  useEffect(() => {
+    Cookies.remove('token')
+  },[])
 
   return (
     <main className="min-w-full min-h-screen flex justify-center xl:items-center relative">
@@ -26,7 +31,7 @@ export default function LoginPage() {
           priority
         />
       </div>
-      <div className="flex absolute bg-white rounded-2xl shadow-lg mx-6 my-12 h-auto ">
+      <div className="flex absolute bg-white rounded-2xl shadow-lg mx-6 my-12 h-auto">
         <div className="md:w-1/2 p-8 py-12 lg:py-16 lg:px-14">
           <div className="flex flex-col">
             <h2 className="title-text mb-16">Inicia Sesión</h2>
