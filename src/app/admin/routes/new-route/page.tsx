@@ -7,7 +7,7 @@ import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeInput from "@/app/components/BusmeInput";
 import BusmeSecondaryButton from "@/app/components/BusmeSecondaryButton";
 import BusmeModal from "@/app/components/BusmeModal";
-import { Formik, Field } from 'formik';
+import { Formik, Field} from 'formik';
 
 
 export default function NewRoutePage() {
@@ -15,25 +15,28 @@ export default function NewRoutePage() {
   const [departureTime, setDepartureTime] = useState("");
   const [arrivalTime, setArrivalTime] = useState("");
 
-  const handleDepartureTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDepartureTime(e.target.value);
+  const handleDepartureTimeChange = (e: React.ChangeEvent<HTMLInputElement>, setFieldValue: Function) => {
+    const { value } = e.target;
+    setFieldValue('departureTime', value); // Actualiza el valor de departureTime en el estado del formulario
+    setDepartureTime(value); // Actualiza el estado local departureTime
   };
-
-  const handleArrivalTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setArrivalTime(e.target.value);
+  
+  const handleArrivalTimeChange = (e: React.ChangeEvent<HTMLInputElement>, setFieldValue: Function) => {
+    const { value } = e.target;
+    setFieldValue('arrivalTime', value); // Actualiza el valor de arrivalTime en el estado del formulario
+    setArrivalTime(value); // Actualiza el estado local arrivalTime
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Función para abrir el modal
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    // Función para cerrar el modal
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+  // Función para abrir el modal
+  const openModal = () => {
+      setIsModalOpen(true);
+  };
+  // Función para cerrar el modal
+  const closeModal = () => {
+      setIsModalOpen(false);
+  };
 
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -83,7 +86,7 @@ export default function NewRoutePage() {
       <div>
         <BusmeCard>
         <Formik
-          initialValues={{name: '', departureTime: '', arrivalTime: '', driverName: '', driverLastName: '', driverEmail: '', employeeNumber: '', destination1: '', destination2: '', destination3: '', newDestinationName: '', newDestinationLatitude: '', newDestinationLongitude: ''}}
+          initialValues={{name: '', departureTime: '', arrivalTime: '', driverName: '', driverLastName: '', driverEmail: '', employeeNumber: ''}}
           validate={values => {
             const errors: any = {};
             if (!values.name) {
@@ -115,7 +118,7 @@ export default function NewRoutePage() {
             setSubmitting(false);
           }}
         >
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue }) => (
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-8">
             <div className="w-full flex flex-row gap-8">
@@ -134,13 +137,13 @@ export default function NewRoutePage() {
                   <BusmeSelectHours
                     placeholder="Hora de salida"
                     value={departureTime}
-                    onChange={handleDepartureTimeChange}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleDepartureTimeChange(e, setFieldValue)}
                     validation={errors.departureTime} 
                   />
                   <BusmeSelectHours
                     placeholder="Hora de llegada"
                     value={arrivalTime}
-                    onChange={handleArrivalTimeChange}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleArrivalTimeChange(e, setFieldValue)}
                     validation={errors.arrivalTime}
                   />
                   </div>
