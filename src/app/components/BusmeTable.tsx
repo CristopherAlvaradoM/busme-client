@@ -1,6 +1,4 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { IoTrashOutline } from "react-icons/io5";
 import { IoPencilOutline } from "react-icons/io5";
 
@@ -11,9 +9,7 @@ interface BusmeTableProps {
     showDeleteColumn?: boolean;
 }
 
-const BusmeTable: React.FC<BusmeTableProps> = ({ headers, showEditColumn = false, showDeleteColumn = false }) => {
-
-
+const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data, showEditColumn = false, showDeleteColumn = false }) => {
 
     const getStatusClass = (status: string) => {
         switch (status) {
@@ -30,10 +26,6 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, showEditColumn = false
         }
     };
 
-
-
-
-
     return (
         <div className="overflow-x-auto mt-5">
             <table className="w-full text-left rtl:text-right font-poppins mb-2">
@@ -49,11 +41,11 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, showEditColumn = false
                 </tr>
                 </thead>
                 <tbody>
-                {/* {data.map((row, rowIndex) => (
+                {data.map((row, rowIndex) => (
                     <tr key={rowIndex} className="bg-white border border-muted-600 font-poppins text-black">
                         {row.map((cell, cellIndex) => (
                             <td key={cellIndex}
-                                className="px-5 py-3 md:py-7">
+                                className="px-5 py-3 md:py-7"> {/* Ajuste del relleno en dispositivos móviles */}
                                 <div className={`${getStatusClass(cell)}`}>
                                     {cell}
                                 </div>
@@ -64,7 +56,7 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, showEditColumn = false
                         {showDeleteColumn && <td className="px-5 py-3 md:py-7 text-center"><IoTrashOutline
                             className="w-[20px] h-[20px] text-danger cursor-pointer"/></td>}
                     </tr>
-                ))} */}
+                ))}
                 </tbody>
             </table>
         </div>

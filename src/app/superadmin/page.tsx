@@ -1,8 +1,11 @@
 "use client";
+
 import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeTable from "@/app/components/BusmeTable";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeCardHeader from "@/app/components/BusmeCardHeader";
+import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 function textoSaludo(): string {
   const horaActual = new Date().getHours();
@@ -28,40 +31,88 @@ const workTeamHeaders = [
   "Rol",
   "Fecha ingreso",
 ];
-const workTeamData = [
-  [
-    "Cristopher Yahir Alvarado Mombela",
-    "cristopher.alvarado.21s@utzmg.edu.mx",
-    "3320217780",
-    "Superadministrador",
-    "17/03/2024",
-  ],
-  [
-    "Braulio Israel Fernández Márquez",
-    "braulio.fernandez.21s@utzmg.edu.mx",
-    "3311966694",
-    "Calidad",
-    "17/03/2024",
-  ],
-  [
-    "Angélica Araceli Silva Palmas",
-    "angelica.silva.21s@utzmg.edu.mx",
-    "3319698761",
-    "Administrador",
-    "17/03/2024",
-  ],
+
+type UserData = {
+  nombre: {
+    nombres: string;
+    apellidoP: string;
+  };
+  correo: string;
+  telefono: string;
+  tipoUsuario: string;
+  createdAt: string; // O el tipo de dato correcto para la fecha de ingreso
+};
+
+const rolsHeaders = [
+  "Nombre",
+  "Acceso a"
 ];
 
-const rolsHeaders = ["Nombre", "Acceso a"];
-const rolsData = [
-  ["Superadministrador", "Equipo de trabajo - Rols"],
-  [
-    "Administrador",
-    "Monitoreo en tiempo real - Avisos - Transporte - Rutas - Estadísticas",
-  ],
-  ["Calidad", "Buzón de quejas"],
-];
+type RolData = {
+  nombre: string;
+  acceso: string[];
+};
+
 export default function SuperAdminPage() {
+
+  const [workTeamData, setWorkTeamData] = useState<UserData[]>([]);
+  const [rolsData, setRolsData] = useState<RolData[]>([]);
+
+  useEffect(() => {
+    // Obtener el token de las cookies
+    const token = Cookies.get('token');
+
+    // Verificar si el token está presente
+    if (token) {
+      // Realizar solicitud para obtener datos del equipo de trabajo
+      fetch('http://localhost:3000/admin', {
+        method: 'GET',
+        headers: {
+          'Authorization': `${token}`,
+        }
+      })
+        .then(response => {
+          if (response.ok) return response.json();
+          throw new Error('Error al obtener datos del equipo de trabajo');
+        })
+        .then(data => {
+          setWorkTeamData(data);
+          console.log('Datos del equipo de trabajo:', data);
+
+          // Aquí puedes verificar el formato de los datos antes de pasarlos a la tabla
+          console.log('Formato de datos del equipo de trabajo:', data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+      // Realizar solicitud para obtener datos de roles
+      fetch('http://localhost:3000/rols', {
+        method: 'GET',
+        headers: {
+          'Authorization': `${token}`,
+        }
+      })
+        .then(response => {
+          if (response.ok) return response.json();
+          throw new Error('Error al obtener datos de roles');
+        })
+        .then(data => {
+          setRolsData(data);
+          console.log('Datos de roles:', data);
+
+          // Aquí puedes verificar el formato de los datos antes de pasarlos a la tabla
+          console.log('Formato de datos de roles:', data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } else {
+      // Manejar caso en el que el token no esté presente
+      console.error('Token no encontrado');
+    }
+  }, []);
+
   return (
     <div>
       <BusmePageHeader
@@ -70,21 +121,36 @@ export default function SuperAdminPage() {
         rol={"Superadministrador"}
       />
       <BusmeCard>
-        <BusmeCardHeader
-          subtitle={"Lista de equipo de trabajo"}
-          linkText={"Ver más"}
-          to={"/superadmin/work-team"}
-        />
-        <BusmeTable headers={workTeamHeaders} data={workTeamData} />
+        <BusmeCardHeader subtitle={"Lista de equipo de trabajo"} linkText={"Ver más"} to={"/superadmin/work-team"} />
+        {workTeamData.length > 0 ? (
+          <BusmeTable
+            headers={workTeamHeaders}
+            data={workTeamData.map(usuarios => [
+              usuarios.nombre.nombres + ' ' + usuarios.nombre.apellidoP,
+              usuarios.correo,
+              usuarios.telefono,
+              usuarios.tipoUsuario,
+              new Date(usuarios.createdAt).toLocaleDateString()
+            ])}
+          />
+        ) : (
+          <p>Cargando datos del equipo de trabajo...</p>
+        )}
       </BusmeCard>
 
       <BusmeCard>
-        <BusmeCardHeader
-          subtitle={"Lista de roles de administración"}
-          linkText={"Ver más"}
-          to={"/superadmin/roles"}
-        />
-        <BusmeTable headers={rolsHeaders} data={rolsData} />
+        <BusmeCardHeader subtitle={"Lista de roles de administración"} linkText={"Ver más"} to={"/superadmin/roles"} />
+        {rolsData.length > 0 ? (
+          <BusmeTable
+            headers={rolsHeaders}
+            data={rolsData.map(rols => [
+              rols.nombre,
+              rols.acceso.map(acceso => Object.keys(acceso)[0]).join(' - ')
+            ])}
+          />
+        ) : (
+          <p>Cargando datos de roles...</p>
+        )}
       </BusmeCard>
     </div>
   );
