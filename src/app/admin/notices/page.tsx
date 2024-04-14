@@ -27,8 +27,8 @@ export default function BusmeNotices() {
   return (
     <div>
       <BusmePageHeader title={"Avisos"} username={"Anthony"} rol={"Administrador"} />
-      <div className="flex justify-between pb-10 gap-x-7">
-        <div className="w-8/12 flex-grow">
+      <div className="grid grid-cols-1 md:grid-cols-2 justify-between pb-10 gap-x-7">
+        <div className="w-full flex-grow">
           <div className="mt-8">
             <button className={`transition duration-300 ease-in-out hover:bg-primary-600 hover:text-white 
             text-left text-lg font-poppins font-semi-bold py-2 px-4 rounded-lg w-full h-12 flex items-center justify-between
@@ -198,7 +198,7 @@ export default function BusmeNotices() {
             )}
           </div>
         </div>
-        <div className="w-4/12 flex-grow">
+        <div className="w-full flex-grow">
           <BusmeCard>
             <p className="subtitle-text">Avisos programados</p>
             <BusmeScheduleNotice title="El autobus esta llegando" content="El autobus esta llegando a la escuela"
