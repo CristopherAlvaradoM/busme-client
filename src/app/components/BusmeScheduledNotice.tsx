@@ -140,7 +140,7 @@ const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date
               disabled={isSubmitting}
             >
               <p className="subtitle-text">Editar Aviso Programado</p>
-              <div className="flex">
+              <div className="w-full">
                 <BusmeDateInput name="date" title="Fecha"
                   onChange={handleChange} onBlur={handleBlur}
                   value={values.date}
