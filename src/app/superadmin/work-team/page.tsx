@@ -14,6 +14,7 @@ type UserData = {
     nombre: {
         nombres: string;
         apellidoP: string;
+        apellidoM: string;
     };
     correo: string;
     telefono: string;
@@ -65,7 +66,7 @@ export default function WorkTeamPage() {
                     <BusmeTable
                         headers={Headers}
                         data={workTeamData.map(usuarios => [
-                            usuarios.nombre.nombres + ' ' + usuarios.nombre.apellidoP,
+                            usuarios.nombre.nombres + ' ' + usuarios.nombre.apellidoP + ' ' + usuarios.nombre.apellidoM,
                             usuarios.correo,
                             usuarios.telefono,
                             usuarios.tipoUsuario,
