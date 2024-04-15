@@ -27,7 +27,7 @@ export default function BusmeNotices() {
   return (
     <div>
       <BusmePageHeader title={"Avisos"} username={"Anthony"} rol={"Administrador"} />
-      <div className="grid grid-cols-1 md:grid-cols-2 justify-between pb-10 gap-x-7">
+      <div className="grid grid-cols-1 lg:grid-cols-2 justify-between pb-10 gap-x-7">
         <div className="w-full flex-grow">
           <div className="mt-8">
             <button className={`transition duration-300 ease-in-out hover:bg-primary-600 hover:text-white 
