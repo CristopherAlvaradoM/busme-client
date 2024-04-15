@@ -54,9 +54,9 @@ export default function BusmeVehicles() {
   };
 
   return (
-    <div>
-      <div className="flex flex-row w-full font-poppins gap-x-5">
-        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+    <div className="flex flex-col w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 w-full font-poppins gap-7">
+        <div className='w-full h-full'>
           <BusmeFilterCard
             title="Vehículos disponibles"
             amount={3}
@@ -64,7 +64,7 @@ export default function BusmeVehicles() {
             icon={<IoBus className="size-10" />}
           />
         </div>
-        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+        <div className='w-full h-full'>
           <BusmeFilterCard
             title="Vehículos en Reparación"
             amount={1}
@@ -72,7 +72,7 @@ export default function BusmeVehicles() {
             icon={<IoBuild className="size-10" />}
           />
         </div>
-        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+        <div className='w-full h-full'>
           <BusmeFilterCard
             title="Total de viajes realizados"
             amount={15}
@@ -80,7 +80,7 @@ export default function BusmeVehicles() {
             icon={<IoGolf className="size-10" />}
           />
         </div>
-        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+        <div className='w-full h-full'>
           <BusmeFilterCard
             title="Total de rutas"
             amount={2}
@@ -89,25 +89,27 @@ export default function BusmeVehicles() {
           />
         </div>
       </div>
-      <div className="flex justify-between gap-x-10">
-        <div className="w-6/12 flex-grow">
+      <div className="grid grid-cols-1 lg:grid-cols-4 md:gap-x-6">
+        <div className="w-full lg:col-span-2">
           <BusmeSearchInput placeholder="Buscar por Nombre o No. de Placas" onSearch={handleSearch} />
         </div>
-        <div className="w-2/12 flex-grow">
-          <BusmeSelectFilter
-            value={selectedRoute}
-            placeholder="Filtrar por ruta"
-            options={routesOptions}
-            onChange={handleRouteChange}
-          />
-        </div>
-        <div className="w-2/12 flex-grow">
-          <BusmeSelectFilter
-            value={selectedStatus}
-            placeholder="Filtrar por estado"
-            options={statusOptions}
-            onChange={handleStatusChange}
-          />
+        <div className='md:gap-x-6 grid grid-cols-1 md:grid-cols-2 lg:col-span-2'>
+          <div className="w-full lg:col-span-1">
+            <BusmeSelectFilter
+              value={selectedRoute}
+              placeholder="Filtrar por ruta"
+              options={routesOptions}
+              onChange={handleRouteChange}
+            />
+          </div>
+          <div className="w-full lg:col-span-1">
+            <BusmeSelectFilter
+              value={selectedStatus}
+              placeholder="Filtrar por estado"
+              options={statusOptions}
+              onChange={handleStatusChange}
+            />
+          </div>
         </div>
       </div>
       <BusmeCard>

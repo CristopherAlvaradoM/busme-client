@@ -105,22 +105,22 @@ import { IoAdd } from "react-icons/io5";
               <BusmeSearchInput  placeholder="Buscar por Nombre o Chofer" onSearch={handleSearch} />
             </div>
             <div className='md:gap-x-6 grid grid-cols-1 md:grid-cols-2 lg:col-span-2'>
-            <div className="w-full  lg:col-span-1">
-              <BusmeSelectFilter
-                value={selectedHourFilter}
-                placeholder='Filtrar por horario'
-                options={optionsHours}
-                onChange={handleHourFilterChange}
-              />
-            </div>
-            <div className="w-full lg:col-span-1">
-              <BusmeSelectFilter
-                value={selectedDriverFilter}
-                placeholder='Filtrar por chofer'
-                options={optionsDrivers}
-                onChange={handleDriverFilterChange}
-              />
-            </div>
+              <div className="w-full  lg:col-span-1">
+                <BusmeSelectFilter
+                  value={selectedHourFilter}
+                  placeholder='Filtrar por horario'
+                  options={optionsHours}
+                  onChange={handleHourFilterChange}
+                />
+              </div>
+              <div className="w-full lg:col-span-1">
+                <BusmeSelectFilter
+                  value={selectedDriverFilter}
+                  placeholder='Filtrar por chofer'
+                  options={optionsDrivers}
+                  onChange={handleDriverFilterChange}
+                />
+              </div>
             </div>
           </div>
         </div>
