@@ -75,7 +75,32 @@ export default function NewRoutePage() {
 
     initMap();
   }, []);
-  
+
+    const [boardingPoints, setBoardingPoints] = useState([]);
+    const [newBoardingPoint, setNewBoardingPoint] = useState({
+        name: '',
+        latitude: '',
+        longitude: ''
+    });
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setNewBoardingPoint({
+            ...newBoardingPoint,
+            [name]: value
+        });
+    };
+
+    const handleAddBoardingPoint = () => {
+        setBoardingPoints([...boardingPoints, newBoardingPoint]);
+        setNewBoardingPoint({
+            name: '',
+            latitude: '',
+            longitude: ''
+        });
+        closeModal();
+    };
+
   return (
     <div>
       <BusmePageHeader 
@@ -194,99 +219,95 @@ export default function NewRoutePage() {
               </div>
             </div>
             <div className="w-full flex flex-row gap-x-8">
-              <div className="flex flex-col w-4/12 h-full">
-                <p className="subtitle-text">Mapa de la ruta</p>
-                <div className="flex flex-col">
-                  <p className="body-text mt-5">Añade los puntos de abordaje</p>
-                  <div className="h-60 overflow-auto">
-                    <BusmeInput name={"destination"} title={""}
-                      placeholder={"Nombre del punto"}
-                      type={"text"}
-                      onChange={() => {}} 
-                      onBlur={() => {}}
-                      value={''}
-                      validation={''} 
-                    />
-                    <BusmeInput name={"destination"} title={""}
-                      placeholder={"Nombre del punto"}
-                      type={"text"}
-                      onChange={() => {}} 
-                      onBlur={() => {}}
-                      value={''}
-                      validation={''} 
-                    />
-                    <BusmeInput name={"destination"} title={""}
-                      placeholder={"Nombre del punto"}
-                      type={"text"}
-                      onChange={() => {}} 
-                      onBlur={() => {}}
-                      value={''}
-                      validation={''} 
-                    />
-                 </div>
-                 <BusmeSecondaryButton 
-                    title={"Añadir nuevo punto"} 
-                    disabled={false} 
-                    onClick={openModal}
-                  /> 
-                  <BusmeModal
-                    isOpen={isModalOpen}
-                    onClose={closeModal}
-                    showIcon={true}
-                    successButtonTitle="Aceptar"
-                    buttonFunction={() => {}}
-                    disabled={false} // Cambia esto según sea necesario
-                  >
-                    {/* Contenido del modal */}
-                    <div className="w-full h-full">
-                      <p className="modal-title-text">Nuevo punto de abordaje</p>
-                      <p className="modal-body-text">Agrega la información para el nuevo punto de abordaje</p>
-                      <BusmeInput name={"boardingPointName"} title={"Nombre"}
-                        placeholder={"Ingresa el nombre del punto de abordaje"}
-                        type={"text"}
-                        onChange={() => {}} 
-                        onBlur={() => {}}
-                        value={''}
-                        validation={''} 
-                      />
-                      <div className="grid grid-cols-2 gap-x-8 mb-4">
-                        <BusmeInput 
-                          name={"latitude"} 
-                          title={"Latitud"} 
-                          placeholder={"Ingresa la latitud"} 
-                          type={"text"} 
-                          onChange={() => {}} 
-                          onBlur={() => {}} 
-                          value={''} 
-                          validation={''} 
+                <div className="flex flex-col w-4/12 h-full">
+                    <p className="subtitle-text">Mapa de la ruta</p>
+                    <div className="flex flex-col">
+                        <p className="body-text mt-5">Añade los puntos de abordaje</p>
+                        <div className="h-60 overflow-auto">
+                            {boardingPoints.map((point, index) => (
+                                <BusmeInput
+                                    key={index}
+                                    name={`destination_${index}`}
+                                    title={""}
+                                    placeholder={"Nombre del punto"}
+                                    type={"text"}
+                                    onChange={() => {
+                                    }}
+                                    onBlur={() => {
+                                    }}
+                                    value={point.name}
+                                    validation={''}
+                                />
+                            ))}
+                        </div>
+                        <BusmeSecondaryButton
+                            title={"Añadir nuevo punto"}
+                            disabled={false}
+                            onClick={openModal}
                         />
-                        <BusmeInput 
-                          name={"longitude"} 
-                          title={"Longitud"} 
-                          placeholder={"Ingresa la longitud"} 
-                          type={"text"} 
-                          onChange={() => {}} 
-                          onBlur={() => {}} 
-                          value={''} 
-                          validation={''} 
-                        />
-                      </div>
-                    </div> 
-                  </BusmeModal>
+                        <BusmeModal
+                            isOpen={isModalOpen}
+                            onClose={closeModal}
+                            showIcon={true}
+                            successButtonTitle="Aceptar"
+                            buttonFunction={handleAddBoardingPoint}
+                            disabled={!newBoardingPoint.name || !newBoardingPoint.latitude || !newBoardingPoint.longitude}
+                        >
+                            {/* Contenido del modal */}
+                            <div className="w-full h-full">
+                                <p className="modal-title-text">Nuevo punto de abordaje</p>
+                                <p className="modal-body-text">Agrega la información para el nuevo punto de abordaje</p>
+                                <BusmeInput
+                                    name={"name"}
+                                    title={"Nombre"}
+                                    placeholder={"Ingresa el nombre del punto de abordaje"}
+                                    type={"text"}
+                                    onChange={handleInputChange}
+                                    onBlur={() => {
+                                    }}
+                                    value={newBoardingPoint.name}
+                                    validation={''}
+                                />
+                                <div className="grid grid-cols-2 gap-x-8 mb-4">
+                                    <BusmeInput
+                                        name={"latitude"}
+                                        title={"Latitud"}
+                                        placeholder={"Ingresa la latitud"}
+                                        type={"text"}
+                                        onChange={handleInputChange}
+                                        onBlur={() => {
+                                        }}
+                                        value={newBoardingPoint.latitude}
+                                        validation={''}
+                                    />
+                                    <BusmeInput
+                                        name={"longitude"}
+                                        title={"Longitud"}
+                                        placeholder={"Ingresa la longitud"}
+                                        type={"text"}
+                                        onChange={handleInputChange}
+                                        onBlur={() => {
+                                        }}
+                                        value={newBoardingPoint.longitude}
+                                        validation={''}
+                                    />
+                                </div>
+                            </div>
+                        </BusmeModal>
+                    </div>
                 </div>
-              </div>
-              <div className="w-8/12 h-full">
-                <div ref={mapRef} style={{ width: "100%", height: "380px", borderRadius: "10px" }}></div>
-              </div>
+                <div className="w-8/12 h-full">
+                    <div ref={mapRef} style={{width: "100%", height: "380px", borderRadius: "10px"}}></div>
+                </div>
             </div>
           </div>
-          <div className="mb-2 mt-4">
-            <BusmeSecondaryButton 
-              type="submit"
-              title={"Generar nueva ruta"} 
-              disabled={isSubmitting}
-            />
-          </div>
+            <div className="mb-2 mt-4">
+                <BusmeSecondaryButton
+                    type="submit"
+                    title={"Generar nueva ruta"}
+                    disabled={isSubmitting}
+                />
+            </div>
         </form>
         )}
         </Formik>
