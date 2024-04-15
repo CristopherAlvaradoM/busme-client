@@ -122,7 +122,7 @@ const BusmeSidebar = ({ userRole }: { userRole: string }) => {
     }
 
     return (
-        <div className='fixed top-0 left-0 z-50 w-64 h-screen bg-white p-6 flex flex-col justify-between lg:static'>
+        <div className='fixed top-0 left-0 z-50 w-64 h-screen bg-white p-6 flex flex-col justify-between md:static'>
             <div>
                 <div className='flex justify-start'>
                     <Image src={BusmeLogo} alt='logo' width={50} height={50} />
