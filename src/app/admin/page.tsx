@@ -84,39 +84,41 @@ export default function Page() {
         <div>
             <BusmePageHeader title={saludo + " " + "Anthony"} username={"Anthony"} rol={"Administrador"} />
             <div className="mt-5">
-                <div ref={mapRef} style={{ width: "100%", height: "350px" }}></div>
+                <div ref={mapRef} style={{ width: "100%", height: "350px", borderRadius: "10px" }}></div>
             </div>
-            <div className="flex justify-between pb-10 gap-x-4">
-                <div className='w-7/12 flex-grow'>
+            <div className="grid grid-cols-1 xl:grid-cols-3 pb-10 xl:gap-x-6 ">
+                <div className='w-full md:col-span-2'>
                     <BusmeCard>
-                        <p className="subtitle-text">Autobuses en recorrido</p>
-                        <table className="w-full text-center font-poppins">
-                            <thead>
-                                <tr>
-                                    {header.map(columna => (
-                                        <th key={columna} className="px-5 py-3 font-Bold">{columna}</th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.map(constante => (
-                                    <tr key={constante.Nombre} className="font-poppins text-black">
+                        <p className="subtitle-text mb-2">Autobuses en recorrido</p>
+                        <div className="overflow-auto w-full">
+                            <table className="w-full font-poppins min-w-max">
+                                <thead>
+                                    <tr>
                                         {header.map(columna => (
-                                            <td key={columna} className="px-3">
-                                                <div className={`px-3 py-1.5 mb-2 
-                                            ${columna === 'Estado' ? (constante.Estado === 'En ruta' ? 'bg-primary-800 text-white rounded-3xl text-sm font-semi-bold' :
-                                                        (constante.Estado === 'Abordando' ? 'bg-warning text-white rounded-3xl text-sm font-semi-bold' : '')) : ''}`}>
-                                                    {constante[columna]}
-                                                </div>
-                                            </td>
+                                            <th key={columna} className="py-3 px-3 text-center font-Bold">{columna}</th>
                                         ))}
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {data.map(constante => (
+                                        <tr key={constante.Nombre} className="font-poppins text-black">
+                                            {header.map(columna => (
+                                                <td key={columna} className="py-3 px-3 text-center">
+                                                    <div className={`py-1.5 px-3
+                                                ${columna === 'Estado' ? (constante.Estado === 'En ruta' ? 'bg-primary-800 text-white rounded-3xl text-sm text-center font-semi-bold' :
+                                                            (constante.Estado === 'Abordando' ? 'bg-warning text-white rounded-3xl text-sm font-semi-bold text-center' : '')) : ''}`}>
+                                                        {constante[columna]}
+                                                    </div>
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </BusmeCard>
                 </div>
-                <div className='w-5/12 flex-grow'>
+                <div className='w-full col-span-1 flex-grow'>
                     <BusmeCard>
                         <p className="subtitle-text">Crear aviso rápido</p>
                         <Formik

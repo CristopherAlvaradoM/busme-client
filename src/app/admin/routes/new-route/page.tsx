@@ -127,12 +127,12 @@ export default function NewRoutePage() {
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue }) => (
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-8">
-            <div className="w-full flex flex-row gap-8">
-              <div className="flex flex-col w-4/12">
+            <div className="w-full grid grid-cols-1 xl:grid-cols-3 gap-8 ">
+              <div className="flex flex-col w-full xl:col-span-1">
                 <p className="subtitle-text">Información de la ruta</p>
                 <div className="">
                   <BusmeInput name={"name"} title={"Nombre"}
-                    placeholder={"Ingresa el nombre del vehículo"}
+                    placeholder={"Ingresa el nombre de la ruta"}
                     type={"text"}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -155,9 +155,9 @@ export default function NewRoutePage() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col w-8/12">
+              <div className="flex flex-col xl:col-span-2">
                 <p className="subtitle-text">Chofer asignado</p>
-                <div className="grid grid-cols-2 gap-x-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8">
                   <BusmeInput name={"driverName"} title={"Nombre(s)"}
                     placeholder={"Ingresa el nombre del chofer"}
                     type={"text"}
@@ -193,8 +193,8 @@ export default function NewRoutePage() {
                 </div>
               </div>
             </div>
-            <div className="w-full flex flex-row gap-x-8">
-              <div className="flex flex-col w-4/12 h-full">
+            <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="flex flex-col w-full h-full lg:col-span-1">
                 <p className="subtitle-text">Mapa de la ruta</p>
                 <div className="flex flex-col">
                   <p className="body-text mt-5">Añade los puntos de abordaje</p>
@@ -275,7 +275,7 @@ export default function NewRoutePage() {
                   </BusmeModal>
                 </div>
               </div>
-              <div className="w-8/12 h-full">
+              <div className="w-full h-full lg:col-span-2">
                 <div ref={mapRef} style={{ width: "100%", height: "380px", borderRadius: "10px" }}></div>
               </div>
             </div>

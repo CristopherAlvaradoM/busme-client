@@ -32,8 +32,8 @@ const BusmeNavButton: React.FC<BusmeButtonProps> = ({
   return (
     <Link href={path}>
       <div
-        className={`flex h-[48px] grow items-center justify-center gap-2 rounded-md p-3 font-poppins cursor-pointer
-        transition duration-300 ease-in-out hover:bg-primary-600 hover:text-white md:flex-none md:justify-start md:p-2 md:px-3 md:mt-2
+        className={`flex h-[48px] grow items-center gap-2 rounded-md p-3 font-poppins cursor-pointer
+        transition duration-300 ease-in-out hover:bg-primary-600 hover:text-white md:flex-none md:justify-start md:p-2 md:px-3 mt-2
         ${isActive ? "text-white bg-primary-600" : ""} ${customClass || ""}
     `}
       >
