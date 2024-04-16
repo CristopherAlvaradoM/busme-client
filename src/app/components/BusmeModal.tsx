@@ -47,7 +47,7 @@ const BusmeModal: FC<ModalProps> = ({ isOpen, onClose, showIcon = false, icon: I
                         {children}
                     </div>
                     <div className="flex flex-col mt-5 sm:flex-row sm:justify-between">
-                        <button type="submit" onClick={onClose}
+                        <button type="button" onClick={onClose}
                                 className="outline-button-secondary outline-button-secondary-hover w-full sm:w-auto mt-6 sm:mt-0 sm:mr-3">
                             Cancelar
                         </button>

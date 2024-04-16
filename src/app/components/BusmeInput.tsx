@@ -9,12 +9,14 @@ interface BusmeInputProps {
     onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void; 
     value: string;
     validation: any;
+    disabled? : boolean;
     multiline?: boolean; // Nueva prop para determinar si el input tiene altura completa
 }
 
-const BusmeInput: React.FC<BusmeInputProps> = ({name, title, placeholder, type, onChange, onBlur, value, validation, multiline = false}) => {
+const BusmeInput: React.FC<BusmeInputProps> = ({name, title, placeholder, type, onChange, onBlur, value, validation, multiline = false, disabled = false}) => {
     const inputField = multiline ? (
         <textarea
+            disabled={disabled}
             placeholder={placeholder}
             name={name}
             onChange={onChange} 
@@ -26,6 +28,7 @@ const BusmeInput: React.FC<BusmeInputProps> = ({name, title, placeholder, type, 
         />
     ) : (
         <input
+            disabled={disabled}
             type={type}
             placeholder={placeholder}
             name={name}

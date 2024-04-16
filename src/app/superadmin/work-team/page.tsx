@@ -1,23 +1,81 @@
+'use client'
+
 import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeTable from "@/app/components/BusmeTable";
 import { IoPersonAdd } from "react-icons/io5";
 import BusmeCardButtonHeader from "@/app/components/BusmeCardButtonHeader";
+import React, { useState, useEffect } from 'react';
+import Cookies from "js-cookie";
 
-const workTeamHeaders = ['Nombre', 'Correo electrónico', 'Teléfono', 'Rol', 'Fecha ingreso'];
-const workTeamData = [
-    ['Cristopher Yahir Alvarado Mombela', 'cristopher.alvarado.21s@utzmg.edu.mx', '3320217780', 'Superadministrador', '17/03/2024'],
-    ['Braulio Israel Fernández Márquez', 'braulio.fernandez.21s@utzmg.edu.mx', '3311966694', 'Calidad', '17/03/2024'],
-    ['Angélica Araceli Silva Palmas', 'angelica.silva.21s@utzmg.edu.mx', '3319698761', 'Administrador', '17/03/2024']
-];
+const Headers = ['Nombre', 'Correo electrónico', 'Teléfono', 'Rol', 'Fecha ingreso'];
+
+type UserData = {
+    nombre: {
+        nombres: string;
+        apellidoP: string;
+        apellidoM: string;
+    };
+    correo: string;
+    telefono: string;
+    tipoUsuario: string;
+    createdAt: string; // O el tipo de dato correcto para la fecha de ingreso
+};
+
 export default function WorkTeamPage() {
+    const [workTeamData, setWorkTeamData] = useState<UserData[]>([]);
+
+    useEffect(() => {
+        const token = Cookies.get('token');
+
+        // Verificar si el token está presente
+        if (token) {
+            // Realizar solicitud para obtener datos del equipo de trabajo
+            fetch('http://localhost:3000/admin', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${token}`,
+                }
+            })
+                .then(response => {
+                    if (response.ok) return response.json();
+                    throw new Error('Error al obtener datos del equipo de trabajo');
+                })
+                .then(data => {
+                    setWorkTeamData(data);
+                    console.log('Datos del equipo de trabajo:', data);
+
+                    // Aquí puedes verificar el formato de los datos antes de pasarlos a la tabla
+                    console.log('Formato de datos del equipo de trabajo:', data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            // Manejar caso en el que el token no esté presente
+            console.error('Token no encontrado');
+        }
+    }, []);
+
     return (
         <div>
-            <BusmePageHeader rol={"Superadministrador"} title={"Equipo de trabajo"} username={"Anthony"}/>
+            <BusmePageHeader rol={"Superadministrador"} title={"Equipo de trabajo"} username={"Anthony"} />
             <BusmeCard>
-                <BusmeCardButtonHeader to={"/superadmin/work-team/new-user"} buttonText={"Agregar usuario"} icon={IoPersonAdd}/>
-                <BusmeTable headers={workTeamHeaders} data={workTeamData} showDeleteColumn={true}
-                            showEditColumn={true}/>
+                <BusmeCardButtonHeader to={"/superadmin/work-team/new-user"} buttonText={"Agregar usuario"} icon={IoPersonAdd} />
+                {workTeamData.length > 0 ? (
+                    <BusmeTable
+                        headers={Headers}
+                        data={workTeamData.map(usuarios => [
+                            usuarios.nombre.nombres + ' ' + usuarios.nombre.apellidoP + ' ' + usuarios.nombre.apellidoM,
+                            usuarios.correo,
+                            usuarios.telefono,
+                            usuarios.tipoUsuario,
+                            new Date(usuarios.createdAt).toLocaleDateString()
+                        ])}
+                    />
+                ) : (
+                    <p>Cargando datos del equipo de trabajo...</p>
+                )}
             </BusmeCard>
         </div>
     )
