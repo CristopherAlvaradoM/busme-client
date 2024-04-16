@@ -1,24 +1,67 @@
+'use client'
+
 import BusmePageHeader from "@/app/components/BusmePageHeader";
 import BusmeCard from "@/app/components/BusmeCard";
 import BusmeTable from "@/app/components/BusmeTable";
+import React, { useState, useEffect } from 'react';
+import Cookies from "js-cookie";
 
-export const metadata = {
-    title: "BusMe - Superadmin",
-    description: "Pagina de roles",
+const Headers = ['Nombre', 'Con acceso a'];
+
+type RolData = {
+    _id: string;
+    nombre: string;
+    acceso: string[];
 };
 
-const headers = ['Nombre', 'Con acceso a'];
-const data = [
-    ['Superadministrador', 'Equipo de trabajo - Roles'],
-    ['Administrador', 'Transporte en tiempo real - Avisos - Transporte - Rutas - Estadísticas'],
-    ['Calidad', 'Buzón de quejas y sugerencias'],]
-
 export default function Page() {
+    const [rolsData, setRolsData] = useState<RolData[]>([]);
+
+    useEffect(() => {
+        const token = Cookies.get('token');
+        if (token) {
+            fetch('http://localhost:3000/rols', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${token}`,
+                }
+            })
+                .then(response => {
+                    if (response.ok) return response.json();
+                    throw new Error('Error al obtener datos de roles');
+                })
+                .then(data => {
+                    setRolsData(data);
+                    console.log('Datos de roles:', data);
+
+                    // Aquí puedes verificar el formato de los datos antes de pasarlos a la tabla
+                    console.log('Formato de datos de roles:', data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            // Manejar caso en el que el token no esté presente
+            console.error('Token no encontrado');
+        }
+    }, []);
+
     return (
         <div>
-            <BusmePageHeader title={"Roles de administración"} rol={"Superadministrador"} username={"Anthony"}/>
+            <BusmePageHeader title={"Roles de administración"} rol={"Superadministrador"} username={"Anthony"} />
             <BusmeCard>
-                <BusmeTable headers={headers} data={data} showDeleteColumn={true}/>
+                {rolsData.length > 0 ? (
+                    <BusmeTable
+                        headers={Headers}
+                        data={rolsData.map(rols => [
+                            rols._id,
+                            rols.nombre,
+                            rols.acceso.map(acceso => Object.keys(acceso)[0]).join(' - ')
+                        ])}
+                    />
+                ) : (
+                    <p>Cargando datos de roles...</p>
+                )}
             </BusmeCard>
         </div>
     );
