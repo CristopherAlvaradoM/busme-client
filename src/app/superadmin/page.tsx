@@ -37,6 +37,7 @@ type UserData = {
   nombre: {
     nombres: string;
     apellidoP: string;
+    apellidoM: string;
   };
   correo: string;
   telefono: string;
@@ -129,7 +130,7 @@ export default function SuperAdminPage() {
             headers={workTeamHeaders}
             data={workTeamData.map(usuarios => [
               usuarios._id,
-              usuarios.nombre.nombres + ' ' + usuarios.nombre.apellidoP,
+              usuarios.nombre.nombres + ' ' + usuarios.nombre.apellidoP + ' ' + usuarios.nombre.apellidoM,
               usuarios.correo,
               usuarios.telefono,
               usuarios.tipoUsuario,
