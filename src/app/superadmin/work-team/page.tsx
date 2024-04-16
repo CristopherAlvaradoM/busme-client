@@ -7,10 +7,12 @@ import { IoPersonAdd } from "react-icons/io5";
 import BusmeCardButtonHeader from "@/app/components/BusmeCardButtonHeader";
 import React, { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
+import { BusmeSweetAlert, BusmeSweetAlertIconType } from "@/app/components/BusmeSweetAlert";
 
 const Headers = ['Nombre', 'Correo electrónico', 'Teléfono', 'Rol', 'Fecha ingreso'];
 
 type UserData = {
+    _id: string;
     nombre: {
         nombres: string;
         apellidoP: string;
@@ -19,7 +21,7 @@ type UserData = {
     correo: string;
     telefono: string;
     tipoUsuario: string;
-    createdAt: string; // O el tipo de dato correcto para la fecha de ingreso
+    createdAt: string;
 };
 
 export default function WorkTeamPage() {
@@ -43,10 +45,6 @@ export default function WorkTeamPage() {
                 })
                 .then(data => {
                     setWorkTeamData(data);
-                    console.log('Datos del equipo de trabajo:', data);
-
-                    // Aquí puedes verificar el formato de los datos antes de pasarlos a la tabla
-                    console.log('Formato de datos del equipo de trabajo:', data);
                 })
                 .catch(error => {
                     console.error(error);
@@ -57,6 +55,52 @@ export default function WorkTeamPage() {
         }
     }, []);
 
+    const handleEditUser = () => {
+
+    }
+
+    const handleDeleteUser = (_id: string) => {
+        console.log("ID del usuario a eliminar:", _id); // Agregar esta línea para verificar el ID
+
+        BusmeSweetAlert(
+            '¿Estás seguro?',
+            'Esta acción eliminará permanentemente al usuario. ¿Estás seguro de que quieres continuar?',
+            BusmeSweetAlertIconType.Warning,
+            () => {
+                const token = Cookies.get('token');
+                if (token) {
+                    // Realizar solicitud para eliminar el usuario
+                    fetch(`http://localhost:3000/admin/${_id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `${token}`,
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // Actualizar los datos del equipo de trabajo después de la eliminación
+                                setWorkTeamData(prevData => prevData.filter(usuarios => usuarios._id !== _id));
+                                BusmeSweetAlert(
+                                    '¡Usuario eliminado!',
+                                    'El usuario ha sido eliminado correctamente.',
+                                    BusmeSweetAlertIconType.Success
+                                );
+                            } else {
+                                throw new Error('Error al eliminar usuario');
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                } else {
+                    // Manejar caso en el que el token no esté presente
+                    console.error('Token no encontrado');
+                }
+            },
+            true
+        );
+    };
+
     return (
         <div>
             <BusmePageHeader rol={"Superadministrador"} title={"Equipo de trabajo"} username={"Anthony"} />
@@ -66,12 +110,19 @@ export default function WorkTeamPage() {
                     <BusmeTable
                         headers={Headers}
                         data={workTeamData.map(usuarios => [
+                            usuarios._id,
                             usuarios.nombre.nombres + ' ' + usuarios.nombre.apellidoP + ' ' + usuarios.nombre.apellidoM,
                             usuarios.correo,
                             usuarios.telefono,
                             usuarios.tipoUsuario,
-                            new Date(usuarios.createdAt).toLocaleDateString()
+                            new Date(usuarios.createdAt).toLocaleDateString(),
                         ])}
+                        showDeleteColumn={true}
+                        showEditColumn={true}
+                        eventHandlers={{
+                            onDelete: handleDeleteUser,
+                            onEdit: handleEditUser
+                        }}
                     />
                 ) : (
                     <p>Cargando datos del equipo de trabajo...</p>
