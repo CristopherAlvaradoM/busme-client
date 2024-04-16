@@ -17,8 +17,8 @@ export default function AdminLayout({
         <html lang="en">
             <body className="font-poppins">
                 <div className="flex h-screen w-full bg-complementary-100">
-                    <BusmeSidebar userRole={userRole} />
-
+                    {<BusmeSidebar userRole={userRole} />
+                    }
                     <div className="p-5 overflow-auto w-full h-full">
                         {children}
                     </div>
