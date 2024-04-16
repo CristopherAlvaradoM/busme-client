@@ -33,6 +33,7 @@ const workTeamHeaders = [
 ];
 
 type UserData = {
+  _id: string;
   nombre: {
     nombres: string;
     apellidoP: string;
@@ -49,6 +50,7 @@ const rolsHeaders = [
 ];
 
 type RolData = {
+  _id: string;
   nombre: string;
   acceso: string[];
 };
@@ -126,6 +128,7 @@ export default function SuperAdminPage() {
           <BusmeTable
             headers={workTeamHeaders}
             data={workTeamData.map(usuarios => [
+              usuarios._id,
               usuarios.nombre.nombres + ' ' + usuarios.nombre.apellidoP,
               usuarios.correo,
               usuarios.telefono,
@@ -144,6 +147,7 @@ export default function SuperAdminPage() {
           <BusmeTable
             headers={rolsHeaders}
             data={rolsData.map(rols => [
+              rols._id,
               rols.nombre,
               rols.acceso.map(acceso => Object.keys(acceso)[0]).join(' - ')
             ])}
