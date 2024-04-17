@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
   let response
   if(request.nextUrl.pathname.startsWith('/superadmin')) response = await verificarAcceso('superadmin', token)
   if(request.nextUrl.pathname.startsWith('/admin')) response = await verificarAcceso('admin', token)
-  if(request.nextUrl.pathname.startsWith('/quality')) response = await verificarAcceso('quality', token)
+  if(request.nextUrl.pathname.startsWith('/quality')) response = await verificarAcceso('calidad', token)
   if(response !== 200) return NextResponse.redirect(new URL('/', request.url))
   return NextResponse.next()
 }
