@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 const Headers = ['Nombre', 'Con acceso a'];
 
 type RolData = {
+    _id: string;
     nombre: string;
     acceso: string[];
 };
@@ -53,6 +54,7 @@ export default function Page() {
                     <BusmeTable
                         headers={Headers}
                         data={rolsData.map(rols => [
+                            rols._id,
                             rols.nombre,
                             rols.acceso.map(acceso => Object.keys(acceso)[0]).join(' - ')
                         ])}

@@ -4,27 +4,30 @@ import { Formik } from 'formik';
 import BusmeModal from '@/app/components/BusmeModal';
 import BusmeDateInput from '@/app/components/BusmeDateInput';
 import BusmeInput from '@/app/components/BusmeInput';
+import BusmeSelectHours from "@/app/components/BusmeSelectHours";
 
 interface NotificationProps {
   title: string;
   date: string;
   content: string;
   day: string;
+  hour?: string;
 }
 
-const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date, day }) => {
+const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date, day}) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showOptions, setShowOptions] = useState(false); // Estado para controlar la visibilidad de las opciones
   const [selectedNotice, setSelectedNotice] = useState<NotificationProps | null>(null);
   const optionsRef = useRef<HTMLDivElement>(null); // Ref para las opciones
+  const [hour, setHour] = useState("");
 
   const handleClick = () => {
     setIsChecked(!isChecked);
   };
 
   const handleEdit = () => {
-    setSelectedNotice({ title, date, content, day });
+    setSelectedNotice({ title, date, content, day, hour });
     setIsModalOpen(true);
   };
 
@@ -59,6 +62,12 @@ const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date
     };
   }, []);
 
+  const handleHourChange = (e, setFieldValue) => {
+    const { value } = e.target;
+    setFieldValue('hour', value);
+    setHour(value);
+  };
+
   return (
     <div>
       <div className="flex font-poppins bg-muted-200 mt-5 p-4 rounded-lg flex-col">
@@ -68,7 +77,7 @@ const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date
           </div>
           <div className="flex items-center">
             <div className="relative flex" ref={optionsRef}> {/* Asignar la referencia al div de las opciones */}
-              <p className="text-muted-950 rounded-3xl hover:bg-mute cursor-pointer" onClick={handleToggleOptions}>
+              <p className="text-muted-950 rounded-3xl hover:bg-mute cursor-pointer hover:bg-muted-400" onClick={handleToggleOptions}>
                 <IoEllipsisVerticalSharp />
               </p>
               {showOptions && (
@@ -101,9 +110,9 @@ const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date
         </div>
       </div>
       <Formik
-        initialValues={{ date: selectedNotice?.date || '', title: selectedNotice?.title || '', noticeContent: selectedNotice?.content || '' }}
+        initialValues={{ date: selectedNotice?.date || '', title: selectedNotice?.title || '', noticeContent: selectedNotice?.content || '', hour: selectedNotice?.hour || '', }}
         validate={values => {
-          const errors = {} as { date?: string, title?: string, noticeContent?: string };
+          const errors = {} as { date?: string, title?: string, noticeContent?: string, hour?:string, };
           if (!values.date) {
             errors.date = 'Campo requerido'
           }
@@ -113,6 +122,9 @@ const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date
           if (!values.noticeContent) {
             errors.noticeContent = 'Campo requerido';
           }
+          if (!values.hour) {
+            errors.hour = 'Campo requerido';
+        }
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -130,6 +142,7 @@ const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date
           handleBlur,
           handleSubmit,
           isSubmitting,
+          setFieldValue
         }) => (
           <form onSubmit={handleSubmit}>
             <BusmeModal
@@ -140,12 +153,23 @@ const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date
               disabled={isSubmitting}
             >
               <p className="subtitle-text">Editar Aviso Programado</p>
-              <div className="flex">
-                <BusmeDateInput name="date" title="Fecha"
-                  onChange={handleChange} onBlur={handleBlur}
-                  value={values.date}
-                  validation={errors.date && touched.date && errors.date}
-                />
+              <div className="flex justify-between">
+                <div className="w-1/2">
+                  <BusmeDateInput name="date" title="Fecha"
+                    onChange={handleChange} onBlur={handleBlur}
+                    value={values.date}
+                    validation={errors.date && touched.date && errors.date}
+                  />
+                </div>
+                <div className="mx-4" />
+                <div className="w-1/2">
+                  <BusmeSelectHours
+                    placeholder="Hora"
+                    value={hour}
+                    onChange={(e) => handleHourChange(e, setFieldValue)}
+                    validation={errors.hour}
+                  />
+                </div>
               </div>
               <BusmeInput name="title" title="Titulo del aviso"
                 placeholder="Ingresa un título para el aviso"

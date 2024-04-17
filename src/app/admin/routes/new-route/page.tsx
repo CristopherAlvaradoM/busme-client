@@ -124,7 +124,7 @@ const NewRoutePage = () => {
             <BusmePageHeader
                 rol={"Administrador"}
                 title={"Nueva Ruta"}
-                username={"GalloDeOro"}
+                username={"Anthony"}
                 showBackIcon={true}
             />
             <div>

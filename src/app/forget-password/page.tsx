@@ -78,15 +78,17 @@ export default function ForgetPasswordPage() {
                     "Hemos enviado un correo para restablecer tu contraseña.",
                     BusmeSweetAlertIconType.Success
                   );
+                } else {
+                  return BusmeSweetAlert(
+                    "Correo inválido",
+                    "El correo electrónico que ingresaste no está asociado con ninguna cuenta.",
+                    BusmeSweetAlertIconType.Error
+                  );
                 }
               })
               .catch((error) => {
                 console.error(error);
-                return BusmeSweetAlert(
-                  "Correo inválido",
-                  "El correo electrónico que ingresaste no está asociado con ninguna cuenta.",
-                  BusmeSweetAlertIconType.Error
-                );
+               
               });
           }}
         >

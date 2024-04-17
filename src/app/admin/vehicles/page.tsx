@@ -11,10 +11,10 @@ import { IoAdd, IoBus, IoBuild, IoGolf, IoGitCompareSharp } from "react-icons/io
 
 const vehiclesHeaders = ['Nombre', 'No. de placas', 'Estado', 'Nombre de ruta'];
 const vehiclesData = [
-  ['BUS-A', 'BUS-9876', 'En servicio', 'UTZMG - Las cuatas'],
-  ['BAN-A', 'BAN-4568', 'Dañado', 'UTZMG - Las cuatas'],
-  ['BUS-B', 'BUS-1473', 'En reparación', 'UTZMG - Banús'],
-  ['BAN-B', 'BAN-3612', 'Inactivo', 'UTZMG - Banús']
+  ['1', 'BUS-A', 'BUS-9876', 'En servicio', 'UTZMG - Las cuatas'],
+  ['2', 'BAN-A', 'BAN-4568', 'Dañado', 'UTZMG - Las cuatas'],
+  ['3', 'BUS-B', 'BUS-1473', 'En reparación', 'UTZMG - Banús'],
+  ['4', 'BAN-B', 'BAN-3612', 'Inactivo', 'UTZMG - Banús']
 ];
 
 export default function BusmeVehicles() {
@@ -53,10 +53,16 @@ export default function BusmeVehicles() {
     setSelectedRoute(selectedOption ? selectedOption.value : "");
   };
 
+  const handleEditUser = () => {
+  }
+
+  const handleDeleteUser = () => {
+  }
+
   return (
-    <div>
-      <div className="flex flex-row w-full font-poppins gap-x-5">
-        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+    <div className="flex flex-col w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 w-full font-poppins gap-7">
+        <div className='w-full h-full'>
           <BusmeFilterCard
             title="Vehículos disponibles"
             amount={3}
@@ -64,7 +70,7 @@ export default function BusmeVehicles() {
             icon={<IoBus className="size-10" />}
           />
         </div>
-        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+        <div className='w-full h-full'>
           <BusmeFilterCard
             title="Vehículos en Reparación"
             amount={1}
@@ -72,7 +78,7 @@ export default function BusmeVehicles() {
             icon={<IoBuild className="size-10" />}
           />
         </div>
-        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+        <div className='w-full h-full'>
           <BusmeFilterCard
             title="Total de viajes realizados"
             amount={15}
@@ -80,7 +86,7 @@ export default function BusmeVehicles() {
             icon={<IoGolf className="size-10" />}
           />
         </div>
-        <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+        <div className='w-full h-full'>
           <BusmeFilterCard
             title="Total de rutas"
             amount={2}
@@ -89,30 +95,32 @@ export default function BusmeVehicles() {
           />
         </div>
       </div>
-      <div className="flex justify-between gap-x-10">
-        <div className="w-6/12 flex-grow">
+      <div className="grid grid-cols-1 lg:grid-cols-4 md:gap-x-6">
+        <div className="w-full lg:col-span-2">
           <BusmeSearchInput placeholder="Buscar por Nombre o No. de Placas" onSearch={handleSearch} />
         </div>
-        <div className="w-2/12 flex-grow">
-          <BusmeSelectFilter
-            value={selectedRoute}
-            placeholder="Filtrar por ruta"
-            options={routesOptions}
-            onChange={handleRouteChange}
-          />
-        </div>
-        <div className="w-2/12 flex-grow">
-          <BusmeSelectFilter
-            value={selectedStatus}
-            placeholder="Filtrar por estado"
-            options={statusOptions}
-            onChange={handleStatusChange}
-          />
+        <div className='md:gap-x-6 grid grid-cols-1 md:grid-cols-2 lg:col-span-2'>
+          <div className="w-full lg:col-span-1">
+            <BusmeSelectFilter
+              value={selectedRoute}
+              placeholder="Filtrar por ruta"
+              options={routesOptions}
+              onChange={handleRouteChange}
+            />
+          </div>
+          <div className="w-full lg:col-span-1">
+            <BusmeSelectFilter
+              value={selectedStatus}
+              placeholder="Filtrar por estado"
+              options={statusOptions}
+              onChange={handleStatusChange}
+            />
+          </div>
         </div>
       </div>
       <BusmeCard>
         <BusmeCardButtonHeader subtitle={"Vehículos"} to={"/admin/vehicles/new-vehicle"} buttonText={"Agregar transporte"} icon={IoAdd} />
-        <BusmeTable headers={vehiclesHeaders} data={filteredVehiclesData} showDeleteColumn={true} showEditColumn={true} />
+        <BusmeTable headers={vehiclesHeaders} data={filteredVehiclesData} showDeleteColumn={true} showEditColumn={true} eventHandlers={{ onDelete: handleDeleteUser, onEdit: handleEditUser }} />
       </BusmeCard>
     </div>
   );
