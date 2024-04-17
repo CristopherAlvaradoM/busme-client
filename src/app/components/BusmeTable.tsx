@@ -42,7 +42,7 @@ const BusmeTable: React.FC<BusmeTableProps> = ({ headers, data, eventHandlers, s
 
     return (
         <div className="overflow-x-auto mt-5">
-            <table className="w-full text-left rtl:text-right font-poppins mb-2">
+            <table className="w-full text-left rtl:text-right font-poppins mb-2 min-w-max">
                 <thead className="text-muted-900 bg-muted-200 border border-muted-600">
                     <tr>
                         {headers.map((header, index) => (

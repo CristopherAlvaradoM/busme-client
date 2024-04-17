@@ -1,4 +1,5 @@
 "use client"
+
 import BusmeFilterCard from '@/app/components/BusmeFilterCard'; 
 import BusmeSelectFilter from '@/app/components/BusmeSelectFilter'; 
 import BusmeSearchInput from '@/app/components/BusmeSearchInput';
@@ -70,8 +71,8 @@ import { IoAdd } from "react-icons/io5";
     
     return (
       <div className="flex flex-col w-full">
-        <div className="flex flex-row w-full font-poppins gap-x-7">
-          <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 w-full font-poppins gap-7">
+          <div className='w-full h-full'>
             <BusmeFilterCard
               title="Total de rutas"
               amount={20}
@@ -79,7 +80,7 @@ import { IoAdd } from "react-icons/io5";
               icon={<Route className='w-10 h-10'/>}
             />
           </div>
-          <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+          <div className='w-full h-full'>
             <BusmeFilterCard
               title="Total de puntos de Origen-Destino"
               amount={2000}
@@ -87,7 +88,7 @@ import { IoAdd } from "react-icons/io5";
               icon={<MapPinned className='w-10 h-10' />}
             />
           </div>
-          <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+          <div className='w-full h-full'>
             <BusmeFilterCard
               title="Total de choferes"
               amount={2000}
@@ -95,7 +96,7 @@ import { IoAdd } from "react-icons/io5";
               icon={<UserRound  className='w-10 h-10' />}
             />
           </div>
-          <div className='w-full md:w-1/2 lg:w-1/4 h-full'>
+          <div className='w-full h-full'>
             <BusmeFilterCard
               title="Total de horarios"
               amount={2000}
@@ -105,25 +106,27 @@ import { IoAdd } from "react-icons/io5";
           </div>
         </div>
         <div className='w-full'>
-          <div className="flex justify-between gap-x-6">
-            <div className="w-6/12 flex-grow">
+          <div className="grid grid-cols-1 lg:grid-cols-4 md:gap-x-6">
+            <div className="w-full lg:col-span-2 flex-grow">
               <BusmeSearchInput  placeholder="Buscar por Nombre o Chofer" onSearch={handleSearch} />
             </div>
-            <div className="w-3/12 flex-grow">
-              <BusmeSelectFilter
-                value={selectedHourFilter}
-                placeholder='Filtrar por horario'
-                options={optionsHours}
-                onChange={handleHourFilterChange}
-              />
-            </div>
-            <div className="w-3/12 flex-grow">
-              <BusmeSelectFilter
-                value={selectedDriverFilter}
-                placeholder='Filtrar por chofer'
-                options={optionsDrivers}
-                onChange={handleDriverFilterChange}
-              />
+            <div className='md:gap-x-6 grid grid-cols-1 md:grid-cols-2 lg:col-span-2'>
+              <div className="w-full  lg:col-span-1">
+                <BusmeSelectFilter
+                  value={selectedHourFilter}
+                  placeholder='Filtrar por horario'
+                  options={optionsHours}
+                  onChange={handleHourFilterChange}
+                />
+              </div>
+              <div className="w-full lg:col-span-1">
+                <BusmeSelectFilter
+                  value={selectedDriverFilter}
+                  placeholder='Filtrar por chofer'
+                  options={optionsDrivers}
+                  onChange={handleDriverFilterChange}
+                />
+              </div>
             </div>
           </div>
         </div>

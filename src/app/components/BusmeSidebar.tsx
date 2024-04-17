@@ -122,9 +122,8 @@ const BusmeSidebar = ({ userRole }: { userRole: string }) => {
     }
 
     return (
-        <div className='h-screen w-1/5 bg-white p-6 flex flex-col justify-between'>
+        <div className='fixed top-0 left-0 z-50 w-64 h-screen bg-white p-6 flex flex-col justify-between md:static'>
             <div>
-                <div>
                 <div className='flex justify-start'>
                     <Image src={BusmeLogo} alt='logo' width={50} height={50} />
                     <div className='px-2 py-0.5'>
@@ -132,8 +131,6 @@ const BusmeSidebar = ({ userRole }: { userRole: string }) => {
                         <p className='text-muted-800 text-xs font-normal font-poppins'>Sitio de trabajo</p>
                     </div>
                 </div>
-                </div>
-
                 <p className='text-muted-800 text-xs font-semibold font-poppins mt-5'>General</p>
                 {itemsToShow.map(item => (
                     <BusmeNavButton
