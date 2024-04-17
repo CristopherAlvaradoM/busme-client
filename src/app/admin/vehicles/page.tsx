@@ -11,10 +11,10 @@ import { IoAdd, IoBus, IoBuild, IoGolf, IoGitCompareSharp } from "react-icons/io
 
 const vehiclesHeaders = ['Nombre', 'No. de placas', 'Estado', 'Nombre de ruta'];
 const vehiclesData = [
-  ['BUS-A', 'BUS-9876', 'En servicio', 'UTZMG - Las cuatas'],
-  ['BAN-A', 'BAN-4568', 'Dañado', 'UTZMG - Las cuatas'],
-  ['BUS-B', 'BUS-1473', 'En reparación', 'UTZMG - Banús'],
-  ['BAN-B', 'BAN-3612', 'Inactivo', 'UTZMG - Banús']
+  ['1', 'BUS-A', 'BUS-9876', 'En servicio', 'UTZMG - Las cuatas'],
+  ['2', 'BAN-A', 'BAN-4568', 'Dañado', 'UTZMG - Las cuatas'],
+  ['3', 'BUS-B', 'BUS-1473', 'En reparación', 'UTZMG - Banús'],
+  ['4', 'BAN-B', 'BAN-3612', 'Inactivo', 'UTZMG - Banús']
 ];
 
 export default function BusmeVehicles() {
@@ -52,6 +52,12 @@ export default function BusmeVehicles() {
   const handleRouteChange = (selectedOption: any) => {
     setSelectedRoute(selectedOption ? selectedOption.value : "");
   };
+
+  const handleEditUser = () => {
+  }
+
+  const handleDeleteUser = () => {
+  }
 
   return (
     <div>
@@ -112,7 +118,7 @@ export default function BusmeVehicles() {
       </div>
       <BusmeCard>
         <BusmeCardButtonHeader subtitle={"Vehículos"} to={"/admin/vehicles/new-vehicle"} buttonText={"Agregar transporte"} icon={IoAdd} />
-        <BusmeTable headers={vehiclesHeaders} data={filteredVehiclesData} showDeleteColumn={true} showEditColumn={true} />
+        <BusmeTable headers={vehiclesHeaders} data={filteredVehiclesData} showDeleteColumn={true} showEditColumn={true} eventHandlers={{ onDelete: handleDeleteUser, onEdit: handleEditUser }} />
       </BusmeCard>
     </div>
   );

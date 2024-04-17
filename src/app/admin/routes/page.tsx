@@ -26,14 +26,20 @@ import { IoAdd } from "react-icons/io5";
     const handleDriverFilterChange = (selectedOption: any) => {
       setSelectedDriverFilter(selectedOption ? selectedOption.value : "");
     };
+
+    const handleEditUser = () => {
+    }
+
+    const handleDeleteUser = () => {
+    }
   
     const routesHeaders = ['Nombre', 'Horario', 'Chofer', 'Origen - Destino'];
     const routesData = [
-      ['UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
-      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
-      ['UTZMG - Las cuatas', '7:45 a.m. - 8:20 a.m.', 'Raul Nuño', 'UTZMG - Las Cuatas'],
-      ['UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Jaimito elchofer', 'UTZMG - Las Cuatas'],
-      ['UTZMG - Las cuatas', '6:45 a.m. - 8:15 a.m.', 'Itachi Uchiha', 'UTZMG - Las Cuatas'],
+      ['1', 'UTZMG - Banús', '7:30 a.m. - 7:45 a.m.', 'Daniel Martinez', 'UTZMG - Banús'],
+      ['2', 'UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Arturo Perez', 'UTZMG - Las Cuatas'],
+      ['3', 'UTZMG - Las cuatas', '7:45 a.m. - 8:20 a.m.', 'Raul Nuño', 'UTZMG - Las Cuatas'],
+      ['4', 'UTZMG - Las cuatas', '7:45 a.m. - 8:15 a.m.', 'Jaimito elchofer', 'UTZMG - Las Cuatas'],
+      ['5', 'UTZMG - Las cuatas', '6:45 a.m. - 8:15 a.m.', 'Itachi Uchiha', 'UTZMG - Las Cuatas'],
     ];
   
     // Filtrar los datos por nombre, horario y chofer
@@ -128,7 +134,11 @@ import { IoAdd } from "react-icons/io5";
             headers={routesHeaders} 
             data={filteredRoutesData} 
             showDeleteColumn={true} 
-            showEditColumn={true} />
+            showEditColumn={true}
+            eventHandlers={{
+              onDelete: handleDeleteUser,
+              onEdit: handleEditUser
+          }} />
         </BusmeCard>
         </div>
       </div>

@@ -20,7 +20,7 @@ const BusmeDateInput: React.FC<DateInputProps> = ({name, title, onChange, onBlur
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
-                className={`w-full placeholder:text-muted-200 rounded-lg bg-muted-200 p-3 pl-3 font-poppins mt-2 border ${
+                className={`w-full rounded-lg bg-muted-200 px-3 py-2.5 font-poppins mt-2 border ${
                     validation ? 'border-danger' : 'border-muted-200'
                 }`}
             />
