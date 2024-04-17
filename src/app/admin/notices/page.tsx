@@ -9,10 +9,12 @@ import BusmeDateInput from "@/app/components/BusmeDateInput";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { Formik } from "formik";
 import BusmeScheduleNotice from "@/app/components/BusmeScheduledNotice";
+import BusmeSelectHours from "@/app/components/BusmeSelectHours";
 
 export default function BusmeNotices() {
   const [bar1Open, setBar1Open] = useState(true);
   const [bar2Open, setBar2Open] = useState(false);
+  const [hour, setHour] = useState("");
 
   const OpenBar1 = () => {
     setBar1Open(true);
@@ -22,6 +24,12 @@ export default function BusmeNotices() {
   const OpenBar2 = () => {
     setBar2Open(true);
     setBar1Open(false); // Cierra la barra 1 al abrir la barra 2
+  };
+
+  const handleHourChange = (e, setFieldValue) => {
+    const { value } = e.target;
+    setFieldValue('hour', value);
+    setHour(value);
   };
 
   return (
@@ -116,9 +124,9 @@ export default function BusmeNotices() {
                 <BusmeCard>
                   <p className="subtitle-text">Programar un aviso</p>
                   <Formik
-                    initialValues={{ date: '', hour: '', title: '', noticeContent: '' }}
+                    initialValues={{ date: '', hour: '', title: '', noticeContent: '', }}
                     validate={values => {
-                      const errors = {} as { date?: string, hour?: string, title?: string, noticeContent?: string };
+                      const errors = {} as { date?: string, hour?: string, title?: string, noticeContent?: string, };
                       if (!values.date) {
                         errors.date = 'Campo requerido'
                       } else {
@@ -161,14 +169,26 @@ export default function BusmeNotices() {
                       handleBlur,
                       handleSubmit,
                       isSubmitting,
+                      setFieldValue
                     }) => (
                       <form onSubmit={handleSubmit}>
-                        <div className="">
-                          <BusmeDateInput name="date" title="Fecha"
-                            onChange={handleChange} onBlur={handleBlur}
-                            value={values.date}
-                            validation={errors.date && touched.date && errors.date}
-                          />
+                        <div className="flex justify-between">
+                          <div className="w-1/2">
+                            <BusmeDateInput name="date" title="Fecha"
+                              onChange={handleChange} onBlur={handleBlur}
+                              value={values.date}
+                              validation={errors.date && touched.date && errors.date}
+                            />
+                          </div>
+                          <div className="mx-4" />
+                          <div className="w-1/2">
+                            <BusmeSelectHours
+                              placeholder="Hora"
+                              value={hour}
+                              onChange={(e) => handleHourChange(e, setFieldValue)}
+                              validation={errors.hour}
+                            />
+                          </div>
                         </div>
                         <div>
                           <BusmeInput name="title" title="Titulo del aviso"

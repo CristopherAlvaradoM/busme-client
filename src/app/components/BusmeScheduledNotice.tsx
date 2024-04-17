@@ -14,13 +14,13 @@ interface NotificationProps {
   hour?: string;
 }
 
-const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date, day, hour}) => {
+const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date, day}) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showOptions, setShowOptions] = useState(false); // Estado para controlar la visibilidad de las opciones
   const [selectedNotice, setSelectedNotice] = useState<NotificationProps | null>(null);
   const optionsRef = useRef<HTMLDivElement>(null); // Ref para las opciones
-  const [departureTime, setDepartureTime] = useState("");
+  const [hour, setHour] = useState("");
 
   const handleClick = () => {
     setIsChecked(!isChecked);
@@ -65,7 +65,7 @@ const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date
   const handleHourChange = (e, setFieldValue) => {
     const { value } = e.target;
     setFieldValue('hour', value);
-    setDepartureTime(value);
+    setHour(value);
   };
 
   return (
@@ -164,8 +164,8 @@ const BusmeScheduleNotice: React.FC<NotificationProps> = ({ title, content, date
                 <div className="mx-4" />
                 <div className="w-1/2">
                   <BusmeSelectHours
-                    placeholder="Hora de salida"
-                    value={departureTime}
+                    placeholder="Hora"
+                    value={hour}
                     onChange={(e) => handleHourChange(e, setFieldValue)}
                     validation={errors.hour}
                   />
