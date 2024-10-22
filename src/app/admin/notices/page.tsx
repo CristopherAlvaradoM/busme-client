@@ -26,7 +26,7 @@ export default function BusmeNotices() {
     setBar1Open(false); // Cierra la barra 1 al abrir la barra 2
   };
 
-  const handleHourChange = (e, setFieldValue) => {
+  const handleHourChange = (e: React.ChangeEvent<HTMLInputElement>, setFieldValue: any) => {
     const { value } = e.target;
     setFieldValue('hour', value);
     setHour(value);
