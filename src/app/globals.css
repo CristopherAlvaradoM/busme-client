@@ -1,33 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+@layer components {
+    .headline-text {
+        @apply text-[40px] md:text-[36px] lg:text-[40px] font-semibold text-white font-poppins;
+    }
+
+    .introduction-text {
+        @apply text-[22px] md:text-[20px] lg:text-[22px] font-medium text-white font-poppins;
+    }
+
+    .title-text {
+        @apply text-[18px] md:text-[24px] lg:text-[28px] font-semibold text-black font-poppins;
+    }
+
+    .subtitle-text {
+        @apply text-[15px] md:text-[18px] lg:text-[20px] font-medium text-black font-poppins;
+    }
+
+    .body-text {
+        @apply text-[16px] md:text-[14px] lg:text-[16px] font-normal text-black font-poppins;
+    }
+
+    .muted-body-text {
+        @apply text-[16px] md:text-[14px] lg:text-[16px] font-normal text-muted-900 font-poppins;
+    }
+
+    .bold-body-text {
+        @apply text-[16px] md:text-[14px] lg:text-[16px] font-medium text-black font-poppins;
+    }
+
+    .caption-text {
+        @apply text-[12px] md:text-[14px] lg:text-[16px] font-medium text-muted-950 font-poppins;
+    }
+
+    .link-text {
+        @apply text-[12px] md:text-[14px] lg:text-[16px] font-medium text-primary-600 font-poppins;
+    }
+
+    .error-text {
+        @apply font-poppins font-normal text-sm text-danger mt-1;
+    }
+
+    .modal-title-text {
+        @apply text-[16px] md:text-[14px] lg:text-[16px] font-medium text-black font-poppins;
+    }
+
+    .modal-body-text {
+        @apply text-[15px] md:text-[13px] lg:text-[15px] font-normal text-muted-900 font-poppins;
+    }
+
+    .button-primary {
+        @apply bg-primary-800 text-white font-poppins text-base font-semi-bold rounded-3xl py-2 px-5 cursor-pointer;
+    }
+
+    .button-primary-hover {
+        @apply hover:bg-primary-600 transition duration-300 ease-in-out;
+    }
+
+    .button-primary-disabled {
+        @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-3xl py-2 px-5 cursor-not-allowed;
+    }
+
+    .button-secondary {
+        @apply bg-primary-600 text-white font-poppins lg:font-medium font-semi-bold text-base rounded-lg py-3 px-4 md:py-3 md:px-5 cursor-pointer;
+    }
+
+    .button-secondary-hover {
+        @apply hover:bg-primary-500 transition duration-300 ease-in-out;
+    }
+
+    .button-secondary-disabled {
+        @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
+    }
+
+    .outline-button-secondary {
+        @apply bg-white text-black border-[1px] border-muted-600 font-poppins font-medium text-base rounded-lg py-3 px-5 cursor-pointer;
+    }
+
+    .outline-button-secondary-hover {
+        @apply hover:bg-muted-800 hover:border-muted-800 hover:text-white transition duration-300 ease-in-out;
+    }
+
+    .outline-button-secondary-disabled {
+        @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
+    }
+
+    .active-status{
+        @apply bg-primary-700 text-white text-center text-sm font-semi-bold py-1.5 rounded-full
+    }
+
+    .damaged-status{
+        @apply bg-danger text-white text-center text-sm font-semi-bold py-1.5 rounded-full
+    }
+
+    .repairing-status{
+        @apply bg-warning text-white text-center text-sm font-semi-bold py-1.5  rounded-full
+    }
+
+    .inactive-status{
+        @apply bg-muted-800 text-white text-center text-sm font-semi-bold py-1.5 rounded-full
+    }
+
+    .muted-button {
+        @apply bg-white text-muted-950 font-poppins font-normal text-base rounded-lg py-2.5 px-4 border border-complementary-900 cursor-pointer;
+    }
+
+    .muted-button-hover {
+        @apply hover:bg-complementary-900 hover:text-white transition duration-300 ease-in-out;
+    }
+
+    .muted-button-disabled {
+        @apply bg-muted-700 text-muted-950 font-poppins font-semi-bold rounded-xl py-2 px-5 cursor-not-allowed;
+    }
 }
