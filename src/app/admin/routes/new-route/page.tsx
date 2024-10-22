@@ -132,7 +132,7 @@ const NewRoutePage = () => {
                     <Formik
                         initialValues={{name: '', departureTime: '', arrivalTime: '', driverName: '', driverLastName: '', driverEmail: '', employeeNumber: ''}}
                         validate={values => {
-                            const errors = {};
+                            const errors = {} as {name?: string, driverName?: string, driverLastName?: string, driverEmail?: string, employeeNumber?: string, departureTime?: string, arrivalTime?: string}
                             if (!values.name) {
                                 errors.name = 'Campo requerido';
                             }
@@ -159,7 +159,7 @@ const NewRoutePage = () => {
                         onSubmit={async (values, { setSubmitting }) => {
                             try {
                                 // Realiza las acciones de envío del formulario aquí
-                                await createRoute(values);
+                               // await createRoute(values);
                                 BusmeSweetAlert(
                                     'Ruta creada con éxito',
                                     '¡La nueva ruta se ha creado satisfactoriamente!',
