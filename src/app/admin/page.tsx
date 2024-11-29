@@ -45,6 +45,8 @@ export default function Page() {
     useEffect(() => {
 
         const initMap = async () => {
+            if (!mapRef.current) return; // Evita ejecutar el código si mapRef.current es null
+
             const loader = new Loader({
                 apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
                 version: 'weekly'
