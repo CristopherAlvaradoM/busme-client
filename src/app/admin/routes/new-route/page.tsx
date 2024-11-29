@@ -46,10 +46,13 @@ const NewRoutePage = () => {
                 return;
             }
 
-            const map = new google.maps.Map(mapRef.current, {
-                center: { lat: 20.48387113788655, lng: -103.53318376345612 },
-                zoom: 13,
-            });
+            if (mapRef.current) {
+                const map = new google.maps.Map(mapRef.current, {
+                    center: { lat: 20.48387113788655, lng: -103.53318376345612 },
+                    zoom: 13,
+                });
+            }
+            
 
             // Agregar marcadores de puntos de abordaje
             boardingPoints.forEach(point => {
