@@ -25,7 +25,7 @@ export const config = {
 
 const verificarAcceso = async (route: string, token: RequestCookie) => {
   try {    
-    const response = await fetch(`http://localhost:3000/verify?route=${route}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify?route=${route}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

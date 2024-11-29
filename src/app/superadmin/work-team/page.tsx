@@ -33,7 +33,7 @@ export default function WorkTeamPage() {
         // Verificar si el token está presente
         if (token) {
             // Realizar solicitud para obtener datos del equipo de trabajo
-            fetch('http://localhost:3000/admin', {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `${token}`,
@@ -70,7 +70,7 @@ export default function WorkTeamPage() {
                 const token = Cookies.get('token');
                 if (token) {
                     // Realizar solicitud para eliminar el usuario
-                    fetch(`http://localhost:3000/admin/${_id}`, {
+                    fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/${_id}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `${token}`,

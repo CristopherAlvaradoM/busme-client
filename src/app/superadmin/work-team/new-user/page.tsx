@@ -89,7 +89,7 @@ export default function NewUserPage() {
                     onSubmit={(values, { setSubmitting }) => {
                         const token = Cookies.get('token');
 
-                        fetch('http://localhost:3000/admin', {
+                        fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

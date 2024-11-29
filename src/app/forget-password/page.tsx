@@ -60,7 +60,7 @@ export default function ForgetPasswordPage() {
 
             const token = Cookies.get("token");
             fetch(
-              `http://localhost:3000/password-reset/password?correo=${values.email}`,
+              `${process.env.NEXT_PUBLIC_API_URL}/password-reset/password?correo=${values.email}`,
               {
                 method: "PATCH",
                 headers: {

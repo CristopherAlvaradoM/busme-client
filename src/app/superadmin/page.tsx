@@ -68,7 +68,7 @@ export default function SuperAdminPage() {
     // Verificar si el token está presente
     if (token) {
       // Realizar solicitud para obtener datos del equipo de trabajo
-      fetch('http://localhost:3000/admin', {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin`, {
         method: 'GET',
         headers: {
           'Authorization': `${token}`,
@@ -90,7 +90,7 @@ export default function SuperAdminPage() {
         });
 
       // Realizar solicitud para obtener datos de roles
-      fetch('http://localhost:3000/rols', {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/rols`, {
         method: 'GET',
         headers: {
           'Authorization': `${token}`,

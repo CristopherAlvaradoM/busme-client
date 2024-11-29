@@ -13,7 +13,6 @@ import { useEffect } from 'react';
 
 
 export default function LoginPage() {
-
   const router = useRouter();
 
   useEffect(() => {
@@ -52,8 +51,7 @@ export default function LoginPage() {
               }}
               onSubmit={(values, { setSubmitting }) => {
                 const { email, password} = values
-                
-                fetch(`http://localhost:3000/login?correo=${email}&contrasena=${password}`, {
+                fetch(`${process.env.NEXT_PUBLIC_API_URL}/login?correo=${email}&contrasena=${password}`, {
                   method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',

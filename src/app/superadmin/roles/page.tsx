@@ -20,7 +20,7 @@ export default function Page() {
     useEffect(() => {
         const token = Cookies.get('token');
         if (token) {
-            fetch('http://localhost:3000/rols', {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/rols`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `${token}`,

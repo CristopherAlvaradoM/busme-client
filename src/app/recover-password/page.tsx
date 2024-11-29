@@ -92,7 +92,7 @@ export default function RecoverPasswordPage() {
             ) {
               // Contraseña válida y coincidente
               fetch(
-                `http://localhost:3000/password-reset/token?token=${token}&pwd=${values.NewPassword}`,
+                `${process.env.NEXT_PUBLIC_API_URL}/password-reset/token?token=${token}&pwd=${values.NewPassword}`,
                 {
                   method: "PATCH",
                   headers: {

@@ -9,6 +9,7 @@ import BusmeOption from "@/app/components/BusmeOption";
 import {FaFileExcel, FaFilePdf, FaFileImage} from "react-icons/fa6";
 import {BusmeSweetAlert, BusmeSweetAlertIconType} from "@/app/components/BusmeSweetAlert";
 import dynamic from "next/dynamic";
+import { ApexOptions } from "apexcharts";
 
 const header = ['ID', 'Punto', 'Frecuencia', '%'];
 const data = [
@@ -68,7 +69,7 @@ export default function Page() {
         options: {
             chart: {
                 height: 350,
-                type: "area",
+                type: "area" as ApexOptions['chart']['type'],
                 toolbar: {
                     show: false
                 },
